@@ -131,7 +131,7 @@
       "parameters": {
         "operation": "append",
         "documentId": { "__rl": true, "value": "1PekwdOMv-gL8o6y3xGgVoltEnXlN4rOA", "mode": "id" },
-        "sheetName": { "__rl": true, "value": "Sheet1", "mode": "name" },
+        "sheetName": { "__rl": true, "value": "Leads", "mode": "name" },
         "columns": {
           "mappingMode": "defineBelow",
           "value": {
