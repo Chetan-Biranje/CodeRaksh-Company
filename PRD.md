@@ -2,6 +2,7 @@
 
 > **Document Version:** 3.0.0  
 > **Author:** Chetan Biranje & Autonomous Executive Lead  
+> **Source Repository:** [https://github.com/Chetan-Biranje/CodeRaksh-Company.git](https://github.com/Chetan-Biranje/CodeRaksh-Company.git)  
 > **Status:** APPROVED & IN PRODUCTION  
 > **Target Audience:** Engineering, Security, Product, and AI Agents  
 

@@ -1,7 +1,16 @@
-# MAP 2.0: 20 AI employees, ₹0 salary
+# 🛡️ CodeRaksh Company — Autonomous AI Enterprise & Cyber Defense OS
 
-20 ready-to-import n8n workflows, organised like a company with 5 departments (4 agents each).
-Each one uses Claude (Anthropic) as its brain. Every workflow has a yellow sticky note on the canvas with its own setup steps.
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Chetan--Biranje%2FCodeRaksh--Company-blue?logo=github)](https://github.com/Chetan-Biranje/CodeRaksh-Company)
+[![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
+[![Workflows](https://img.shields.io/badge/Workflows-26%20Agents-cyan.svg)](00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json)
+[![Health Score](https://img.shields.io/badge/Health%20Score-88%2F100-brightgreen.svg)](dashboard/index.html)
+
+> 🔗 **Official GitHub Repository:** [https://github.com/Chetan-Biranje/CodeRaksh-Company.git](https://github.com/Chetan-Biranje/CodeRaksh-Company.git)  
+> 🚀 **Quick Clone:** `git clone https://github.com/Chetan-Biranje/CodeRaksh-Company.git`
+
+26 ready-to-import n8n workflows, organised into 7 departments + Master Mega Canvas + Executive Cyber Dashboard + CLI + Client Portal.
+Each workflow uses Claude 3.5 Sonnet (Anthropic) as its brain, backed by human-in-the-loop safeguards.
+
 
 ## Sales
 

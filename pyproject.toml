@@ -11,5 +11,9 @@ packages = ["app"]
 [project.optional-dependencies]
 test = ["pytest>=8.3,<9", "httpx>=0.28,<1"]
 
+[project.urls]
+Homepage = "https://github.com/Chetan-Biranje/CodeRaksh-Company"
+Repository = "https://github.com/Chetan-Biranje/CodeRaksh-Company.git"
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
