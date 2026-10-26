@@ -1,11 +1,12 @@
 :root {
-  --bg-dark: #070b13;
-  --bg-sidebar: #0b111d;
-  --bg-card: rgba(16, 24, 40, 0.75);
-  --bg-card-hover: rgba(22, 34, 56, 0.9);
+  --bg-dark: #030712;
+  --bg-sidebar: #060b15;
+  --bg-card: rgba(11, 18, 32, 0.75);
+  --bg-card-hover: rgba(16, 26, 48, 0.95);
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-glow: rgba(0, 240, 255, 0.3);
-  --text-main: #f1f5f9;
+  --border-glow: rgba(0, 240, 255, 0.45);
+  --border-emerald: rgba(16, 185, 129, 0.45);
+  --text-main: #f8fafc;
   --text-muted: #94a3b8;
   --text-faint: #64748b;
   --accent-cyan: #00f0ff;
@@ -26,6 +27,18 @@
   padding: 0;
 }
 
+/* UI-UX-Pro-Max: High contrast focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+/* Custom cyber scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: rgba(0, 240, 255, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-cyan); }
+
 body {
   font-family: var(--font-sans);
   background-color: var(--bg-dark);
@@ -33,8 +46,11 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background-image: 
-    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.06) 0%, transparent 40%);
+    radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.1) 0%, transparent 40%),
+    linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
 }
 
 .app-container {
