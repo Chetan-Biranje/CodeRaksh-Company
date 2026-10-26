@@ -1,0 +1,201 @@
+{
+  "name": "25 · Freelance Tech Lead & SOW Generator (CodeRaksh Company · Software & Client Acquisition)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 💼 25 · Freelance Tech Lead & SOW Generator (CodeRaksh Company)\n**Inbound RFP / Client Project Brief → System Architecture, PRD, Sprint Milestones & Quotation**\n\n### What it does:\n1. **Client Lead Ingestion (`/freelance-lead`)**: Receives client project requirements from Upwork, Freelancer, Email form or direct client brief.\n2. **Fullstack Architecture & Product Blueprint (Claude 3.5 Sonnet)**:\n   - Analyzes project scope and designs modern system architecture (Frontend, Backend, Database schema, DevOps).\n   - Breaks requirements into Agile Sprint Milestones & User Stories.\n   - Recommends cost estimation, hourly/fixed pricing, and delivery timeline.\n3. **Scope of Work (SOW) Proposal**:\n   - Generates a client-ready, high-converting Proposal & Scope of Work document.\n4. **Automated Deliverables**:\n   - Saves record to Google Sheets tab `Proposals`.\n   - Sends ready proposal draft to Founder's Gmail and WhatsApp alert.",
+        "height": 520,
+        "width": 640,
+        "color": 3
+      },
+      "id": "15b15495-136c-4007-b733-08eef86265d8",
+      "name": "Sticky Note - Freelance Tech Lead Blueprint",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "freelance-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "90343085-e3cb-4ad1-8aa9-744dfe9f01d0",
+      "name": "Freelance Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize freelance project lead\nconst body = $json.body || {};\nconst clientName = body.client_name || body.name || 'Enterprise Client';\nconst email = body.email || 'client@example.com';\nconst projectTitle = body.project_title || body.title || 'Custom Software Solution';\nconst budget = body.budget || 'Flexible / To be estimated';\nconst timeline = body.timeline || '1-2 Months';\nconst requirements = body.requirements || body.description || body.brief || JSON.stringify(body);\n\nreturn [{\n  json: {\n    client_name: clientName,\n    client_email: email,\n    project_title: projectTitle,\n    client_budget: budget,\n    client_timeline: timeline,\n    brief_text: requirements,\n    received_at: $now.toFormat('dd LLL yyyy, HH:mm')\n  }\n}];"
+      },
+      "id": "8c830c79-3940-4da5-b1b9-154c449d9bf3",
+      "name": "Parse Project Brief",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Principal Chief Technology Officer (CTO) and Lead Solutions Architect for CodeRaksh Company.\nA new client has requested a proposal for software development.\nCreate a comprehensive, winning Scope of Work (SOW) and Technical Architecture Proposal.\n\nClient: {{ $json.client_name }} ({{ $json.client_email }})\nProject: {{ $json.project_title }}\nClient Stated Budget: {{ $json.client_budget }}\nDesired Timeline: {{ $json.client_timeline }}\n\nREQUIREMENTS BRIEF:\n{{ $json.brief_text }}\n\nPROPOSAL STRUCTURE:\n1. **Executive Summary & Understanding:** Align with client goals.\n2. **Recommended Tech Stack & Architecture:**\n   - Frontend: Modern, scalable (e.g. Next.js / React)\n   - Backend: Robust APIs (Node.js / Python / Go)\n   - Database & Schema: (PostgreSQL / Redis) with primary tables\n   - Infrastructure & Security: Docker, CI/CD, DevSecOps hardening\n3. **Sprint Breakdown & Milestones (Agile 2-week sprints):**\n   - Sprint 1: Architecture, Auth & DB Setup\n   - Sprint 2: Core Business Logic & API Integration\n   - Sprint 3: UI Polish, Security Audits & QA\n   - Sprint 4: Deployment, Documentation & Handoff\n4. **Commercials & Investment Quote:** Suggested milestone pricing and payment schedule.\n5. **Why CodeRaksh:** Security-first coding and guaranteed high code quality."
+      },
+      "id": "c2f61e29-d2eb-4f0e-add4-4ec746dc1d4e",
+      "name": "Claude Tech Lead Architect",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "95f76319-ee66-4df1-98f2-552d956afa0c",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        680,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Proposals"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Parse Project Brief').first().json.received_at }}",
+            "Client": "={{ $('Parse Project Brief').first().json.client_name }}",
+            "Email": "={{ $('Parse Project Brief').first().json.client_email }}",
+            "Project": "={{ $('Parse Project Brief').first().json.project_title }}",
+            "Budget": "={{ $('Parse Project Brief').first().json.client_budget }}",
+            "Proposal_SOW": "={{ $json.text }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "e4d3abdb-bc6c-408e-968d-f62f8bdae1c5",
+      "name": "Save to Proposals Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        940,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "=💼 *[CODERAKSH NEW SOW PROPOSAL READY]*\\nClient: {{ $('Parse Project Brief').first().json.client_name }}\\nProject: {{ $('Parse Project Brief').first().json.project_title }}\\nBudget: {{ $('Parse Project Brief').first().json.client_budget }}\\n\\nFull architectural proposal & sprint quotation created and saved to Proposals tab.",
+        "additionalFields": {}
+      },
+      "id": "56cda83a-c3ab-4fb5-b9d4-266bde94ced7",
+      "name": "WhatsApp Proposal Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1180,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Freelance Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse Project Brief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Project Brief": {
+      "main": [
+        [
+          {
+            "node": "Claude Tech Lead Architect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Tech Lead Architect",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Tech Lead Architect": {
+      "main": [
+        [
+          {
+            "node": "Save to Proposals Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Proposals Sheet": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Proposal Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "46f37895-3bb5-4467-b5d8-3505ea0d0b49"
+}

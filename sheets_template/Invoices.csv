@@ -1,0 +1,4 @@
+Invoice_No,Client,Contact_Name,Email,Amount,Due_Date,Status,Reminders_Sent,Last_Reminder
+CR-2026-088,FinTech Solutions,Amit Sharma,amit@fintechsol.in,150000,2026-10-24,Unpaid,1,2026-10-25
+CR-2026-089,HealthTech Global,Dr. Ayesha Khan,ayesha@healthtech.org,85000,2026-11-05,Unpaid,0,
+CR-2026-085,CyberRetail Inc,Karan Singhania,karan@cyberretail.com,120000,2026-10-20,Paid,2,2026-10-22

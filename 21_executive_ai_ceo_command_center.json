@@ -1,0 +1,1351 @@
+{
+  "name": "21 · AI CEO & Command Center (CodeRaksh Company · Executive Orchestrator · All 20 Agents)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 👑 CODERAKSH AI CEO & EXECUTIVE COMMAND CENTER\n**Master Autonomous Orchestrator for all 20 AI Departmental Agents**\n\n### 🏢 What this Workflow Does:\n1. **🌅 9:00 AM Morning Flight Plan**: Reads today's scheduled meetings, hot leads, overdue invoices, urgent deadlines & pending docs. Claude compiles an actionable Top-3 priority checklist sent to your WhatsApp & Email.\n2. **🌙 9:00 PM Boardroom Audit & Health Score**: Audits all 5 departments (Sales, Support, Marketing, Finance, Ops across 11 Google Sheets), computes a real-time **Company Health Score (0-100%)**, writes strategic executive analysis, logs to `Daily Log`, and WhatsApps/Emails the Founder.\n3. **💬 On-Demand CEO Command Line**: Webhook (`/ceo-command`) that lets you text questions like *\"What's our total overdue?\"* or *\"Show today's hot leads\"* and get an instant AI answer.\n4. **🚨 24/7 Anomaly Watchdog**: Webhook (`/emergency-escalation`) triggered by urgent events (angry 1-star reviews, huge unpaid invoices, missed deadlines) for instant SOS WhatsApp alerts.\n\n---\n### 🛠️ Quick Setup (15 Mins):\n1. **Google Sheets**: Tab names in your shared Sheet:\n   - `Leads`, `Orders`, `Bookings`, `Reviews`, `Content`, `Bills`, `Invoices`, `GST purchases`, `Candidates`, `Deadlines`, `Pending docs`, `Daily Log`.\n2. **Credentials Needed**:\n   - **Anthropic API**: Credential for Claude 3.5 Sonnet (Executive Brain).\n   - **Google Sheets OAuth2**: For reading all departmental data & saving logs.\n   - **WhatsApp Business Cloud API**: Phone Number ID + recipient WhatsApp number.\n   - **Gmail OAuth2**: For sending Morning Flight Plan & Nightly Boardroom Dossier.\n3. Replace all `YOUR_...` placeholders (Sheet ID, Phone Number ID, WhatsApp Number, Email).\n4. Run once with test data, verify outputs, and flip trigger to **Active**.\n\n*Designed exclusively for CodeRaksh Company.*",
+        "height": 980,
+        "width": 1050,
+        "color": 6
+      },
+      "id": "d560763e-94c7-4005-9d4f-048fca52ac95",
+      "name": "Sticky Note - Master Blueprint",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -1200,
+        -1100
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### 🌅 SECTION 1: MORNING FLIGHT PLAN (9:00 AM)\n- Automatically fires every morning at 9:00 AM.\n- Synthesizes today's agenda:\n  1. Today's Bookings & Consultations\n  2. Hot Leads needing callbacks\n  3. Overdue & Due Invoices to collect\n  4. Project/Tax Deadlines in < 48 hours\n  5. Stalled Client Documents > 7 days\n- Claude generates a sharp, motivating Morning Flight Plan.\n- Sent directly to your WhatsApp & Gmail so you start the day with total clarity.",
+        "height": 380,
+        "width": 640,
+        "color": 4
+      },
+      "id": "bd8548ef-5722-44cf-a482-562341016b71",
+      "name": "Sticky Note - Morning Plan",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -1450
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### 🌙 SECTION 2: NIGHTLY BOARDROOM AUDIT & HEALTH SCORE (9:00 PM)\n- Automatically audits all 20 agents across 5 departments every night at 9:00 PM.\n- Pulls live data from 11 sheet tabs:\n  • **Sales**: Leads & Orders\n  • **Support**: Bookings & Reviews\n  • **Marketing**: Content & Social\n  • **Finance**: Bills, Invoices & GST Register\n  • **Ops**: Candidates, Deadlines & Pending Docs\n- Calculates **CodeRaksh Health Score (0-100%)** via custom scoring algorithms.\n- Claude writes a Boardroom Executive Summary + Top 3 Strategic Directives for tomorrow.\n- Appends to `Daily Log` tab and delivers WhatsApp briefing + Email dossier.",
+        "height": 420,
+        "width": 680,
+        "color": 5
+      },
+      "id": "6d908d94-0c8b-4124-8ff0-9beb920eaeab",
+      "name": "Sticky Note - Nightly Audit",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        -380
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### 💬 SECTION 3: ON-DEMAND CEO COMMAND LINE\n- Webhook URL: `https://your-n8n.instance/webhook/ceo-command`\n- Send `{ \"query\": \"Status report\", \"sender\": \"Founder\" }`\n- Instantly queries latest metrics from Sheets and asks Claude CEO to answer.\n- Replies via HTTP Response & WhatsApp.",
+        "height": 300,
+        "width": 640,
+        "color": 2
+      },
+      "id": "055047e7-127e-4614-b78a-6daf25624631",
+      "name": "Sticky Note - CEO Command",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        950
+      ]
+    },
+    {
+      "parameters": {
+        "content": "### 🚨 SECTION 4: 24/7 ANOMALY & ESCALATION WATCHDOG\n- Webhook URL: `https://your-n8n.instance/webhook/emergency-escalation`\n- Other agents or services POST critical events here:\n  • 1-star / Angry customer review\n  • Overdue invoice > 30 days\n  • Hot lead waiting > 4 hours\n  • Critical filing deadline < 24 hrs\n- Fires instant Priority 1 WhatsApp SOS alert with 1-click action links.",
+        "height": 300,
+        "width": 640,
+        "color": 1
+      },
+      "id": "b995f5fe-4d71-4507-a223-105f62cb9ba7",
+      "name": "Sticky Note - Watchdog",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        0,
+        1650
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "a4a72a18-2968-46d5-9d5b-e38dab065406",
+      "name": "Morning 9 AM Kickoff",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        -1000
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bookings"
+        },
+        "options": {}
+      },
+      "id": "4f9f9937-66bc-410f-ab0c-01bee8edcb6e",
+      "name": "Morning - Read Bookings",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        -1000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Leads"
+        },
+        "options": {}
+      },
+      "id": "0390c9b2-12bd-409c-b8dd-9626f0f533fe",
+      "name": "Morning - Read Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        460,
+        -1000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "169ad571-5f06-40be-b4f0-21a82c007e34",
+      "name": "Morning - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        680,
+        -1000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Deadlines"
+        },
+        "options": {}
+      },
+      "id": "458fa9c3-8916-451b-9d35-76411cfe84ce",
+      "name": "Morning - Read Deadlines",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        900,
+        -1000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pending docs"
+        },
+        "options": {}
+      },
+      "id": "59862faa-46fc-4298-bed3-6cb95a36bf8f",
+      "name": "Morning - Read Pending Docs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1120,
+        -1000
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh Morning Radar Compiler\nconst today = $now.toISODate();\nconst num = (v) => Number(String(v ?? '').replace(/[^0-9.-]/g, '')) || 0;\nconst safeRows = (nodeName) => {\n  try { return $(nodeName).all().map(i => i.json).filter(r => Object.keys(r).length); }\n  catch(e) { return []; }\n};\n\nconst bookings = safeRows('Morning - Read Bookings').filter(r => String(r.Start || r.Date || '').startsWith(today));\nconst allLeads = safeRows('Morning - Read Leads');\nconst hotLeads = allLeads.filter(r => String(r.Status || '').toLowerCase() === 'hot');\nconst invoices = safeRows('Morning - Read Invoices');\nconst unpaidInvoices = invoices.filter(r => String(r.Status || '').toLowerCase() !== 'paid');\nconst overdueInvoices = unpaidInvoices.filter(r => r['Due date'] && String(r['Due date']) < today);\nconst dueTodayInvoices = unpaidInvoices.filter(r => r['Due date'] && String(r['Due date']).startsWith(today));\n\nconst deadlines = safeRows('Morning - Read Deadlines');\nconst urgentDeadlines = deadlines.filter(r => {\n  if (!r['Due date']) return false;\n  const d = String(r['Due date']);\n  return d >= today && d <= $now.plus({ days: 3 }).toISODate();\n});\n\nconst pendingDocs = safeRows('Morning - Read Pending Docs');\nconst urgentDocs = pendingDocs.filter(r => String(r.Status || '').toLowerCase() === 'pending' && num(r.Reminders) >= 2);\n\nreturn [{\n  json: {\n    today_date: today,\n    company: \"CodeRaksh Company\",\n    radar: {\n      todays_meetings_count: bookings.length,\n      todays_meetings: bookings.map(b => `${b.Name || 'Client'} at ${b.Start || b.Time || 'TBD'}`),\n      hot_leads_pending_count: hotLeads.length,\n      hot_leads: hotLeads.slice(0, 5).map(l => `${l.Name || 'Lead'} (${l.Phone || l.Email || 'No contact'}) - ${l.Source || 'Website'}`),\n      overdue_invoices_count: overdueInvoices.length,\n      overdue_amount_total: overdueInvoices.reduce((acc, curr) => acc + num(curr.Amount), 0),\n      due_today_count: dueTodayInvoices.length,\n      due_today_amount: dueTodayInvoices.reduce((acc, curr) => acc + num(curr.Amount), 0),\n      urgent_deadlines_3days: urgentDeadlines.map(d => `${d.Filing || d.Task || 'Deadline'} due ${d['Due date']}`),\n      urgent_pending_docs_count: urgentDocs.length,\n      urgent_docs_list: urgentDocs.map(d => `${d.Client || 'Client'}: missing ${d.Document || 'Docs'}`)\n    }\n  }\n}];"
+      },
+      "id": "96b886ee-4a3f-4e27-a497-d6e8f4bfd667",
+      "name": "Morning - Compile Radar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1360,
+        -1000
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite an empowering, ultra-clear \"🌅 Morning Flight Plan\" for the Founder/Owner to start today with 100% focus and momentum.\n\nTone: Professional, high-energy, actionable, and executive (Hinglish/English mix).\nKeep it within 14 concise lines.\n\nUse this format:\n🌅 *CODERAKSH MORNING FLIGHT PLAN* — {{ $json.today_date }}\n\n🎯 *TOP 3 PRIORITIES FOR TODAY:*\n1. [Highest revenue or hot deal action]\n2. [Critical deliverable, meeting or deadline]\n3. [Key operational/cash flow follow-up]\n\n📊 *TODAY'S RADAR:*\n• 🤝 Client Meetings: {{ $json.radar.todays_meetings_count }} scheduled ({{ $json.radar.todays_meetings.join(', ') || 'No meetings scheduled' }})\n• 🔥 Hot Leads to Call: {{ $json.radar.hot_leads_pending_count }} ({{ $json.radar.hot_leads.join(' | ') || 'None pending' }})\n• 💰 Cash Collection: ₹{{ $json.radar.overdue_amount_total.toLocaleString('en-IN') }} overdue across {{ $json.radar.overdue_invoices_count }} invoices\n• ⏳ Deadlines (<72h): {{ $json.radar.urgent_deadlines_3days.join(', ') || 'All clear' }}\n• 📑 Blocked Docs: {{ $json.radar.urgent_pending_docs_count }} clients pending follow-up\n\n⚡ *CEO Thought of the Day:* [One crisp motivational sentence for tech business growth]\n\nRadar Data:\n{{ JSON.stringify($json.radar, null, 2) }}"
+      },
+      "id": "7a7b2818-6777-4a50-a6cc-ec50b06e0182",
+      "name": "Morning - Claude Flight Plan",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1600,
+        -1000
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "b0f17361-e4bc-49cc-84f1-2dbde016ddf4",
+      "name": "Morning - Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        1600,
+        -780
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "b0f68e50-39a9-46ca-b2ad-2f401a5851ee",
+      "name": "Morning - WhatsApp Flight Plan",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1860,
+        -1080
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_OWNER_EMAIL@example.com",
+        "subject": "=🌅 CodeRaksh Morning Flight Plan [{{ $('Morning - Compile Radar').first().json.today_date }}]",
+        "emailType": "text",
+        "message": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "cc56ba28-78d6-49fb-b8c5-f9c3cd755bfa",
+      "name": "Morning - Gmail Flight Plan",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1860,
+        -920
+      ]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "3cb996b9-408e-4431-b9c4-0693e3d8bddc",
+      "name": "Nightly 9 PM Audit",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Leads"
+        },
+        "options": {}
+      },
+      "id": "7b3e3b49-3a69-4f7c-aa00-6bac76957857",
+      "name": "Nightly - Read Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        220,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Orders"
+        },
+        "options": {}
+      },
+      "id": "4a9ada56-83e1-4fda-a48c-ae314074efc8",
+      "name": "Nightly - Read Orders",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        440,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bookings"
+        },
+        "options": {}
+      },
+      "id": "52d4ba9a-bf26-4096-9653-2d60f1489e85",
+      "name": "Nightly - Read Bookings",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        660,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Reviews"
+        },
+        "options": {}
+      },
+      "id": "97af5cde-7234-4736-a741-0d90d4b89151",
+      "name": "Nightly - Read Reviews",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        880,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Content"
+        },
+        "options": {}
+      },
+      "id": "cc4a22f8-a655-4238-9cd8-35f06e92a7cc",
+      "name": "Nightly - Read Content",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1100,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bills"
+        },
+        "options": {}
+      },
+      "id": "41fd31a8-dda4-468a-ba3f-03ac5738d8f5",
+      "name": "Nightly - Read Bills",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1320,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "2da3f010-b767-4e9b-b2a6-53f60cfdd807",
+      "name": "Nightly - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1540,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "GST purchases"
+        },
+        "options": {}
+      },
+      "id": "584aa9de-b75a-4759-bd6a-b32ba027fc1e",
+      "name": "Nightly - Read GST Purchases",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1760,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Candidates"
+        },
+        "options": {}
+      },
+      "id": "e1edbe2f-77ce-484e-9c11-538a8ee456b1",
+      "name": "Nightly - Read Candidates",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1980,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Deadlines"
+        },
+        "options": {}
+      },
+      "id": "7fbebacf-f933-4519-855b-c8571de02140",
+      "name": "Nightly - Read Deadlines",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2200,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pending docs"
+        },
+        "options": {}
+      },
+      "id": "f08a2054-9416-4da5-b9d7-d048c9496f6b",
+      "name": "Nightly - Read Pending Docs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2420,
+        0
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh 20-Agent Performance Matrix & Enterprise Health Score Engine\nconst today = $now.toISODate();\nconst num = (v) => Number(String(v ?? '').replace(/[^0-9.-]/g, '')) || 0;\nconst safeRows = (nodeName) => {\n  try { return $(nodeName).all().map(i => i.json).filter(r => Object.keys(r).length); }\n  catch(e) { return []; }\n};\nconst isToday = (r) => {\n  const d = String(r.Date || r.Timestamp || r['Created Date'] || r.Asked_on || '');\n  return d.startsWith(today);\n};\n\n// 1. SALES DEPT (01-04)\nconst allLeads = safeRows('Nightly - Read Leads');\nconst leadsToday = allLeads.filter(isToday);\nconst hotLeads = leadsToday.filter(r => String(r.Status || '').toLowerCase() === 'hot');\nconst warmLeads = leadsToday.filter(r => String(r.Status || '').toLowerCase() === 'warm');\nconst ordersToday = safeRows('Nightly - Read Orders').filter(isToday);\nconst repeatOrderRevenue = ordersToday.reduce((s, r) => s + num(r.Amount || r.Total), 0);\n\n// 2. SUPPORT DEPT (05-08)\nconst bookingsToday = safeRows('Nightly - Read Bookings').filter(isToday);\nconst reviewsAll = safeRows('Nightly - Read Reviews');\nconst reviewsToday = reviewsAll.filter(isToday);\nconst angryReviews = reviewsToday.filter(r => String(r.Sentiment || '').toLowerCase() === 'angry' || num(r.Stars) <= 2);\nconst fiveStarReviews = reviewsToday.filter(r => num(r.Stars) >= 4);\n\n// 3. MARKETING DEPT (09-12)\nconst contentToday = safeRows('Nightly - Read Content').filter(isToday);\nconst contentCount = contentToday.length;\n\n// 4. FINANCE DEPT (13-16)\nconst billsToday = safeRows('Nightly - Read Bills').filter(isToday);\nconst totalBillsAmount = billsToday.reduce((s, r) => s + num(r.amount || r.Amount), 0);\nconst invoicesAll = safeRows('Nightly - Read Invoices');\nconst invoicesToday = invoicesAll.filter(isToday);\nconst paidToday = invoicesToday.filter(r => String(r.Status || '').toLowerCase() === 'paid');\nconst revenueToday = paidToday.reduce((s, r) => s + num(r.Amount), 0);\nconst overdueInvoices = invoicesAll.filter(r => String(r.Status || '').toLowerCase() !== 'paid' && r['Due date'] && String(r['Due date']) < today);\nconst totalOverdue = overdueInvoices.reduce((s, r) => s + num(r.Amount), 0);\nconst gstPurchasesToday = safeRows('Nightly - Read GST Purchases').filter(isToday);\nconst itcTotalToday = gstPurchasesToday.reduce((s, r) => s + num(r.CGST) + num(r.SGST) + num(r.IGST), 0);\n\n// 5. OPS DEPT (17-20)\nconst candidatesToday = safeRows('Nightly - Read Candidates').filter(isToday);\nconst shortlistedCands = candidatesToday.filter(r => String(r.Status || '').toLowerCase() === 'shortlist');\nconst deadlinesAll = safeRows('Nightly - Read Deadlines');\nconst pendingDeadlines7Days = deadlinesAll.filter(r => {\n  if (!r['Due date']) return false;\n  const d = String(r['Due date']);\n  return d >= today && d <= $now.plus({ days: 7 }).toISODate();\n});\nconst pendingDocsAll = safeRows('Nightly - Read Pending Docs');\nconst severeDocBottlenecks = pendingDocsAll.filter(r => String(r.Status || '').toLowerCase() === 'pending' && num(r.Reminders) >= 3);\n\n// ==========================================\n// MATHEMATICAL COMPANY HEALTH SCORE (0 - 100)\n// ==========================================\n// Sub-score 1: Finance (Max 30) - penalize heavy overdue relative to revenue\nlet financeScore = 25;\nif (totalOverdue > 100000) financeScore -= 10;\nelse if (totalOverdue > 30000) financeScore -= 5;\nif (revenueToday > totalBillsAmount) financeScore += 5;\nfinanceScore = Math.max(5, Math.min(30, financeScore));\n\n// Sub-score 2: Sales Pipeline (Max 25)\nlet salesScore = 15;\nif (hotLeads.length >= 2) salesScore += 10;\nelse if (leadsToday.length > 0) salesScore += 5;\nif (ordersToday.length > 0) salesScore += 5;\nsalesScore = Math.min(25, salesScore);\n\n// Sub-score 3: Customer Satisfaction (Max 20)\nlet supportScore = 18;\nif (angryReviews.length > 0) supportScore -= 10 * angryReviews.length;\nif (fiveStarReviews.length > 0) supportScore += 2 * fiveStarReviews.length;\nsupportScore = Math.max(0, Math.min(20, supportScore));\n\n// Sub-score 4: Operational Execution (Max 25)\nlet opsScore = 22;\nif (pendingDeadlines7Days.length > 5) opsScore -= 5;\nif (severeDocBottlenecks.length > 2) opsScore -= 5;\nif (shortlistedCands.length > 0) opsScore += 3;\nopsScore = Math.max(5, Math.min(25, opsScore));\n\nconst totalHealthScore = Math.round(financeScore + salesScore + supportScore + opsScore);\nlet healthGrade = '🟢 HEALTHY';\nif (totalHealthScore < 60) healthGrade = '🔴 CRITICAL ACTION REQUIRED';\nelse if (totalHealthScore < 80) healthGrade = '🟡 ATTENTION NEEDED';\n\nreturn [{\n  json: {\n    date: today,\n    company: \"CodeRaksh Company\",\n    health_score: totalHealthScore,\n    health_grade: healthGrade,\n    department_breakdown: {\n      sales: {\n        new_leads_count: leadsToday.length,\n        hot_leads_count: hotLeads.length,\n        warm_leads_count: warmLeads.length,\n        hot_lead_names: hotLeads.map(l => `${l.Name || 'Lead'} (${l.Source || 'Direct'})`),\n        repeat_orders_count: ordersToday.length,\n        repeat_revenue: repeatOrderRevenue\n      },\n      support: {\n        bookings_today: bookingsToday.length,\n        reviews_count: reviewsToday.length,\n        five_star_reviews: fiveStarReviews.length,\n        angry_reviews: angryReviews.map(r => `${r.Reviewer || 'Customer'}: ${r.Stars}★ \"${r.Comment || ''}\"`)\n      },\n      marketing: {\n        pieces_published: contentCount,\n        content_titles: contentToday.map(c => `${c.Type || 'Post'}: ${c.Title || ''}`)\n      },\n      finance: {\n        revenue_collected_today: revenueToday,\n        bills_processed_today: billsToday.length,\n        bills_amount_today: totalBillsAmount,\n        overdue_invoices_count: overdueInvoices.length,\n        total_overdue_amount: totalOverdue,\n        gst_itc_claimed_today: itcTotalToday\n      },\n      ops: {\n        candidates_screened: candidatesToday.length,\n        candidates_shortlisted: shortlistedCands.map(c => `${c.Name} (${c.Score}/10)`),\n        upcoming_deadlines_7days: pendingDeadlines7Days.map(d => `${d.Filing || d.Task} (${d['Due date']})`),\n        critical_doc_chases: severeDocBottlenecks.map(b => `${b.Client}: ${b.Document}`)\n      }\n    }\n  }\n}];"
+      },
+      "id": "e7dfd101-1422-4617-a41b-2d761b66a93d",
+      "name": "Nightly - Compute 20-Agent Health Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite tonight's Boardroom Executive Briefing for the Founder/Owner based on live performance data from all 20 AI agents.\n\nLanguage: High-impact executive style (Hinglish/English mix). Professional, concise, data-backed.\nMaximum 20 lines.\n\nStructure:\n👑 *CODERAKSH BOARDROOM BRIEFING* — {{ $json.date }}\n🏆 *Company Health Score:* {{ $json.health_score }}/100 [{{ $json.health_grade }}]\n\n📊 *DEPARTMENT SCORECARD:*\n• 💼 *Sales:* {{ $json.department_breakdown.sales.new_leads_count }} leads (🔥 {{ $json.department_breakdown.sales.hot_leads_count }} Hot), ₹{{ $json.department_breakdown.sales.repeat_revenue }} repeat revenue\n• 🎧 *Support:* {{ $json.department_breakdown.support.bookings_today }} bookings, {{ $json.department_breakdown.support.reviews_count }} reviews ({{ $json.department_breakdown.support.five_star_reviews }} ★★★★★)\n• 📣 *Marketing:* {{ $json.department_breakdown.marketing.pieces_published }} content assets live\n• 💰 *Finance:* Revenue In: ₹{{ $json.department_breakdown.finance.revenue_collected_today }} | Bills: ₹{{ $json.department_breakdown.finance.bills_amount_today }} | Overdue: ₹{{ $json.department_breakdown.finance.total_overdue_amount }} ({{ $json.department_breakdown.finance.overdue_invoices_count }} invoices)\n• ⚙️ *Ops:* {{ $json.department_breakdown.ops.candidates_screened }} resumes ({{ $json.department_breakdown.ops.candidates_shortlisted.length }} shortlisted), {{ $json.department_breakdown.ops.upcoming_deadlines_7days.length }} deadlines in 7 days\n\n⚠️ *FLAGS & BOTTLENECKS:*\n[Call out angry reviews, critical doc delays, or overdue cash; if none, say \"All clear\"]\n\n🎯 *TOP 3 STRATEGIC DIRECTIVES FOR TOMORROW:*\n1. [Actionable directive 1]\n2. [Actionable directive 2]\n3. [Actionable directive 3]\n\nPerformance Matrix:\n{{ JSON.stringify($json.department_breakdown, null, 2) }}"
+      },
+      "id": "828fe15d-4e88-4b5f-85d5-b25fb775781c",
+      "name": "Nightly - Claude Executive Report",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2920,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "85d05e3a-f35f-4901-9917-edcfd3be0f2b",
+      "name": "Nightly - Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2920,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Daily Log"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.date }}",
+            "Health_Score": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.health_score }}",
+            "Health_Grade": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.health_grade }}",
+            "Revenue_In": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.revenue_collected_today }}",
+            "Expenses_Bills": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.bills_amount_today }}",
+            "Overdue_Total": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.total_overdue_amount }}",
+            "Hot_Leads": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.sales.hot_leads_count }}",
+            "Executive_Briefing": "={{ $json.text }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "833fa95a-c5e8-49e4-843d-d7f85febefe7",
+      "name": "Nightly - Save to Daily Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3180,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $('Nightly - Claude Executive Report').first().json.text }}",
+        "additionalFields": {}
+      },
+      "id": "281b0915-938f-4ff1-a988-9a8a2da0377d",
+      "name": "Nightly - WhatsApp CEO Briefing",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        3420,
+        -100
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_OWNER_EMAIL@example.com",
+        "subject": "=👑 CodeRaksh Executive Boardroom Briefing [{{ $('Nightly - Compute 20-Agent Health Score').first().json.date }}] — Score: {{ $('Nightly - Compute 20-Agent Health Score').first().json.health_score }}/100",
+        "emailType": "text",
+        "message": "={{ $('Nightly - Claude Executive Report').first().json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "a8f16da2-a050-41eb-8ab0-d47f2c275e3b",
+      "name": "Nightly - Gmail CEO Dossier",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3420,
+        100
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ceo-command",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "9992a6fa-cda8-4697-a0b4-086016a1d33e",
+      "name": "CEO Command Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1150
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Daily Log"
+        },
+        "options": {
+          "limit": 5
+        }
+      },
+      "id": "e1e3c69d-6866-4b0b-8b1e-b4dfdf62ad70",
+      "name": "Interactive - Read Latest Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        1150
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "read",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "84164786-5483-4bed-aefa-f5b390cc8920",
+      "name": "Interactive - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        460,
+        1150
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prep Context for Interactive CEO Brain\nconst query = $('CEO Command Webhook').first().json.body?.query || $('CEO Command Webhook').first().json.query || 'Company summary';\nconst sender = $('CEO Command Webhook').first().json.body?.sender || 'Founder';\n\nconst logs = $('Interactive - Read Latest Log').all().map(i => i.json);\nconst invoices = $('Interactive - Read Invoices').all().map(i => i.json);\nconst unpaid = invoices.filter(r => String(r.Status || '').toLowerCase() !== 'paid');\n\nreturn [{\n  json: {\n    user_query: query,\n    sender: sender,\n    latest_daily_log: logs.slice(-1)[0] || {},\n    unpaid_invoices_count: unpaid.length,\n    unpaid_invoices_sample: unpaid.slice(0, 5)\n  }\n}];"
+      },
+      "id": "f35ba52d-9b67-409b-9c29-f8863e229721",
+      "name": "Interactive - Prep Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        680,
+        1150
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nThe Founder/Owner asked you an on-demand question via command line / chat.\n\nFounder's Query: \"{{ $json.user_query }}\"\n\nContext:\n- Latest Daily Log: {{ JSON.stringify($json.latest_daily_log) }}\n- Unpaid Invoices Count: {{ $json.unpaid_invoices_count }}\n- Sample Invoices: {{ JSON.stringify($json.unpaid_invoices_sample) }}\n\nRespond directly, concisely, and accurately in 3-8 lines. Provide exact numbers if available. Format with clean bullet points."
+      },
+      "id": "4ee8c580-2f68-4e08-906c-72e38e03496d",
+      "name": "Interactive - Claude CEO Brain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        920,
+        1150
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "4b1e1572-5707-4b06-a5a9-1b6e754407ac",
+      "name": "Interactive - Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        920,
+        1370
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'success', answer: $json.text, timestamp: $now.toISO() }) }}",
+        "options": {}
+      },
+      "id": "bdb9e57a-d431-414f-b7bb-37bacab05810",
+      "name": "Interactive - Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1160,
+        1150
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "emergency-escalation",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "875fb4ae-f575-429a-996d-fa9da7326e85",
+      "name": "Watchdog Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1850
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh Anomaly Watchdog Triage\nconst body = $json.body || $json;\nconst eventType = body.event_type || body.type || 'UNKNOWN_ALERT';\nconst message = body.message || body.details || JSON.stringify(body);\nconst severity = body.severity || 'HIGH'; // CRITICAL, HIGH, MEDIUM\n\nreturn [{\n  json: {\n    event_type: eventType,\n    severity: severity,\n    message: message,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm:ss'),\n    contact_name: body.name || body.client || 'Unknown',\n    contact_phone: body.phone || 'N/A'\n  }\n}];"
+      },
+      "id": "c6de562f-6842-4a6d-b44a-59e2072115aa",
+      "name": "Watchdog - Triage Anomaly",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        1850
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Emergency Anomaly Watchdog for CodeRaksh Company.\nAn urgent event has triggered an escalation.\nDraft a high-priority, instant WhatsApp alert for the Founder with immediate recommended action.\n\nEvent Type: {{ $json.event_type }}\nSeverity: {{ $json.severity }}\nDetails: {{ $json.message }}\nContact: {{ $json.contact_name }} ({{ $json.contact_phone }})\n\nFormat:\n🚨 *[CODERAKSH CRITICAL ESCALATION]*\n• *Type:* {{ $json.event_type }} ({{ $json.severity }})\n• *Time:* {{ $json.timestamp }}\n• *Details:* {{ $json.message }}\n• *Direct Contact:* {{ $json.contact_name }} | {{ $json.contact_phone }}\n\n⚡ *Immediate Action Required:*\n[State the exact 1-2 steps the Founder must take right now to neutralize the issue]"
+      },
+      "id": "10278968-d20c-4773-a03b-98f1d6b87c1a",
+      "name": "Watchdog - Claude Emergency Action",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        480,
+        1850
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "id": "9ab2f9fe-9cd5-413b-8ccf-15e857555c9f",
+      "name": "Watchdog - Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        2070
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "0eadef50-b75d-4f22-9fd0-c59028f059ec",
+      "name": "Watchdog - WhatsApp SOS Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        720,
+        1850
+      ]
+    }
+  ],
+  "connections": {
+    "Morning 9 AM Kickoff": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Bookings": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Leads": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Deadlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Deadlines": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Pending Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Pending Docs": {
+      "main": [
+        [
+          {
+            "node": "Morning - Compile Radar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Compile Radar": {
+      "main": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Claude Flight Plan": {
+      "main": [
+        [
+          {
+            "node": "Morning - WhatsApp Flight Plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Morning - Gmail Flight Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly 9 PM Audit": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Leads": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Orders": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Bookings": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Reviews": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Content": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Bills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Bills": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read GST Purchases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read GST Purchases": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Candidates": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Deadlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Deadlines": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Pending Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Pending Docs": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Compute 20-Agent Health Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Compute 20-Agent Health Score": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Claude Executive Report": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Save to Daily Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Save to Daily Log": {
+      "main": [
+        [
+          {
+            "node": "Nightly - WhatsApp CEO Briefing",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Nightly - Gmail CEO Dossier",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CEO Command Webhook": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Read Latest Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Read Latest Log": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Prep Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Prep Context": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Claude CEO Brain": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog Webhook": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - Triage Anomaly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Triage Anomaly": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Claude Emergency Action": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - WhatsApp SOS Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1f99aee8-848e-4c1e-b1fb-07e605329657",
+  "meta": {
+    "templateCredsSetupCompleted": false,
+    "instanceId": "coderaksh-master-ai-ceo"
+  }
+}

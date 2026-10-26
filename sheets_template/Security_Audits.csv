@@ -1,0 +1,3 @@
+Date,Repo,PR,Author,Secrets_Detected,Risk_Level,Review_Summary
+2026-10-26 18:20,CodeRaksh/Client-Auth-Service,#42 Fix JWT expiration,rahul-dev,None,LOW,Clean implementation of refresh token rotation with secure httpOnly cookies.
+2026-10-26 11:15,CodeRaksh/Payment-Gateway-Adapter,#18 Update Stripe webhook,intern-vikas,Potential Secret Key,CRITICAL,Blocked: Live Stripe secret key was committed in config.json. Key revoked.

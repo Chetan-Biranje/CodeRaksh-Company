@@ -1,0 +1,3 @@
+Date,Vendor,Invoice_No,Amount,Tax,Category,Status
+2026-10-25,AWS Cloud Services,INV-AWS-8921,24500,4410,Cloud Hosting,Paid
+2026-10-26,Anthropic AI API,INV-ANT-5541,12800,2304,AI Infrastructure,Paid

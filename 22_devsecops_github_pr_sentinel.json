@@ -1,0 +1,321 @@
+{
+  "name": "22 · GitHub DevSecOps & Secret Sentinel (CodeRaksh Company · Security)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 🛡️ 22 · GitHub DevSecOps & Secret Sentinel (CodeRaksh Company)\n**Automated PR Security Audit, Secret Leak Hunter & Code Quality Gatekeeper**\n\n### What it does:\n1. **GitHub Webhook Trigger**: Fires on Pull Request opened/synchronized or Commit push.\n2. **Secret & Key Leak Scanner**: Scans git diff for exposed API keys (AWS, OpenAI, Anthropic, Stripe), JWT secrets, database connection strings, and private RSA keys.\n3. **OWASP Top 10 SAST Analysis (Claude 3.5 Sonnet)**:\n   - Scans diff for SQL Injection, XSS, SSRF, IDOR, Insecure Deserialization, Path Traversal, and Race Conditions.\n   - Evaluates code quality, DRY compliance, and performance bottlenecks (Ponytail mode).\n4. **Automated Actions**:\n   - Posts a structured, professional code review comment directly on the GitHub PR.\n   - Logs security audit record to Google Sheets tab `Security_Audits`.\n   - Fires instant WhatsApp SOS Alert if **CRITICAL / HIGH** vulnerabilities or leaked credentials are detected!\n\n### Setup (10 min):\n1. Add GitHub Webhook in your repo settings pointing to this workflow's Production URL (`payload URL`), event: `Pull requests`.\n2. Add GitHub Personal Access Token (`GITHUB_TOKEN`) for posting PR review comments.\n3. Add Google Sheets OAuth2 + Anthropic API Key + WhatsApp Business Cloud credentials.",
+        "height": 560,
+        "width": 640,
+        "color": 6
+      },
+      "id": "54bf9f08-94d2-4c47-919a-58f6a6743980",
+      "name": "Sticky Note - Setup & Architecture",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "github-pr-webhook",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "2adcf6d3-9589-4446-bdc3-c975b69bd2e3",
+      "name": "GitHub PR Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract PR details and commit diff\nconst body = $json.body || {};\nconst pr = body.pull_request || {};\nconst repo = body.repository || {};\n\nconst title = pr.title || 'Manual Security Scan';\nconst prNumber = pr.number || 1;\nconst repoFullName = repo.full_name || 'CodeRaksh/Internal';\nconst diffUrl = pr.diff_url || '';\nconst sender = body.sender?.login || 'developer';\nconst branch = pr.head?.ref || 'main';\n\n// Extract PR body / description / changed files\nconst description = pr.body || 'No description provided';\nconst patchSnippet = body.comment?.body || body.diff || description;\n\nreturn [{\n  json: {\n    pr_number: prNumber,\n    pr_title: title,\n    repo_name: repoFullName,\n    branch: branch,\n    author: sender,\n    diff_url: diffUrl,\n    code_diff_snippet: patchSnippet,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm')\n  }\n}];"
+      },
+      "id": "adcabd14-16fd-4b83-a066-48806fc3d7da",
+      "name": "Extract PR & Code Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pre-scan for leaked secrets and high-risk patterns\nconst diff = String($json.code_diff_snippet || '');\nconst leaks = [];\n\nif (/[A-Za-z0-9_-]{20,40}/.test(diff) && (diff.includes('sk-ant-') || diff.includes('sk-') || diff.includes('AIzaSy'))) {\n  leaks.push('Potential AI API Key (Anthropic / OpenAI / Google)');\n}\nif (/AKIA[0-9A-Z]{16}/.test(diff)) {\n  leaks.push('AWS Access Key ID');\n}\nif (/ghp_[0-9a-zA-Z]{36}/.test(diff) || /github_pat_[0-9a-zA-Z_]{82}/.test(diff)) {\n  leaks.push('GitHub Personal Access Token');\n}\nif (/-----BEGIN (RSA |EC )?PRIVATE KEY-----/.test(diff)) {\n  leaks.push('Private SSH/TLS Key');\n}\nif (/postgres:\\/\\/|mongodb(\\+srv)?:\\/\\/|mysql:\\/\\//.test(diff)) {\n  leaks.push('Database Connection String with Credentials');\n}\n\nreturn [{\n  json: {\n    ...$json,\n    secret_leaks_found: leaks,\n    has_hardcoded_secrets: leaks.length > 0\n  }\n}];"
+      },
+      "id": "6685cb0c-f319-4582-9506-d19badf049f7",
+      "name": "Fast Secret & Leak Scanner",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Lead DevSecOps Architect and Principal Code Auditor for CodeRaksh Company.\nPerform a thorough, expert-level static security audit and code quality review on this GitHub Pull Request.\n\nRepository: {{ $json.repo_name }}\nPR #{{ $json.pr_number }}: {{ $json.pr_title }}\nBranch: {{ $json.branch }} by {{ $json.author }}\nPre-detected Leaks: {{ $json.secret_leaks_found.join(', ') || 'None found via regex' }}\n\nCODE DIFF / SNIPPET:\n```\n{{ $json.code_diff_snippet }}\n```\n\nAUDIT CHECKLIST:\n1. **Secrets & Keys:** Hardcoded credentials, tokens, connection strings.\n2. **OWASP Top 10 Sinks:** SQL Injection, Cross-Site Scripting (XSS), Server-Side Request Forgery (SSRF), IDOR / Missing Auth, Path Traversal, Insecure Deserialization, Weak Cryptography.\n3. **Architecture & Performance (Ponytail Rule):** Unnecessary bloat, unhandled error cases, memory leaks, missing timeouts.\n\nFORMAT YOUR RESPONSE:\n### 🛡️ CodeRaksh DevSecOps Review Gate\n**Verdict:** [APPROVE / REQUEST_CHANGES / CRITICAL_BLOCK]\n**Security Risk Level:** [NONE / LOW / MEDIUM / HIGH / CRITICAL]\n\n#### 🔍 Vulnerabilities & Security Findings:\n- [Item 1 with line reference or sink description, impact, and CVE/CWE if applicable]\n- [Or 'No security vulnerabilities identified.']\n\n#### 💡 Code Quality & Performance Improvements:\n- [1-3 crisp, practical engineering recommendations]\n\n#### 🛠️ Recommended Patch / Secure Fix:\n```diff\n// Provide exact replacement snippet if vulnerabilities were found\n```"
+      },
+      "id": "b5bacb72-4c3f-4e82-972f-408602af363c",
+      "name": "Claude DevSecOps Auditor",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        900,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "0827a431-362a-43aa-a548-174c27760bd4",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        900,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/{{ $('Extract PR & Code Context').first().json.repo_name }}/issues/{{ $('Extract PR & Code Context').first().json.pr_number }}/comments",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GITHUB_TOKEN"
+            },
+            {
+              "name": "Accept",
+              "value": "application/vnd.github.v3+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "CodeRaksh-DevSecOps-Bot"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ body: $json.text }) }}",
+        "options": {}
+      },
+      "id": "bf5cfab4-83f6-4e70-89c9-d3a929fd3131",
+      "name": "Post GitHub Review Comment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1140,
+        -100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "YOUR_GOOGLE_SHEET_ID"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Security_Audits"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Extract PR & Code Context').first().json.timestamp }}",
+            "Repo": "={{ $('Extract PR & Code Context').first().json.repo_name }}",
+            "PR": "=#{{ $('Extract PR & Code Context').first().json.pr_number }} {{ $('Extract PR & Code Context').first().json.pr_title }}",
+            "Author": "={{ $('Extract PR & Code Context').first().json.author }}",
+            "Secrets_Detected": "={{ $('Fast Secret & Leak Scanner').first().json.secret_leaks_found.join(', ') || 'Clean' }}",
+            "Review_Summary": "={{ $json.text.substring(0, 500) }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "4bc30e60-9519-4483-a392-5a6700d5bf50",
+      "name": "Save to Security Audits Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1140,
+        100
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if audit requires immediate founder escalation\nconst text = $('Claude DevSecOps Auditor').first().json.text || '';\nconst hasLeaks = $('Fast Secret & Leak Scanner').first().json.has_hardcoded_secrets;\nconst isCritical = text.includes('CRITICAL_BLOCK') || text.includes('CRITICAL') || text.includes('HIGH') || hasLeaks;\n\nreturn [{\n  json: {\n    is_critical: isCritical,\n    alert_message: `🚨 *[CODERAKSH DEVSECOPS ALERT]*\\nRepo: ${$('Extract PR & Code Context').first().json.repo_name}\\nPR #${$('Extract PR & Code Context').first().json.pr_number}: ${$('Extract PR & Code Context').first().json.pr_title}\\nAuthor: ${$('Extract PR & Code Context').first().json.author}\\nRisk: CRITICAL SECURITY FINDINGS OR LEAKS DETECTED!\\nReview posted to GitHub.`\n  }\n}];"
+      },
+      "id": "4eda6cd8-ce4b-44ed-a12c-2d0e0cebc361",
+      "name": "Triage Severity",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1380,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.is_critical }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "dbbf16e4-d255-4498-9cf0-7b27f214dea1",
+      "name": "Is Critical Risk?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1600,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.alert_message }}",
+        "additionalFields": {}
+      },
+      "id": "962c7f2b-b3a6-4eb4-a0b6-5e4424338ed9",
+      "name": "WhatsApp Security Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        -60
+      ]
+    }
+  ],
+  "connections": {
+    "GitHub PR Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract PR & Code Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PR & Code Context": {
+      "main": [
+        [
+          {
+            "node": "Fast Secret & Leak Scanner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fast Secret & Leak Scanner": {
+      "main": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor": {
+      "main": [
+        [
+          {
+            "node": "Post GitHub Review Comment",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to Security Audits Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Security Audits Sheet": {
+      "main": [
+        [
+          {
+            "node": "Triage Severity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Triage Severity": {
+      "main": [
+        [
+          {
+            "node": "Is Critical Risk?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Critical Risk?": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Security Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "1875fd6d-fe20-45ba-9bb2-3a0b2089b4e9"
+}

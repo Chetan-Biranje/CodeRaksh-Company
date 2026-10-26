@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeRaksh Company — Next-Gen Cyber Security & DevSecOps Solutions</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="nav-container">
+      <div class="brand">
+        <span class="logo-shield">🛡️</span>
+        <span class="brand-text">CodeRaksh <span class="highlight">Security</span></span>
+      </div>
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#scanner">Free Audit</a>
+        <a href="#quote">Get Quote</a>
+        <a href="../dashboard/index.html" class="btn-dashboard">Executive Portal ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="pulse-dot"></span> 24/7 AUTONOMOUS CYBER DEFENSE & DEVSECOPS
+      </div>
+      <h1>Uncompromising Cyber Defense & <span class="text-gradient">Secure Software Engineering</span></h1>
+      <p class="hero-sub">
+        CodeRaksh Company protects mission-critical digital assets for startups, fintechs, and enterprises. 
+        Zero-leak CI/CD pipelines, certified penetration testing, and bulletproof cloud architecture.
+      </p>
+      <div class="hero-actions">
+        <a href="#scanner" class="btn-primary">Run Free Security Scan ↓</a>
+        <a href="#quote" class="btn-secondary">Request SOW Proposal</a>
+      </div>
+      <div class="trust-stats">
+        <div class="stat-item">
+          <strong>100%</strong>
+          <span>Zero Secret Leak Guarantee</span>
+        </div>
+        <div class="stat-item">
+          <strong>&lt; 24h</strong>
+          <span>Vulnerability Triage Turnaround</span>
+        </div>
+        <div class="stat-item">
+          <strong>26</strong>
+          <span>Autonomous AI Agents Protecting You</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Free Security Risk Teaser Scanner -->
+  <section id="scanner" class="scanner-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">INSTANT TEASER TOOL</span>
+        <h2>Test Your Website's Security Posture</h2>
+        <p>Enter your website or API domain to check for critical missing security headers, clickjacking defenses, and SSL/TLS configuration.</p>
+      </div>
+
+      <div class="scanner-card">
+        <form id="auditForm" class="scanner-form">
+          <input type="text" id="targetInput" placeholder="e.g. yourcompany.com or api.target.io" required>
+          <button type="submit" class="btn-primary" id="btnScan">⚡ Analyze Security</button>
+        </form>
+
+        <div id="scanResult" class="scan-result" style="display: none;">
+          <div class="result-header">
+            <h4>Security Assessment for: <span id="resTarget" class="text-cyan"></span></h4>
+            <span id="resScoreBadge" class="score-badge">ANALYZED</span>
+          </div>
+          <div class="checklist-grid" id="checklistGrid">
+            <!-- Populated dynamically -->
+          </div>
+          <div class="result-cta">
+            <p>Want a complete manual penetration test and automated CI/CD gating?</p>
+            <a href="#quote" class="btn-secondary">Get Full VAPT Scope of Work</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid -->
+  <section id="services" class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">CAPABILITIES</span>
+        <h2>Full-Spectrum Cyber & Engineering Services</h2>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-icon">🛡️</div>
+          <h3>VAPT & Penetration Testing</h3>
+          <p>Exhaustive OWASP Top 10 testing across web apps, APIs, mobile binaries, and cloud VPCs with CVSS 4.0 severity scoring and remediation code patches.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">⚡</div>
+          <h3>Automated DevSecOps Pipeline</h3>
+          <p>GitHub Actions & GitLab CI/CD pre-commit security gating that halts commits containing exposed API keys, SQLi, or vulnerable third-party dependencies.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">💻</div>
+          <h3>Secure Software Engineering</h3>
+          <p>Fullstack applications built with Next.js, Python FastAPI, PostgreSQL, and Docker following zero-bloat Ponytail engineering principles.</p>
+        </div>
+
+        <div class="service-card">
+          <div class="service-icon">☁️</div>
+          <h3>Cloud & Kubernetes Hardening</h3>
+          <p>IAM privilege escalation audit, container breakout defense, and automated compliance monitoring for AWS, Azure, and GCP architectures.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lead Capture & SOW Quote Form -->
+  <section id="quote" class="quote-section">
+    <div class="container">
+      <div class="quote-card">
+        <div class="quote-info">
+          <span class="section-tag">GET STARTED</span>
+          <h2>Request a Technical Proposal & SOW</h2>
+          <p>Tell us about your project requirements or security assessment needs. Our AI Solutions Architect will generate a tailored Scope of Work proposal within minutes.</p>
+          <ul class="quote-bullets">
+            <li>✓ Formal VAPT Rules of Engagement & NDA included</li>
+            <li>✓ Detailed Agile sprint milestone breakdown</li>
+            <li>✓ Guaranteed fixed-price and transparent commercial terms</li>
+          </ul>
+        </div>
+
+        <form id="quoteForm" class="quote-form">
+          <div class="form-group">
+            <label for="clientName">Full Name / Company Name</label>
+            <input type="text" id="clientName" placeholder="e.g. Amit Sharma (FinTech Labs)" required>
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">Work Email</label>
+            <input type="email" id="clientEmail" placeholder="e.g. amit@company.com" required>
+          </div>
+          <div class="form-group">
+            <label for="clientPhone">WhatsApp / Phone Number</label>
+            <input type="tel" id="clientPhone" placeholder="e.g. +91 98200 00000" required>
+          </div>
+          <div class="form-group">
+            <label for="projectType">Service Required</label>
+            <select id="projectType">
+              <option value="vapt">Full Application VAPT & Security Audit</option>
+              <option value="devsecops">GitHub DevSecOps CI/CD Automation</option>
+              <option value="fullstack">Custom Secure Software Development</option>
+              <option value="cloud">Cloud Security & Kubernetes Audit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="projectBrief">Project Requirements Brief</label>
+            <textarea id="projectBrief" rows="3" placeholder="Briefly describe your tech stack, targets, or timeline..." required></textarea>
+          </div>
+          <button type="submit" class="btn-primary btn-block">🚀 Submit & Generate SOW Proposal</button>
+          <div id="formFeedback" class="form-feedback"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <span class="logo-shield">🛡️</span>
+        <span>CodeRaksh Company · Protecting Digital Futures</span>
+      </div>
+      <p class="copyright">© 2026 CodeRaksh Company. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

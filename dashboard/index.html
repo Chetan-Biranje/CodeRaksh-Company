@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeRaksh Company — Autonomous AI Enterprise & Cyber Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo-shield">
+          <span class="shield-icon">🛡️</span>
+        </div>
+        <div>
+          <h2>CodeRaksh</h2>
+          <span class="badge-pro">ENTERPRISE OS</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-btn active" data-tab="overview">
+          <span class="icon">📊</span> Executive Overview
+        </button>
+        <button class="nav-btn" data-tab="agents">
+          <span class="icon">👥</span> 26 AI Team Members
+        </button>
+        <button class="nav-btn" data-tab="simulator">
+          <span class="icon">⚡</span> Webhook Simulator
+        </button>
+        <button class="nav-btn" data-tab="skills">
+          <span class="icon">🧰</span> 95+ Skills Catalog
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="health-chip">
+          <span class="status-dot pulsing"></span>
+          <div>
+            <div class="chip-label">SYSTEM HEALTH</div>
+            <div class="chip-val" id="sidebarHealth">88/100 · HEALTHY</div>
+          </div>
+        </div>
+        <p class="copyright">CodeRaksh Company © 2026</p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- Top Navigation Bar -->
+      <header class="topbar">
+        <div class="topbar-left">
+          <h1 id="pageTitle">Executive Overview</h1>
+          <p class="subtitle">Real-time status of CodeRaksh's 26 AI Employees and Autonomous Pipelines</p>
+        </div>
+        <div class="topbar-actions">
+          <div class="live-clock" id="liveClock">--:--:-- IST</div>
+          <button class="btn-primary" id="btnMorningBriefing">🌅 Trigger Morning Plan</button>
+          <button class="btn-secondary" id="btnNightAudit">🌙 Run Boardroom Audit</button>
+        </div>
+      </header>
+
+      <!-- TAB 1: OVERVIEW -->
+      <section id="tab-overview" class="tab-pane active">
+        <!-- Hero Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card glow-cyan">
+            <div class="metric-header">
+              <span class="metric-title">COMPANY HEALTH SCORE</span>
+              <span class="metric-icon">🏆</span>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-big" id="valHealthScore">88</span>
+              <span class="metric-unit">/ 100</span>
+            </div>
+            <div class="metric-progress">
+              <div class="progress-bar" style="width: 88%;"></div>
+            </div>
+            <span class="metric-footer text-emerald">🟢 All 26 AI Agents Active & Operational</span>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">SALES & PIPELINE</span>
+              <span class="metric-icon">🔥</span>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-big">₹12.4L</span>
+            </div>
+            <div class="metric-sub">
+              <span><b>2</b> Hot Deals Pending</span> · <span><b>14</b> New Prospects</span>
+            </div>
+            <span class="metric-footer text-cyan">Lead Qualifier + WA Replier Online</span>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">FINANCE & TREASURY</span>
+              <span class="metric-icon">💰</span>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-big">₹2.35L</span>
+              <span class="metric-unit">Overdue</span>
+            </div>
+            <div class="metric-sub">
+              <span><b>₹1.20L</b> Collected Today</span> · <span><b>₹37.3K</b> Bills</span>
+            </div>
+            <span class="metric-footer text-amber">Invoice Chaser tier 1 running</span>
+          </div>
+
+          <div class="metric-card glow-emerald">
+            <div class="metric-header">
+              <span class="metric-title">DEVSECOPS & DEFENSE</span>
+              <span class="metric-icon">🛡️</span>
+            </div>
+            <div class="metric-value-wrap">
+              <span class="metric-big">100%</span>
+              <span class="metric-unit">Clean</span>
+            </div>
+            <div class="metric-sub">
+              <span><b>4</b> PRs Audited Today</span> · <span><b>0</b> Leaks</span>
+            </div>
+            <span class="metric-footer text-emerald">GitHub Sentinel Active</span>
+          </div>
+        </div>
+
+        <!-- Live Radar & Activity Feed -->
+        <div class="split-view">
+          <div class="panel">
+            <div class="panel-header">
+              <h3>👑 Daily AI CEO Flight Plan (Today's Priorities)</h3>
+              <span class="tag-live">AI GENERATED</span>
+            </div>
+            <div class="ceo-flight-plan">
+              <div class="flight-item priority-high">
+                <span class="p-badge">PRIORITY 1</span>
+                <div>
+                  <strong>FinTech Solutions Security Retest & Contract Closure</strong>
+                  <p>Follow up with Amit Sharma (+919820123456) regarding the ₹1,50,000 VAPT audit invoice and deliver final certificate.</p>
+                </div>
+              </div>
+              <div class="flight-item priority-med">
+                <span class="p-badge">PRIORITY 2</span>
+                <div>
+                  <strong>Client Meeting at 3:30 PM (Neha Patil — EduTech Labs)</strong>
+                  <p>Consultation call scheduled on Google Meet for AWS DevOps & Kubernetes infrastructure automation.</p>
+                </div>
+              </div>
+              <div class="flight-item priority-normal">
+                <span class="p-badge">PRIORITY 3</span>
+                <div>
+                  <strong>Statutory Filing Watch: GSTR-3B Due in 3 Days</strong>
+                  <p>GST Register shows all purchases reconciled. Forward final register to CA Dinesh.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <h3>⚡ Live AI Department Activity Feed</h3>
+              <span class="refresh-indicator">Auto-sync</span>
+            </div>
+            <div class="activity-feed" id="activityFeed">
+              <div class="feed-item">
+                <span class="feed-icon">🛡️</span>
+                <div class="feed-body">
+                  <strong>Aakash (DevSecOps Sentinel)</strong>
+                  <p>Audited PR #42 in <code>Client-Auth-Service</code> — 0 leaks, approved.</p>
+                  <span class="feed-time">12 mins ago</span>
+                </div>
+              </div>
+              <div class="feed-item">
+                <span class="feed-icon">💼</span>
+                <div class="feed-body">
+                  <strong>Aditya (Lead Qualifier)</strong>
+                  <p>Qualified hot lead: Amit Sharma (FinTech Solutions, VAPT request).</p>
+                  <span class="feed-time">45 mins ago</span>
+                </div>
+              </div>
+              <div class="feed-item">
+                <span class="feed-icon">🎧</span>
+                <div class="feed-body">
+                  <strong>Ananya (AI Receptionist)</strong>
+                  <p>Confirmed calendar booking for 3:30 PM today with Neha Patil.</p>
+                  <span class="feed-time">1 hour ago</span>
+                </div>
+              </div>
+              <div class="feed-item">
+                <span class="feed-icon">💰</span>
+                <div class="feed-body">
+                  <strong>Dinesh (Invoice Chaser)</strong>
+                  <p>Dispatched friendly Day-2 payment reminder for invoice #CR-2026-088.</p>
+                  <span class="feed-time">2 hours ago</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: AGENTS DIRECTORY -->
+      <section id="tab-agents" class="tab-pane">
+        <div class="filter-bar">
+          <span class="filter-label">Filter Department:</span>
+          <button class="filter-btn active" data-filter="all">All (26)</button>
+          <button class="filter-btn" data-filter="sales">Sales (4)</button>
+          <button class="filter-btn" data-filter="support">Support (4)</button>
+          <button class="filter-btn" data-filter="marketing">Marketing (4)</button>
+          <button class="filter-btn" data-filter="finance">Finance (4)</button>
+          <button class="filter-btn" data-filter="ops">Ops (4)</button>
+          <button class="filter-btn" data-filter="tech">Cyber & DevSecOps (5)</button>
+          <button class="filter-btn" data-filter="exec">Executive (1)</button>
+        </div>
+
+        <div class="agents-grid" id="agentsContainer">
+          <!-- Populated by JavaScript with realistic human personas -->
+        </div>
+      </section>
+
+      <!-- TAB 3: WEBHOOK SIMULATOR -->
+      <section id="tab-simulator" class="tab-pane">
+        <div class="simulator-layout">
+          <div class="simulator-controls">
+            <h3>⚡ Real-Time Webhook Simulator</h3>
+            <p>Test live payloads directly without curl or Postman. See how CodeRaksh responds in real-time!</p>
+
+            <div class="form-group">
+              <label for="simSelect">Select Workflow to Simulate:</label>
+              <select id="simSelect" class="form-control">
+                <option value="ceo_command">21 · CEO Command (/webhook/ceo-command)</option>
+                <option value="pr_security">22 · GitHub DevSecOps Sentinel (/webhook/github-pr-webhook)</option>
+                <option value="vuln_ingest">23 · Autonomous Bug Hunter (/webhook/vulnerability-ingest)</option>
+                <option value="ci_doctor">24 · DevOps Pipeline Doctor (/webhook/ci-build-failure)</option>
+                <option value="freelance_sow">25 · Freelance Tech Lead SOW (/webhook/freelance-lead)</option>
+                <option value="sos_alert">Emergency Watchdog SOS (/webhook/emergency-escalation)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="simPayload">Request Payload (JSON):</label>
+              <textarea id="simPayload" class="form-control mono-font" rows="8"></textarea>
+            </div>
+
+            <button class="btn-primary" id="btnFireSimulator">🚀 Execute Simulated Event</button>
+          </div>
+
+          <div class="simulator-output">
+            <div class="output-header">
+              <h3>Live Agent Response Output</h3>
+              <span class="status-pill status-ready" id="simStatusPill">READY</span>
+            </div>
+            <pre class="output-box mono-font" id="simOutput">// Click "Execute Simulated Event" to trigger agent response...</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: SKILLS CATALOG -->
+      <section id="tab-skills" class="tab-pane">
+        <div class="skills-catalog-header">
+          <h2>CodeRaksh AI Skills Arsenal (95+ Skills)</h2>
+          <p>Curated and operational directly from your local machine. Triggerable via slash commands and autonomous agents.</p>
+        </div>
+        <div class="skills-grid" id="skillsGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

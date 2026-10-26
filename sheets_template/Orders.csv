@@ -1,0 +1,3 @@
+Order_ID,Client,Phone,Service,Amount,Order_Date,Expiry_Cycle_Days,Last_Contacted
+ORD-101,FinTech Solutions,+919820123456,Quarterly VAPT Audit,150000,2026-08-01,90,2026-10-25
+ORD-102,EduTech Labs,+919890987654,Monthly DevOps Retainer,75000,2026-09-28,30,2026-10-26

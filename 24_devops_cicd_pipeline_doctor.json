@@ -1,0 +1,154 @@
+{
+  "name": "24 · DevOps CI/CD Pipeline Doctor (CodeRaksh Company · DevOps & SRE)",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "# 🚑 24 · DevOps CI/CD Pipeline Doctor (CodeRaksh Company)\n**Automated Build Failure Diagnosis, Stack-Trace Root Cause Analysis & Auto-Fix Diff**\n\n### What it does:\n1. **CI Webhook Trigger (`/ci-build-failure`)**: Receives webhook when GitHub Actions, GitLab CI, Docker or Jenkins build fails.\n2. **Diagnostic Analysis (Claude 3.5 Sonnet)**:\n   - Ingests stderr, terminal failure snippet, exit code, and repository context.\n   - Diagnoses exact root cause: dependency lock conflict, missing environment variable, TypeScript error, memory limit, or Dockerfile syntax error.\n3. **Auto-Fix Diff**:\n   - Generates the exact command line or Git code diff to resolve the failure.\n4. **Automated Notification**:\n   - Sends instant WhatsApp & Slack alert with root cause summary and copy-paste fix.",
+        "height": 480,
+        "width": 640,
+        "color": 2
+      },
+      "id": "0a0e01ec-36d2-4244-b937-8cc1cbc65574",
+      "name": "Sticky Note - DevOps Doctor Blueprint",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -500,
+        -200
+      ]
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ci-build-failure",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "03997593-ae25-4d1c-9302-e1a15f1b3dae",
+      "name": "CI Failure Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        200,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse CI failure payload\nconst body = $json.body || {};\nconst repo = body.repository?.full_name || body.repo || 'CodeRaksh/Project';\nconst workflowName = body.workflow || body.job || 'Build & Test';\nconst commitSha = body.head_commit?.id || body.commit || 'head';\nconst author = body.sender?.login || body.author || 'dev-team';\nconst logSnippet = body.log || body.error_message || body.stack_trace || JSON.stringify(body);\n\nreturn [{\n  json: {\n    repo: repo,\n    workflow: workflowName,\n    commit: commitSha.substring(0, 7),\n    author: author,\n    error_log: logSnippet,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm:ss')\n  }\n}];"
+      },
+      "id": "31b9ad24-27a8-45d0-abe5-f2b1dd62b878",
+      "name": "Parse CI Log & Error Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "hasOutputParser": false,
+        "text": "=You are the Lead DevOps & Site Reliability Engineer (SRE) for CodeRaksh Company.\nA build or deployment pipeline has failed. Perform instant root-cause analysis and generate a reliable fix.\n\nRepository: {{ $json.repo }}\nWorkflow / Job: {{ $json.workflow }}\nCommit: {{ $json.commit }} by {{ $json.author }}\n\nFAILURE LOG / STACK TRACE:\n```\n{{ $json.error_log }}\n```\n\nPROVIDE:\n1. **Diagnosis (1-2 sentences):** What broke and why?\n2. **Root Cause Category:** (Dependency issue / Environment variable / Syntax error / Docker misconfig / Test regression)\n3. **Exact Code Diff / Fix:** Provide the exact changes needed to fix the build immediately.\n\nFORMAT:\n🚑 *CODERAKSH CI/CD PIPELINE DOCTOR*\n• *Repo:* {{ $json.repo }} [Commit {{ $json.commit }}]\n• *Status:* FAILED\n• *Root Cause:* [Explain plainly]\n\n🛠️ *RECOMMENDED FIX:*\n```diff\n// Show exact code or command changes\n```"
+      },
+      "id": "badc7cee-e021-4ab2-809e-9f4c07769329",
+      "name": "Claude DevOps Doctor",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        680,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "400464f6-283a-4999-a57a-ce94ed5ae56a",
+      "name": "Claude Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        680,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "message",
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "cfc62d81-3911-4cd0-b377-158790986ba1",
+      "name": "WhatsApp DevOps Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        940,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "CI Failure Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse CI Log & Error Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse CI Log & Error Context": {
+      "main": [
+        [
+          {
+            "node": "Claude DevOps Doctor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevOps Doctor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevOps Doctor": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp DevOps Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "5e7a3199-6f79-4da6-806e-032a84d25ea0"
+}
