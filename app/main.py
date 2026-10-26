@@ -17,7 +17,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parents[1]
-BLUEPRINTS = ROOT / "MAP2_20_agents"
+BLUEPRINTS = ROOT / "workflows"
 AUDIT_DB = Path(os.getenv("AUDIT_DB_PATH", "/tmp/coderaksh-audit.sqlite3"))
 ADMIN_API_KEY = os.getenv("ADMIN_API_KEY", "")
 RATE_LIMIT = max(10, int(os.getenv("RATE_LIMIT_PER_MINUTE", "120")))
@@ -98,7 +98,8 @@ def _contains_placeholder(value: Any) -> bool:
 
 def load_blueprints() -> list[dict[str, Any]]:
     result: list[dict[str, Any]] = []
-    for path in sorted(BLUEPRINTS.glob("*.json")):
+    files = sorted(BLUEPRINTS.rglob("*.json")) if BLUEPRINTS.exists() else []
+    for path in files:
         data = _read_blueprint(path)
         if data is None:
             continue
@@ -118,7 +119,7 @@ def load_blueprints() -> list[dict[str, Any]]:
 
 def validate_files() -> ValidationResult:
     issues: list[ValidationIssue] = []
-    files = sorted(BLUEPRINTS.glob("*.json"))
+    files = sorted(BLUEPRINTS.rglob("*.json")) if BLUEPRINTS.exists() else []
     if not files:
         return ValidationResult(valid=False, errors=["No blueprint files found"], score=0)
 

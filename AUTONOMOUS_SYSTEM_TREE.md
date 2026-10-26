@@ -1,87 +1,90 @@
-# 🌳 CODERAKSH COMPANY — AUTONOMOUS SYSTEM TREE & ARCHITECTURE
-> **संपूर्ण ऑटोनॉमस सिस्टीम, डिपार्टमेंट रचना, फाइल्स आणि लिंक्सचे सविस्तर झाड (Master Navigation Tree)**  
-> *Author: CodeRaksh Autonomous AI Architect | Version: 3.5.0 Enterprise*
+# 🌳 CodeRaksh Company — Autonomous System Architecture & Department Tree
+> **Unified Multi-Agent Hierarchical Chain of Command & Department Directory**  
+> *Author: CodeRaksh Autonomous AI Architect | Version: 3.5.0 Enterprise Edition*
 
 ---
 
-## 📌 १. संक्षिप्त ओळख (Executive Overview)
+## 📌 1. Executive Summary & Architecture Overview
 
-CodeRaksh Company हे **१००% ऑटोनॉमस मल्टि-एजंट एंटरप्राइज** आहे. यामध्ये फाऊंडरने (किंवा युझरने) एक साधी कमांड दिली तरी ती आपोआप **AI CEO** कडे जाते, AI CEO योग्य **डिपार्टमेंट मॅनेजर** निवडतो, मॅनेजर **स्पेशलिस्ट वर्कर्स** कडे काम सोपवतो, आणि हे वर्कर्स **n8n वर्कफ्लोज, CAMEL-AI एजंट्स, Google Sheets आणि Python CLIs** द्वारे काम पूर्ण करून एक्झिक्युटिव्ह रिपोर्ट सादर करतात.
-
-सर्व फाइल्स आता **७ मुख्य डिपार्टमेंट्स** मध्ये शिस्तबद्धपणे विभागल्या आहेत जेणेकरून कोणती फाईल कुठे आहे आणि कशी काम करते हे एका नजरेत समजेल.
+**CodeRaksh Company** is an autonomous multi-agent software engineering, DevSecOps, and cybersecurity enterprise. The platform operates on a strict **Hierarchical Chain of Command**:
+1. **Founder / User**: Issues high-level business goals or technical directives via chat, CLI, or web portals.
+2. **AI CEO (Level 0 Orchestrator)**: Intercepts directives, analyzes business context, computes operational risk, and delegates to the appropriate department.
+3. **Department Managers (Level 1 Leadership)**: 7 Vice Presidents / C-Suite agents supervise their respective domains, translate directives into actionable tasks, and assign specialized worker personas.
+4. **Specialist Workers (Level 2 Execution Engine)**: 100 dedicated worker agents execute tasks across 29 n8n workflows, CAMEL-AI multi-agent societies, automated Google Sheets, and custom Python/Node CLI engines.
+5. **Executive Synthesis**: Deliverables are validated, logged to audit ledgers, and summarized upward to the Founder in a concise executive briefing.
 
 ---
 
-## 🗺️ २. संपूर्ण ऑटोनॉमस सिस्टीम ट्री (Master Mermaid Diagram)
+## 🗺️ 2. Master System Architecture Tree (Mermaid Diagram)
 
 ```mermaid
 graph TD
     %% Executive Level
-    FOUNDER(["👤 फाऊंडर / युझर (User Command)"])
-    CEO["👑 AI CEO (Workflow 21 / coderaksh_hierarchy.py)"]
-    FOUNDER -->|"कमांड / सूचना"| CEO
+    FOUNDER(["👤 Founder / Executive User<br/>(Natural Language Directive)"])
+    CEO["👑 Level 0: AI CEO Command Center<br/>(Workflow 21 / coderaksh_hierarchy.py)"]
+    FOUNDER -->|"Directs / Prompts"| CEO
 
-    %% 7 Departments
-    CEO --> D1["💼 Dept 1: Sales & Revenue<br/>(VP of Sales)"]
-    CEO --> D2["🤝 Dept 2: Customer Support<br/>(VP of Client Success)"]
-    CEO --> D3["📈 Dept 3: Growth & Marketing<br/>(VP of Growth)"]
-    CEO --> D4["💰 Dept 4: Finance & Legal<br/>(CFO / VP Finance)"]
-    CEO --> D5["⚙️ Dept 5: Operations & HR<br/>(Chief Operating Officer)"]
-    CEO --> D6["🏛️ Dept 6: Executive Command<br/>(AI CEO / Chief of Staff)"]
-    CEO --> D7["🛡️ Dept 7: CyberSec & Tech<br/>(Chief Information Security Officer)"]
+    %% 7 Department Leadership
+    CEO --> D1["💼 Dept 1: Sales & Revenue<br/>(VP of Sales · Workers #1–#15)"]
+    CEO --> D2["🤝 Dept 2: Customer Support<br/>(VP of Client Success · Workers #16–#28)"]
+    CEO --> D3["📈 Dept 3: Growth & Marketing<br/>(VP of Growth · Workers #29–#42)"]
+    CEO --> D4["💰 Dept 4: Finance & Legal<br/>(Chief Financial Officer · Workers #43–#56)"]
+    CEO --> D5["⚙️ Dept 5: Operations & Talent<br/>(Chief Operating Officer · Workers #57–#70)"]
+    CEO --> D6["🏛️ Dept 6: Executive Command<br/>(AI CEO / Chief of Staff · Workers #71–#85)"]
+    CEO --> D7["🛡️ Dept 7: CyberSec & Tech Lead<br/>(CISO & CTO · Workers #86–#100)"]
 
     %% Dept 1 Workflows & Tools
     subgraph S1 ["💼 Sales & Revenue Engine"]
-        D1 --> W1["Workflows 01 to 04<br/>(workflows/dept_1_sales/)"]
-        W1 --> T1["Workers #1-#15<br/>(Lead Scraper, WA Responder, RFP Bidder)"]
+        D1 --> W1["workflows/dept_1_sales/<br/>(5 Workflows: Lead Scraper, WA, Qualifier, Re-order)"]
+        W1 --> T1["Workers #1–#15<br/>(Maps Scraper, WA Responder, RFP Bidder)"]
         T1 --> SH1["Google Sheets:<br/>01_Leads_Database.csv<br/>02_WhatsApp_Prospects.csv"]
     end
 
     %% Dept 2 Workflows & Tools
     subgraph S2 ["🤝 Client Support Engine"]
-        D2 --> W2["Workflows 05 to 08<br/>(workflows/dept_2_support/)"]
-        W2 --> T2["Workers #16-#28<br/>(Calendar Booking, FAQ Bot, Email Triage)"]
+        D2 --> W2["workflows/dept_2_support/<br/>(4 Workflows: Receptionist, Missed-Call, FAQ)"]
+        W2 --> T2["Workers #16–#28<br/>(Calendar Booking, Inbox Triage, FAQ Bot)"]
         T2 --> SH2["Google Sheets:<br/>03_Support_Tickets.csv<br/>04_FAQ_Knowledge_Base.csv"]
     end
 
     %% Dept 3 Workflows & Tools
     subgraph S3 ["📈 Marketing & Content Engine"]
-        D3 --> W3["Workflows 09 to 12<br/>(workflows/dept_3_marketing/)"]
-        W3 --> T3["Workers #29-#42<br/>(SEO Keyword Bot, Video-to-5-Posts, Review Replier)"]
+        D3 --> W3["workflows/dept_3_marketing/<br/>(4 Workflows: SEO Page Team, Video-to-Posts, Reviews)"]
+        W3 --> T3["Workers #29–#42<br/>(Keyword Researcher, Social Repurposer, Review Replier)"]
         T3 --> SH3["Google Sheets:<br/>05_Marketing_Content_Calendar.csv<br/>06_Customer_Reviews.csv"]
     end
 
     %% Dept 4 Workflows & Tools
     subgraph S4 ["💰 Finance, Invoicing & Legal Engine"]
-        D4 --> W4["Workflows 13 to 16<br/>(workflows/dept_4_finance/)"]
-        W4 --> T4["Workers #43-#56<br/>(Bill OCR, WhatsApp Invoice Chaser, GST Register)"]
-        T4 --> LEG["Legal Contracts:<br/>01_MASTER_SERVICES_AGREEMENT.md<br/>02_STATEMENT_OF_WORK_TEMPLATE.md"]
+        D4 --> W4["workflows/dept_4_finance/<br/>(4 Workflows: Bill OCR, Invoice Chaser, GST Register)"]
+        W4 --> T4["Workers #43–#56<br/>(Invoice OCR, Delinquency Chaser, Reconciliation)"]
+        T4 --> LEG["legal_contracts/<br/>01_MASTER_SERVICES_AGREEMENT.md<br/>02_STATEMENT_OF_WORK_TEMPLATE.md"]
         T4 --> SH4["Google Sheets:<br/>07_Invoices_And_GST_Register.csv"]
     end
 
     %% Dept 5 Workflows & Tools
     subgraph S5 ["⚙️ Operations & Talent Engine"]
-        D5 --> W5["Workflows 17 to 20<br/>(workflows/dept_5_operations/)"]
-        W5 --> T5["Workers #57-#70<br/>(Resume Screener, No-Show Stopper, Doc Chaser)"]
+        D5 --> W5["workflows/dept_5_operations/<br/>(4 Workflows: Resume Screener, No-Show, Doc Chaser)"]
+        W5 --> T5["Workers #57–#70<br/>(Resume Screener, Attendance Bot, Statutory Deadlines)"]
         T5 --> SH5["Google Sheets:<br/>08_HR_Recruitment_Pipeline.csv<br/>09_Operations_Deadlines.csv"]
     end
 
     %% Dept 6 Workflows & Tools
     subgraph S6 ["🏛️ Executive Command Center"]
-        D6 --> W6["Workflow 21<br/>(workflows/dept_6_executive/)"]
-        W6 --> T6["Workers #71-#85<br/>(KPI Aggregator, Board Memo Generator, Daily Briefing)"]
+        D6 --> W6["workflows/dept_6_executive/<br/>(Workflow 21: Daily Briefing, KPI Dashboard)"]
+        W6 --> T6["Workers #71–#85<br/>(KPI Aggregator, Board Memos, SOS Radar)"]
         T6 --> SH6["Google Sheets:<br/>10_Executive_KPI_Dashboard.csv"]
     end
 
     %% Dept 7 Workflows & Tools
     subgraph S7 ["🛡️ Cyber Security & Engineering"]
-        D7 --> W7["Workflows 22 to 26<br/>(workflows/dept_7_cybersecurity_and_tech/)"]
-        W7 --> T7["Workers #86-#100<br/>(PR Sentinel, Bug Hunter, CI/CD Doctor, Trading Bot)"]
-        T7 --> SEC["Security & VAPT Tools:<br/>Cloudflare Security Audit Skill<br/>coderaksh.py scan / pr-check"]
+        D7 --> W7["workflows/dept_7_cybersecurity_and_tech/<br/>(5 Workflows: PR Sentinel, Bug Hunter, CI/CD, SOW, Trading)"]
+        W7 --> T7["Workers #86–#100<br/>(SAST Sentinel, CVSS Patcher, Pipeline Doctor, SOW Architect)"]
+        T7 --> SEC["Security & VAPT Suite:<br/>Cloudflare Security Audit Skill<br/>coderaksh.py scan / pr-check"]
     end
 
-    %% Autonomous CLI & Portal Layer
-    subgraph PLATFORM ["🌐 Unified Platform & Orchestration Layer"]
+    %% Platform Orchestration
+    subgraph PLATFORM ["🌐 Platform & Orchestration Layer"]
         CLI["💻 coderaksh.py & coderaksh_hierarchy.py"]
         CAMEL["🐫 CAMEL-AI Multi-Agent Workforce (camel_workforce.py)"]
         WEB["🖥️ Web Portals: index.html · /dashboard · /portal"]
@@ -94,176 +97,304 @@ graph TD
 
 ---
 
-## 📂 ३. फोल्डर्स आणि फाइल्सची रचना (Clean Directory Layout)
+## 📂 3. Repository File & Folder Hierarchy
 
-सर्व फाइल्स आता स्पष्ट, वाचनीय आणि डिपार्टमेंटनुसार मांडल्या आहेत:
+Every component in the repository is organized cleanly by department and function:
 
 ```text
 CodeRaksh-Company/
-├── 📁 workflows/                           # सर्व २९ n8n ऑटोमेशन वर्कफ्लोज (डिपार्टमेंटनुसार)
-│   ├── 📁 00_master/                       # Master ऑल-इन-वन कॅनव्हास वर्कफ्लोज
+├── 📁 workflows/                           # All 29 n8n autonomous workflow blueprints
+│   ├── 📁 00_master/                       # Unified cross-department canvases
 │   │   ├── 00_BONUS_first_12_connected_one_canvas.json
 │   │   └── 00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json
-│   ├── 📁 dept_1_sales/                   # डिपार्टमेंट १: विक्री आणि लीड्स (Workflows 01-04)
+│   ├── 📁 dept_1_sales/                   # Sales & Revenue (Workflows 01–04)
 │   │   ├── 01_sales_lead_finder.json
 │   │   ├── 01_sales_lead_finder_CODERAKSH.json
 │   │   ├── 02_sales_whatsapp_replier.json
 │   │   ├── 03_sales_lead_qualifier.json
 │   │   └── 04_sales_repeat_order_reminder.json
-│   ├── 📁 dept_2_support/                 # डिपार्टमेंट २: कस्टमर सपोर्ट आणि कॉल्स (Workflows 05-08)
+│   ├── 📁 dept_2_support/                 # Customer Support & Retention (Workflows 05–08)
 │   │   ├── 05_support_ai_receptionist.json
 │   │   ├── 06_support_missed_call_rescuer.json
 │   │   ├── 07_support_inbox_sorter.json
 │   │   └── 08_support_faq_bot.json
-│   ├── 📁 dept_3_marketing/               # डिपार्टमेंट ३: मार्केटिंग आणि सोशल मीडिया (Workflows 09-12)
+│   ├── 📁 dept_3_marketing/               # Organic Growth & Marketing (Workflows 09–12)
 │   │   ├── 09_marketing_seo_page_team.json
 │   │   ├── 10_marketing_1_video_to_5_posts.json
 │   │   ├── 11_marketing_review_replier.json
 │   │   └── 12_marketing_review_asker.json
-│   ├── 📁 dept_4_finance/                 # डिपार्टमेंट ४: फायनान्स, बिले आणि जीएसटी (Workflows 13-16)
+│   ├── 📁 dept_4_finance/                 # Finance, Tax & Invoicing (Workflows 13–16)
 │   │   ├── 13_finance_bill_reader.json
 │   │   ├── 14_finance_invoice_chaser.json
 │   │   ├── 15_finance_bank_statement_reader.json
 │   │   └── 16_finance_invoice_to_gst_register.json
-│   ├── 📁 dept_5_operations/              # डिपार्टमेंट ५: ऑपरेशन्स, एचआर आणि डेडलाइन (Workflows 17-20)
+│   ├── 📁 dept_5_operations/              # Operations & Talent (Workflows 17–20)
 │   │   ├── 17_ops_resume_screener.json
 │   │   ├── 18_ops_no_show_stopper.json
 │   │   ├── 19_ops_deadline_alert.json
 │   │   └── 20_ops_document_chaser.json
-│   ├── 📁 dept_6_executive/               # डिपार्टमेंट ६: AI CEO कमांड सेंटर (Workflow 21)
+│   ├── 📁 dept_6_executive/               # AI CEO Command Center (Workflow 21)
 │   │   └── 21_executive_ai_ceo_command_center.json
-│   └── 📁 dept_7_cybersecurity_and_tech/  # डिपार्टमेंट ७: सायबर सिक्युरिटी व देवसेकऑप्स (Workflows 22-26)
+│   └── 📁 dept_7_cybersecurity_and_tech/  # CyberSec, DevSecOps & Tech (Workflows 22–26)
 │       ├── 22_devsecops_github_pr_sentinel.json
 │       ├── 23_cyber_autonomous_bug_hunter.json
 │       ├── 24_devops_cicd_pipeline_doctor.json
 │       ├── 25_freelance_tech_lead_sow_generator.json
 │       └── 26_trading_financial_intelligence_bot.json
 │
-├── 📁 .agents/skills/                      # Claude आणि AI साठी ५ स्पेशलाइज्ड स्किल्स
-│   ├── 📁 coderaksh/                       # ऑल-इन-वन सायबर सिक्युरिटी आणि देवसेकऑप्स स्किल
-│   ├── 📁 coderaksh-hierarchy/             # १००-एजंट चेन ऑफ कमांड आर्किटेक्चर
-│   ├── 📁 camel-ai/                        # CAMEL कम्युनिकेटिव्ह मल्टी-एजंट वर्कफोर्स
-│   ├── 📁 ui-ux-pro-max/                   # अल्ट्रा-प्रीमियम डिझाइन सिस्टीम (79 स्टाइल्स)
-│   └── 📁 security-audit/                  # क्लाउडफ्लेअर एंटरप्राइज VAPT व कोड ऑडिट
+├── 📁 .agents/skills/                      # 5 Specialized Claude / AI Agent Skills
+│   ├── 📁 coderaksh/                       # Autonomous Tech Lead & Cyber Security Skill
+│   ├── 📁 coderaksh-hierarchy/             # 100-Agent Multi-Tier Chain of Command Skill
+│   ├── 📁 camel-ai/                        # Communicative Role-Playing Multi-Agent Societies
+│   ├── 📁 ui-ux-pro-max/                   # Design Intelligence (79 styles, palettes, UX rules)
+│   └── 📁 security-audit/                  # Cloudflare Enterprise SAST / VAPT Code Audit
 │
-├── 📁 legal_contracts/                     # रेडी-टू-साइन लीगल आणि क्लायंट कॉन्ट्रॅक्ट्स
-│   ├── 01_MASTER_SERVICES_AGREEMENT.md    # मास्टर सर्व्हिसेस अग्रीमेंट (MSA)
-│   ├── 02_STATEMENT_OF_WORK_TEMPLATE.md   # स्कोप ऑफ वर्क (SOW) टेम्प्लेट
-│   ├── 03_IP_ASSIGNMENT_CONFIDENTIALITY.md # आयपी आणि एनडीए अग्रीमेंट
-│   └── 04_SLA_SECURITY_RETAINER.md        # सेक्युरिटी एसएलए आणि 24/7 रिटेनर
+├── 📁 legal_contracts/                     # Production Ready-to-Sign Client Agreements
+│   ├── 01_MASTER_SERVICES_AGREEMENT.md    # Master Services Agreement (MSA)
+│   ├── 02_STATEMENT_OF_WORK_TEMPLATE.md   # Fixed-Price Scope of Work (SOW) Template
+│   ├── 03_IP_ASSIGNMENT_CONFIDENTIALITY.md # IP Assignment & Mutual NDA
+│   └── 04_SLA_SECURITY_RETAINER.md        # 24/7 Security Retainer & SLA Terms
 │
-├── 📁 sheets_template/                     # Google Sheets ऑटोमेशन स्कीमा फाइल्स (.csv)
-│   ├── 01_Leads_Database.csv              # विक्री लीड्स आणि कॉन्टॅक्ट्स
-│   ├── 02_WhatsApp_Prospects.csv          # व्हॉट्सअॅप चॅट्स आणि फॉलो-अप्स
-│   ├── 03_Support_Tickets.csv             # सपोर्ट तिकिटे आणि तक्रारी
-│   ├── 04_FAQ_Knowledge_Base.csv          # स्वयंचलित उत्तरे आणि ज्ञानाचा साठा
-│   ├── 05_Marketing_Content_Calendar.csv  # सोशल मीडिया पोस्ट्स आणि कॅलेंडर
-│   ├── 06_Customer_Reviews.csv            # Google Reviews आणि प्रतिसादांची नोंद
-│   ├── 07_Invoices_And_GST_Register.csv   # जीएसटी, बिले आणि पेमेंट ट्रॅकर
-│   ├── 08_HR_Recruitment_Pipeline.csv     # नोकरी अर्ज आणि मुलाखत ट्रॅकर
-│   ├── 09_Operations_Deadlines.csv        # प्रोजेक्ट टास्क आणि डेडलाइन ट्रॅकर
-│   └── 10_Executive_KPI_Dashboard.csv     # एक्झिक्युटिव्ह महसूल आणि नफा डॅशबोर्ड
+├── 📁 sheets_template/                     # Google Sheets Schema Files (.csv)
+│   ├── 01_Leads_Database.csv              # Inbound/outbound sales prospects
+│   ├── 02_WhatsApp_Prospects.csv          # WhatsApp chat state & qualification tags
+│   ├── 03_Support_Tickets.csv             # Customer issue tickets & escalations
+│   ├── 04_FAQ_Knowledge_Base.csv          # Self-service QA repository
+│   ├── 05_Marketing_Content_Calendar.csv  # Multi-platform scheduled posts
+│   ├── 06_Customer_Reviews.csv            # Public Google Maps reviews & sentiment
+│   ├── 07_Invoices_And_GST_Register.csv   # GST tax breakdown, invoices & payments
+│   ├── 08_HR_Recruitment_Pipeline.csv     # Candidate screening & interview scores
+│   ├── 09_Operations_Deadlines.csv        # Statutory compliance & sprint deadlines
+│   └── 10_Executive_KPI_Dashboard.csv     # Executive revenue & operational metrics
 │
-├── 📁 app/ & 📁 dashboard/ & 📁 portal/   # वेब पोर्टल आणि REST API हब
-│   ├── app/main.py                        # FastAPI 2.0 हाय-परफॉर्मन्स API हब
-│   ├── app/dashboard/                     # API ऑटोमेशन डॅशबोर्ड (HTML/CSS)
-│   ├── dashboard/index.html               # कंपनी मॅट्रिक्स व हेल्थ डॅशबोर्ड
-│   └── portal/index.html                  # क्लायंट आणि कर्मचारी ऑपरेशन्स पोर्टल
+├── 📁 app/ & 📁 dashboard/ & 📁 portal/   # Enterprise Web Applications
+│   ├── app/main.py                        # FastAPI 2.0 Automation Hub & REST API
+│   ├── app/dashboard/                     # FastAPI Static Dashboard UI
+│   ├── dashboard/index.html               # Real-time Executive Health & Webhook Simulator
+│   └── portal/index.html                  # Public Client Agency Portal & Security Teaser
 │
-├── 📁 tests/                               # ऑटोमेटेड टेस्ट सूट (100% पास)
-│   ├── test_api.py                        # FastAPI एंडपॉईंट टेस्ट्स
-│   └── conftest.py                        # Pytest टेस्ट सेटअप
+├── 📁 tests/                               # Comprehensive Automated Test Suite
+│   ├── test_api.py                        # FastAPI endpoint verification tests
+│   └── conftest.py                        # Pytest fixtures and environment setup
 │
-├── 📜 मुख्य एक्झिक्युटेबल टूल्स (Root CLI & Runners):
-│   ├── coderaksh_hierarchy.py             # १००-एजंट चेन ऑफ कमांड राऊटर (Founder -> CEO -> Manager -> Worker)
-│   ├── coderaksh.py                       # कंपनी CLI (Health, Scan, PR-Check, SOW)
-│   ├── camel_workforce.py                 # CAMEL-AI मल्टी-एजंट वर्कफोर्स रनर
-│   ├── setup.py                           # ऑटोमेटेड क्रेडेंशियल्स आणि n8n इन्जेक्टर
-│   ├── lead-finder.js                     # Google Maps B2B लीड स्क्रॅपर स्क्रिप्ट
-│   ├── run_leads.bat                      # १-क्लिक विंडोज बॅच रनर
-│   └── index.html                         # मुख्य ऑल-इन-वन युनिफाइड एंटरप्राइज पोर्टल
+├── 📜 Core Automation CLIs & Scripts:
+│   ├── coderaksh_hierarchy.py             # 100-Agent Chain of Command Engine
+│   ├── coderaksh.py                       # Unified Enterprise CLI (Health, Scan, PR, SOW, Tree)
+│   ├── camel_workforce.py                 # CAMEL-AI Multi-Agent Workforce Runner
+│   ├── setup.py                           # Automated Credential Injector for Workflows
+│   ├── lead-finder.js                     # Google Maps B2B Lead Scraper
+│   └── index.html                         # Unified Enterprise Launchpad Gateway
 │
-└── 📄 दस्तऐवजीकरण (Documentation):
-    ├── README.md                          # संपूर्ण प्रोजेक्ट गाईड आणि क्विक स्टार्ट
-    ├── TRACKER.md                         # २६ एजंट्स आणि १०० वर्कर्सचा लाईव्ह ट्रॅकर
-    ├── AUTONOMOUS_SYSTEM_TREE.md          # हे सिस्टीम ट्री आणि आर्किटेक्चर मॅप
-    ├── CODERAKSH_TECH_AND_SKILLS_MANIFEST.md # टेक्निकल मॅन्युफॅक्चरिंग व स्किल्स मॅन्युअल
-    ├── ARCHITECTURE.md                    # सिस्टीम डिझाइन आणि देवसेकऑप्स आर्किटेक्चर
-    └── PRD.md                             # उत्पादन आवश्यकता दस्तऐवज (PRD)
+└── 📄 Architecture & Standard Documentation:
+    ├── README.md                          # Primary Repository Overview & Quick Start
+    ├── TRACKER.md                         # Deliverables Matrix & Completion Ledger
+    ├── AUTONOMOUS_SYSTEM_TREE.md          # Master System & Department Navigation Tree
+    ├── CODERAKSH_TECH_AND_SKILLS_MANIFEST.md # Comprehensive Engineering Manifest
+    ├── ARCHITECTURE.md                    # System Topology & Security Guardrails
+    ├── DESIGN.md                          # UI/UX Cyberpunk OLED Design System
+    └── PRD.md                             # Product Requirements Document
 ```
 
 ---
 
-## 🔗 ४. डिपार्टमेंटनुसार संपूर्ण लिंक्स आणि मॅपिंग (Interconnection Matrix)
+## 📋 4. Complete Directory of 100 Specialist Workers
 
-| क्र. | डिपार्टमेंट (Dept Name) | मुख्य मॅनेजर (Manager) | वर्कफ्लो फोल्डर (Workflows Path) | संबंधित Google Sheet | मुख्य वर्कर्स आणि जबाबदारी |
-|---|---|---|---|---|---|
-| **१** | **Sales & Revenue** | VP of Sales & Revenue | [`workflows/dept_1_sales/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_1_sales/) | `01_Leads_Database.csv` | **Workers #1-#15:** Google Maps B2B स्क्रॅपर, व्हॉट्सअॅप इन्स्टंट रिस्पॉन्डर, लीड क्वालिफायर, कोल्ड ईमेल हुक रायटर. |
-| **२** | **Customer Support** | VP of Client Success | [`workflows/dept_2_support/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_2_support/) | `03_Support_Tickets.csv` | **Workers #16-#28:** कॅलेंडर अपॉइंटमेंट बुकिंग, मिस्ड कॉल रेस्क्युअर, इनबॉक्स सॉर्टर, २४/७ स्वयंचलित FAQ बॉट. |
-| **३** | **Growth & Marketing** | VP of Growth & Marketing | [`workflows/dept_3_marketing/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_3_marketing/) | `05_Marketing_Content_Calendar.csv` | **Workers #29-#42:** SEO कीवर्ड रिसर्चर, १ व्हिडिओचे ५ सोशल पोस्ट्स बनवणे, Google Reviews रिप्लायर. |
-| **४** | **Finance & Legal** | Chief Financial Officer | [`workflows/dept_4_finance/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_4_finance/) | `07_Invoices_And_GST_Register.csv` | **Workers #43-#56:** व्हेंडर बिल OCR रीडर, व्हॉट्सअॅप इनव्हॉइस चेझर, बँक स्टेटमेंट पार्सर, जीएसटी रजिस्टर. |
-| **५** | **Operations & HR** | Chief Operating Officer | [`workflows/dept_5_operations/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_5_operations/) | `08_HR_Recruitment_Pipeline.csv` | **Workers #57-#70:** रेझ्युमे AI स्क्रिनर, नो-शो स्टॉपर, प्रोजेक्ट डेडलाइन अलर्ट, डॉक्युमेंट चेझर. |
-| **६** | **Executive Command** | AI Chief Executive Officer | [`workflows/dept_6_executive/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_6_executive/) | `10_Executive_KPI_Dashboard.csv` | **Workers #71-#85:** कंपनी KPI अ‍ॅग्रीगेटर, बोर्ड मेमो रायटर, डेली मॉर्निंग ब्रीफिंग जनरेटर. |
-| **७** | **CyberSec & Tech** | Chief Information Security Officer | [`workflows/dept_7_cybersecurity_and_tech/`](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_7_cybersecurity_and_tech/) | `04_SLA_SECURITY_RETAINER.md` | **Workers #86-#100:** GitHub PR सेंटिनेल, ऑटोनॉमस बग हंटर, CI/CD पाईपलाईन डॉक्टर, ट्रेडिंग इंटेलिजन्स. |
+### 💼 Department 1: Sales, Inbound Pipeline & Revenue (Manager: VP of Sales)
+*Workflows Folder: `workflows/dept_1_sales/` | Google Sheets: `01_Leads_Database.csv`, `02_WhatsApp_Prospects.csv`*
+
+1. **Worker 01 — Google Maps Local B2B Scraper:** Extracts local business contacts, phone numbers, and ratings by city and niche.
+2. **Worker 02 — Sub-Second WhatsApp First Responder:** Greets new WhatsApp inquiries in under 2 seconds with a warm qualifying query.
+3. **Worker 03 — Inbound Webhook Lead Classifier:** Analyzes form submissions and assigns `Hot`, `Warm`, or `Cold` priority tags.
+4. **Worker 04 — Client Consumption Re-Order Bot:** Calculates purchase cycles and dispatches replenishment reminders before inventory depletes.
+5. **Worker 05 — LinkedIn Decision-Maker Profiler:** Identifies CTOs, CISOs, and Founders from target company domains.
+6. **Worker 06 — Cold Email Personalization Hook Writer:** Inspects target company websites and writes contextual first lines.
+7. **Worker 07 — Inbound RFP / Brief Triage Specialist:** Parses RFP documents and extracts project scope, timeline, and budget.
+8. **Worker 08 — High-Ticket Objection Handling Bot:** Provides consultative counters for price, timing, and security compliance doubts.
+9. **Worker 09 — CRM Data Enrichment Agent:** Populates missing company size, tech stack, and LinkedIn URLs into the CRM.
+10. **Worker 10 — WhatsApp Cart Abandonment Rescuer:** Re-engages prospective clients who started a proposal request but dropped off.
+11. **Worker 11 — Referral & Partnership Outreach Bot:** Solicits co-marketing and reciprocal agency referral introductions.
+12. **Worker 12 — Competitive Win-Back Specialist:** Identifies businesses using legacy software and pitches modern alternatives.
+13. **Worker 13 — Upwork / Freelance RFP Bid Drafter:** Generates high-conversion competitive proposals with realistic sprint milestones.
+14. **Worker 14 — Cold Calling Script Generator:** Produces objection-proof phone conversation guides for business development reps.
+15. **Worker 15 — Deal Pipeline Velocity Tracker:** Identifies stalled opportunities in the sales funnel and recommends next best actions.
+
+### 🤝 Department 2: Customer Support & Retention (Manager: VP of Client Success)
+*Workflows Folder: `workflows/dept_2_support/` | Google Sheets: `03_Support_Tickets.csv`, `04_FAQ_Knowledge_Base.csv`*
+
+16. **Worker 16 — WhatsApp Calendar Booking Agent:** Coordinates appointments directly on the Founder's Google Calendar.
+17. **Worker 17 — Missed-Call Instant SMS/WhatsApp Rescuer:** Catches missed telephony calls and fires an instant empathetic text-back.
+18. **Worker 18 — Intelligent Gmail Triage & Draft Assistant:** Categorizes emails and drafts contextual replies for human review.
+19. **Worker 19 — 24/7 Autonomous FAQ Knowledge Base Bot:** Answers technical, billing, and SLA questions autonomously.
+20. **Worker 20 — Urgent Human Escalation Dispatcher:** Triggers emergency WhatsApp notifications when sentiment drops critical.
+21. **Worker 21 — Client Onboarding Welcome Host:** Sends onboarding assets, collects project credentials, and initiates kickoff tasks.
+22. **Worker 22 — Zendesk / Freshdesk Ticket Auto-Categorizer:** Tags incoming tickets by severity, impacted module, and required skillset.
+23. **Worker 23 — Bug Report Reproduction Specialist:** Prompts reporting clients for browser version, OS, reproduction steps, and screenshots.
+24. **Worker 24 — SLA Breach Warning Sentinel:** Monitors open tickets and alerts engineers 30 minutes before contractual SLA breaches.
+25. **Worker 25 — Customer CSAT Survey Dispatcher:** Solicits post-resolution satisfaction feedback and logs ratings.
+26. **Worker 26 — Multi-Language Support Translator:** Real-time translation between English, Marathi, Hindi, and regional languages.
+27. **Worker 27 — Client Offboarding & Data Archive Agent:** Generates exit data packages and revokes operational credentials.
+28. **Worker 28 — VIP Account Concierge Bot:** Provides priority sub-second responses for high-ticket annual retainer clients.
+
+### 📈 Department 3: Organic Growth, Marketing & Content (Manager: VP of Growth)
+*Workflows Folder: `workflows/dept_3_marketing/` | Google Sheets: `05_Marketing_Content_Calendar.csv`, `06_Customer_Reviews.csv`*
+
+29. **Worker 29 — Competitor Content & Keyword Gap Researcher:** Identifies high-intent search keywords with low competition.
+30. **Worker 30 — Deep Technical Blog Post Writer:** Drafts authoritative 2,000-word engineering essays with code samples.
+31. **Worker 31 — Programmatic WordPress Staging Publisher:** Formats markdown drafts, sets meta tags, and pushes drafts to WordPress.
+32. **Worker 32 — Omnichannel 1-Video to 5-Posts Repurposer:** Converts video transcripts into LinkedIn posts, X threads, and newsletters.
+33. **Worker 33 — YouTube Shorts / Reels Hook Scriptwriter:** Formulates 3-second attention hooks and retention-optimized scripts.
+34. **Worker 34 — LinkedIn Thought Leadership Ghostwriter:** Crafts founder-voice executive updates on cloud security and AI.
+35. **Worker 35 — X (Twitter) Technical Breakdown Threader:** Deconstructs real-world CVEs and zero-day disclosures into viral threads.
+36. **Worker 36 — Weekly Engineering Newsletter Curator:** Aggregates top GitHub repos, security advisories, and architecture tips.
+37. **Worker 37 — Google Maps 5★ Appreciative Review Replier:** Posts personalized, SEO-keyword enriched thank-you notes for positive reviews.
+38. **Worker 38 — Dissatisfied Customer Review Firefighter:** Catches negative reviews instantly and routes private founder resolution links.
+39. **Worker 39 — Verified Buyer Review Booster:** Dispatches post-delivery WhatsApp prompts asking happy clients for public reviews.
+40. **Worker 40 — Case Study & Client Proof Storyteller:** Interviews engineering logs and compiles metrics-driven success stories.
+41. **Worker 41 — Social Proof & Testimonial Graphic Designer:** Generates clean quote cards and branded review visuals for socials.
+42. **Worker 42 — Hacker News & Reddit Discussion Monitor:** Alerts founders when target keywords or brand mentions appear in forums.
+
+### 💰 Department 4: Finance, Tax, Invoicing & Legal (Manager: Chief Financial Officer)
+*Workflows Folder: `workflows/dept_4_finance/` | Google Sheets: `07_Invoices_And_GST_Register.csv` | Contracts: `legal_contracts/`*
+
+43. **Worker 43 — Inbound Vendor Bill OCR Reader:** Extracts line items, vendor details, and amounts from PDF receipts and bills.
+44. **Worker 44 — Overdue Accounts Receivable Chaser:** Sends polite but firm WhatsApp/email escalation notices for unpaid balances.
+45. **Worker 45 — Nocturnal Receivables Escalation Controller:** Calculates aging brackets (3, 7, 14, 30+ days) and applies late fees.
+46. **Worker 46 — PDF Bank Statement Parser & Categorizer:** Converts PDF bank statements into clean debit/credit ledger rows.
+47. **Worker 47 — Multi-Account Ledger Reconciliation AI:** Matches invoices against bank credit line items to flag discrepancies.
+48. **Worker 48 — Indian GSTIN Verification & Validation Bot:** Queries GST portal API to confirm valid vendor registration numbers.
+49. **Worker 49 — GST Input Tax Credit (ITC) Register Compiler:** Separates CGST, SGST, and IGST for monthly GSTR-3B filings.
+50. **Worker 50 — Client Milestone Payment Link Generator:** Generates Razorpay / Stripe payment links upon sprint completion.
+51. **Worker 51 — Currency Exchange & Multi-Currency Converter:** Handles USD, EUR, and GBP wire transfers with real-time forex rates.
+52. **Worker 52 — SaaS Subscription Burn & Waste Auditor:** Detects unused developer seats and idle cloud resources.
+53. **Worker 53 — Developer Payroll & Hourly Contractor Calculator:** Audits GitHub commits and billable hours to compute payouts.
+54. **Worker 54 — Corporate Tax Deduction (TDS) Certificate Tracker:** Generates Form 16A quarterly TDS withholding summaries.
+55. **Worker 55 — Fixed-Price Commercial SOW Formulator:** Drafts binding Scope of Work proposals from technical specs.
+56. **Worker 56 — Master Services Agreement (MSA) Compliance Auditor:** Audits client master contracts for indemnification and liability caps.
+
+### ⚙️ Department 5: Operations, HR & Talent (Manager: Chief Operating Officer)
+*Workflows Folder: `workflows/dept_5_operations/` | Google Sheets: `08_HR_Recruitment_Pipeline.csv`, `09_Operations_Deadlines.csv`*
+
+57. **Worker 57 — Engineering Resume PDF Parser:** Extracts skills, years of experience, and project links from candidate CVs.
+58. **Worker 58 — Role Rubric Match Scorer (0–10 Rating):** Evaluates candidate resumes against standardized job descriptions.
+59. **Worker 59 — Technical Screening Interview Question Generator:** Generates role-specific LeetCode and system design questions.
+60. **Worker 60 — Candidate Interview Scheduling Bot:** Handles calendar availability coordination with candidates.
+61. **Worker 61 — No-Show Stopper Attendance Optimizer:** Requests 24-hour advance confirmation; reallocates vacant slots.
+62. **Worker 62 — Statutory Filing & ROC Deadline Sentinel:** Alerts leadership 15, 7, and 1 day before tax and corporate filings.
+63. **Worker 63 — Client KYC & Credential Onboarding Chaser:** Follows up with clients for missing API tokens, staging URLs, and logins.
+64. **Worker 64 — Internal Engineering Wiki & Documentation Keeper:** Synchronizes architectural changes into Markdown documentation.
+65. **Worker 65 — Employee Equipment & Cloud Seat Provisioner:** Automatically issues GitHub team invites and AWS IAM sandbox roles.
+66. **Worker 66 — Contractor NDA & IP Assignment Verifier:** Ensures all external contributors have executed binding IP agreements.
+67. **Worker 67 — Project Resource & Workload Balancer:** Prevents developer burnout by analyzing active PR assignments.
+68. **Worker 68 — Hardware & Asset Tracking Agent:** Records laptops, test devices, and licenses assigned to personnel.
+69. **Worker 69 — Offboarding & Access Revocation Checklist Bot:** Revokes GitHub, cloud, and email access immediately upon exit.
+70. **Worker 70 — Company Culture & Morale Pulse Checker:** Gathers anonymous team feedback on sprint velocity and tooling.
+
+### 🏛️ Department 6: Executive Command Center & Boardroom (Manager: AI Chief Executive Officer)
+*Workflows Folder: `workflows/dept_6_executive/` | Google Sheets: `10_Executive_KPI_Dashboard.csv`*
+
+71. **Worker 71 — Daily 9:00 AM Flight Plan Compiler:** Aggregates hot leads, daily meetings, and receivables into Top-3 priorities.
+72. **Worker 72 — Nocturnal 9:00 PM Boardroom Auditor:** Audits all operational sheets, recalculates Company Health Score, and sends memo.
+73. **Worker 73 — Executive KPI & Revenue Aggregator:** Synthesizes monthly recurring revenue, gross margins, and runway metrics.
+74. **Worker 74 — Natural Language Business Intelligence Querier:** Answers ad-hoc Founder queries on cashflow, pipeline, and team velocity.
+75. **Worker 75 — Emergency Operational SOS Watchdog:** Dispatches instant high-priority alerts if critical anomalies are detected.
+76. **Worker 76 — Investor Update & Board Memo Formulator:** Generates professional monthly updates for shareholders and advisors.
+77. **Worker 77 — Competitive Intelligence & Market Radar:** Monitors rival agency launches, funding announcements, and pricing shifts.
+78. **Worker 78 — Annual Strategic Goal & OKR Progress Tracker:** Tracks departmental progress against quarterly objectives.
+79. **Worker 79 — Client Concentration Risk Analyzer:** Ensures no single client accounts for more than 25% of corporate revenue.
+80. **Worker 80 — Corporate Cashflow Runway Forecaster:** Forecasts runway under conservative, expected, and aggressive scenarios.
+81. **Worker 81 — Autonomous Agent Health & Failure Monitor:** Checks for hung n8n executions or failed API webhooks.
+82. **Worker 82 — Company Policy & Standard Operating Procedure Enforcer:** Ensures code and communication follow company rules.
+83. **Worker 83 — Mergers & Acquisition Scouting Bot:** Discovers early-stage niche cyber tools for potential acquisition.
+84. **Worker 84 — Founder Calendar Defending Sentinel:** Audits calendar invites and flags non-essential meetings.
+85. **Worker 85 — Multi-Agent Consensus & Dispute Resolver:** Arbitrates conflicting recommendations between department managers.
+
+### 🛡️ Department 7: Cyber Security, DevSecOps & Tech Lead (Managers: CISO & CTO)
+*Workflows Folder: `workflows/dept_7_cybersecurity_and_tech/` | CLI: `coderaksh.py` | VAPT Tools: `security-audit/`*
+
+86. **Worker 86 — GitHub PR Secret Leak Sentinel:** Scans PR git diffs for AWS, OpenAI, Anthropic, JWT, and SSH keys.
+87. **Worker 87 — OWASP Top 10 SAST Code Auditor:** Detects SQLi, XSS, SSRF, Deserialization, and IDOR in source code.
+88. **Worker 88 — Vulnerability Scanner Ingestion Engine:** Ingests scan results from Nuclei, Burp Suite, and OWASP ZAP.
+89. **Worker 89 — Adversarial False-Positive Eliminator:** Performs taint analysis to eliminate scanner false positives.
+90. **Worker 90 — CVSS v3.1 / v4.0 Vector Calculator:** Computes exploitability, impact, and qualitative risk scores.
+91. **Worker 91 — Automated Remediation Patch Generator:** Writes non-breaking defensive code diffs to patch vulnerabilities.
+92. **Worker 92 — Cloud Metadata Service (IMDS) Defense Auditor:** Scans cloud infrastructure for IMDSv1 SSRF pivot risks.
+93. **Worker 93 — JWT & Auth Protocol Abuse Hunter:** Tests tokens for algorithm confusion (`none`, RS256→HS256) and weak secrets.
+94. **Worker 94 — Container & Dockerfile Hardening Inspector:** Scans containers for root users, capabilities, and privileged mounts.
+95. **Worker 95 — Kubernetes RBAC & Pod Security Reviewer:** Audits service account tokens, cluster role bindings, and network policies.
+96. **Worker 96 — Dependency & Supply Chain Poisoning Hunter:** Checks for typosquatting, vulnerable transitives, and malicious scripts.
+97. **Worker 97 — CI/CD Pipeline Crash Diagnosis Doctor:** Parses build failures, isolated stack traces, and suggests git diff fixes.
+98. **Worker 98 — Technical RFP to System Architecture Designer:** Architectures fullstack microservices, DB schemas, and cloud topology.
+99. **Worker 99 — Pre-Market Equity & Treasury Scanner:** Scans opening range breakouts and momentum flags for company reserves.
+100. **Worker 100 — Master Enterprise Health Score Computer:** Weighs operational metrics across all 7 departments to compute the **88/100 Health Radar**.
 
 ---
 
-## ⚡ ५. कामाचा फ्लो कसा चालतो? (Autonomous Execution Workflow)
+## 💻 5. How to Install and Use in Claude (Claude Desktop & Claude Code)
 
-समजा, फाऊंडरने मराठी किंवा इंग्रजीत कमांड दिली:
-> *"आपल्याला फिनटेक क्लायंटसाठी VAPT ऑडिट करायचे आहे आणि SOW पाठवायचे आहे."*
+CodeRaksh includes 5 specialized Claude Agent Skills located in `.agents/skills/`. You can integrate them into **Claude Desktop**, **Claude Code**, or **Claude CLI** in 3 simple steps:
 
-### पायरी १: फाऊंडर ते AI CEO (Routing)
-1. कमांड [coderaksh_hierarchy.py](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/coderaksh_hierarchy.py) मध्ये जाते.
-2. AI CEO कीवर्ड्स ओळखतो: `vapt`, `audit`, `fintech`, `sow`.
-3. AI CEO हे काम **Dept 7 (CyberSec)** आणि **Dept 4 (Finance & Legal)** कडे ट्रान्सफर करतो.
+### Method A: Using Claude Desktop (Global Custom Skills)
+1. Open your Claude configuration directory:
+   - **Windows:** `%APPDATA%\Claude\` or `C:\Users\<User>\.gemini\config\skills\`
+   - **macOS / Linux:** `~/.claude/` or `~/.gemini/config/skills/`
+2. Symlink or copy the CodeRaksh skills folder:
+   ```powershell
+   # Windows PowerShell (Run as Administrator or Developer Mode):
+   Copy-Item -Recurse -Force ".agents\skills\*" "C:\Users\$env:USERNAME\.gemini\config\skills\"
+   ```
+3. Restart Claude Desktop. The skills will automatically appear in your active skills registry:
+   - `/coderaksh`: Direct cybersecurity, SAST scans, SOW generation, and DevSecOps commands.
+   - `/coderaksh-hierarchy`: Hierarchical delegation to any department or worker.
+   - `/camel-ai`: Communicative multi-agent role-playing workforce.
+   - `/ui-ux-pro-max`: Cyberpunk OLED design systems, palettes, and UX guidelines.
+   - `/security-audit`: Cloudflare-grade enterprise penetration testing and vulnerability reviews.
 
-### पायरी २: मॅनेजर ते स्पेशलिस्ट वर्कर (Delegation)
-- **Dept 7 Manager (CISO)** नियुक्त करतो:
-  - Worker #87: OWASP Top 10 API Security Auditor
-  - Worker #92: Autonomous Bug Hunter
-- **Dept 4 Manager (CFO)** नियुक्त करतो:
-  - Worker #55: SOW Proposal Generator
-
-### पायरी ३: वर्कफ्लो आणि टूल्सचे एक्झिक्युशन (Execution)
-- [coderaksh.py](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/coderaksh.py) `scan` आणि `pr-check` रन होतात.
-- [workflows/dept_7_cybersecurity_and_tech/23_cyber_autonomous_bug_hunter.json](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_7_cybersecurity_and_tech/23_cyber_autonomous_bug_hunter.json) n8n मध्ये ट्रिगर होते.
-- [workflows/dept_7_cybersecurity_and_tech/25_freelance_tech_lead_sow_generator.json](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/workflows/dept_7_cybersecurity_and_tech/25_freelance_tech_lead_sow_generator.json) आपोआप SOW जनरेट करतो.
-
-### पायरी ४: डेटा सेव्ह आणि क्लायंटला पाठवणे (Delivery)
-- SOW ड्राफ्ट `legal_contracts/` च्या फॉरमॅटनुसार तयार होऊन क्लायंटच्या ईमेल/व्हॉट्सअॅपवर पाठवला जातो.
-- सर्व लॉग्स [sheets_template/07_Invoices_And_GST_Register.csv](file:///c:/Users/Mr%20Shadex/Documents/CodeRaksh%20Company/sheets_template/07_Invoices_And_GST_Register.csv) मध्ये आपोआप सेव्ह होतात.
-- AI CEO फाऊंडरला व्हॉट्सअॅपवर संपूर्ण स्टेटस रिपोर्ट पाठवतो.
+### Method B: Using Claude Code CLI / Project Mode
+When working inside this repository, Claude Code automatically discovers skills located in the workspace `.agents/skills/` directory. No installation is required! Simply mention the skill or trigger its natural language intent:
+```text
+"Route this task through the hierarchy: Scan example.com and generate an enterprise SOW"
+"Run a DevSecOps PR check on staged changes"
+"Audit this repository using the security-audit skill"
+```
 
 ---
 
-## 🛠️ ६. रोजच्या वापरासाठीच्या उपयुक्त कमांड्स (Quick Start Commands)
+## ⚡ 6. Primary CLI Commands & Quick Reference
 
 ```bash
-# १. संपूर्ण कंपनीचे रिअल-टाइम हेल्थ आणि मॅट्रिक्स तपासणे:
-python coderaksh.py health
+# 1. View this entire interactive autonomous system tree on the command line:
+python coderaksh.py tree
 
-# २. १००-एजंट चेन ऑफ कमांड द्वारे टास्क राऊट करणे:
-python coderaksh_hierarchy.py "Pune madhle 20 Real Estate clients shodh ani cold email tayar kar"
+# 2. List all 29 workflows categorized by department:
+python coderaksh.py workflows
 
-# ३. सर्व १०० एजंट्सचा रोस्टर पाहणे:
+# 3. Route a task through the 100-Agent Chain of Command:
+python coderaksh_hierarchy.py "Pune CA lead generation and cold outreach hook drafting"
+
+# 4. View the complete roster of all 100 workers:
 python coderaksh_hierarchy.py --roster
 
-# ४. वेबसाइट किंवा API वर सायबर सेक्युरिटी स्कॅन करणे:
+# 5. Check real-time company health score and radar:
+python coderaksh.py health
+
+# 6. Run an external security header & disclosure recon on any domain:
 python coderaksh.py scan https://example.com
 
-# ५. Git PR मधील सिक्रेट्स किंवा लीक्स तपासणे:
+# 7. Check staged Git files for secret leaks before pushing:
 python coderaksh.py pr-check
 
-# ६. क्लायंटसाठी त्वरित SOW (Scope of Work) तयार करणे:
-python coderaksh.py sow "FinTech India" "Banking API VAPT" "550000"
+# 8. Generate a binding fixed-price Scope of Work (SOW):
+python coderaksh.py sow "FinTech Corp" "Banking API VAPT Audit" "550000"
 
-# ७. Google Maps B2B लीड्स स्क्रॅप करणे:
+# 9. Scrape local Google Maps B2B leads:
 node lead-finder.js "Chartered Accountants" "Pune" 20
 
-# ८. n8n साठी सर्व वर्कफ्लोज आपोआप कॉन्फिगर करणे:
+# 10. Automatically inject credentials into all n8n workflows:
 python setup.py
+
+# 11. Run the full enterprise test suite (FastAPI + SAST Audit Validators):
+npm test
 ```
 
 ---
-*CodeRaksh Company — Maharashtra & India's Premier Autonomous Multi-Agent Tech Ecosystem.*
+*CodeRaksh Company — Enterprise Autonomous Multi-Agent Engineering & Cyber Defense OS.*
