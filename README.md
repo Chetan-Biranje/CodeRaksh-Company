@@ -5,17 +5,17 @@
 
 [![GitHub Repository](https://img.shields.io/badge/GitHub-Chetan--Biranje%2FCodeRaksh--Company-blue?logo=github&style=for-the-badge)](https://github.com/Chetan-Biranje/CodeRaksh-Company)
 [![License: MIT](https://img.shields.io/badge/License-MIT-10b981.svg?style=for-the-badge)](LICENSE)
-[![Workflows](https://img.shields.io/badge/Autonomous%20Agents-26%20Workflows-00f0ff.svg?style=for-the-badge)](00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json)
+[![Workflows](https://img.shields.io/badge/Production%20Workflows-29%20Blueprints-00f0ff.svg?style=for-the-badge)](workflows/00_master/00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json)
 [![Health Score](https://img.shields.io/badge/Company%20Health-88%2F100-brightgreen.svg?style=for-the-badge)](dashboard/index.html)
 [![Python 3.12](https://img.shields.io/badge/Python-3.12%2B-3776ab?logo=python&logoColor=white&style=for-the-badge)](pyproject.toml)
-[![Multi-Agent Engine](https://img.shields.io/badge/CAMEL--AI-Multi--Agent-orange?style=for-the-badge)](camel_workforce.py)
-[![Security Gating](https://img.shields.io/badge/Zero%20Secret%20Leak-Enforced-emerald?style=for-the-badge)](22_devsecops_github_pr_sentinel.json)
+[![Engineering](https://img.shields.io/badge/Lead%20Architect-Chetan%20Biranje-blueviolet?style=for-the-badge)](https://github.com/Chetan-Biranje)
+[![Security Gating](https://img.shields.io/badge/Zero%20Secret%20Leak-Enforced-emerald?style=for-the-badge)](workflows/dept_7_cybersecurity_and_tech/22_devsecops_github_pr_sentinel.json)
 
 <p align="center">
-  <b>CodeRaksh Company</b> is an enterprise-grade autonomous organization operating <b>26 communicative AI employees</b> across 7 functional departments. Driven by Claude 3.5 Sonnet, CAMEL-AI multi-agent societies, and n8n event pipelines, CodeRaksh autonomously coordinates inbound sales, client project delivery, financial reconciliation, CI/CD automated healing, and continuous cyber defense.
+  <b>CodeRaksh Company</b> is an enterprise cyber defense, DevSecOps, and fullstack engineering platform hand-crafted by <b>Chetan Biranje</b>. Operating <b>26 specialized automation micro-agents</b> across 7 functional departments, CodeRaksh coordinates inbound sales pipelines, client project delivery, financial reconciliation, CI/CD automated healing, and continuous vulnerability assessment with zero operational burnout.
 </p>
 
-[🌐 Live Launchpad](index.html) · [📊 Executive Cyber Dashboard](dashboard/index.html) · [🛡️ Client Agency Portal](portal/index.html) · [📖 Tech & Skills Manifest](CODERAKSH_TECH_AND_SKILLS_MANIFEST.md)
+[🌐 Live Launchpad](index.html) · [🌳 Autonomous System Tree](AUTONOMOUS_SYSTEM_TREE.md) · [📊 Executive Cyber Dashboard](dashboard/index.html) · [🛡️ Client Agency Portal](portal/index.html) · [📖 Tech & Skills Manifest](CODERAKSH_TECH_AND_SKILLS_MANIFEST.md)
 
 </div>
 

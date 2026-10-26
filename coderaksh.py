@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-CodeRaksh Company — Enterprise CLI
-The official command-line toolkit for Security Scans, Git PR Pre-checks,
-Health Metrics, and SOW Generation.
+CodeRaksh Company — Enterprise CLI & Automation Toolkit
+Architected & Developed by Chetan Biranje
+Security Scans, Git PR Pre-checks, Health Telemetry, and SOW Generation.
 """
 
 import sys
@@ -36,7 +36,7 @@ BANNER = f"""{CYAN}{BOLD}
   ██║     ██║   ██║██║  ██║██╔══╝  ██╔══██╗██╔══██║██╔═██╗ ╚════██║██╔══██║
   ╚██████╗╚██████╔╝██████╔╝███████╗██║  ██║██║  ██║██║  ██╗███████║██║  ██║
    ╚═════╝ ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
-{RESET}{GREEN}  Autonomous AI Enterprise · Cyber Security · DevSecOps · Software Engineering{RESET}
+{RESET}{GREEN}  Architected by Chetan Biranje · Cyber Defense · DevSecOps · Enterprise Automation{RESET}
 """
 
 def print_banner():
