@@ -13,6 +13,7 @@ from typing import Any
 
 from fastapi import Depends, FastAPI, Header, HTTPException, Query, Request, status
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -28,6 +29,8 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
+app.mount("/dashboard", StaticFiles(directory=ROOT / "app" / "dashboard", html=True), name="dashboard")
+
 _rate_hits: dict[str, deque[float]] = defaultdict(deque)
 _rate_lock = Lock()
 

@@ -5,6 +5,12 @@ from app.main import app
 client = TestClient(app)
 
 
+def test_dashboard():
+    response = client.get("/dashboard")
+    assert response.status_code == 200
+    assert "CodeRaksh Hub" in response.text
+
+
 def test_health():
     response = client.get("/health")
     assert response.status_code == 200

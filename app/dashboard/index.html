@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="CodeRaksh Automation Hub dashboard">
+  <title>CodeRaksh Automation Hub</title>
+  <link rel="stylesheet" href="/dashboard/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div><span class="eyebrow">SECURE AUTOMATION PLATFORM</span><h1>CodeRaksh Hub</h1></div>
+    <div class="top-actions"><span id="api-status" class="status-pill">Checking API…</span><button id="refresh" class="button secondary">Refresh</button></div>
+  </header>
+  <main class="shell">
+    <section class="hero"><div><p class="eyebrow">OPERATIONS CONSOLE</p><h2>n8n blueprint intelligence</h2><p class="muted">Discover, validate and export your automation library from one secure workspace.</p></div><a class="button" href="/docs" target="_blank" rel="noreferrer">Open API docs</a></section>
+    <section id="stats" class="metrics" aria-label="Platform metrics"></section>
+    <section class="toolbar"><label>Search <input id="search" type="search" placeholder="sales, support, finance…"></label><label>Domain <select id="domain"><option value="">All domains</option></select></label><label>Sort <select id="sort"><option value="name">Name</option><option value="node_count">Node count</option><option value="domain">Domain</option></select></label><button id="validate" class="button secondary">Validate library</button></section>
+    <section id="validation" class="validation" hidden></section>
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+  <template id="card-template"><article class="card"><div class="card-head"><span class="domain"></span><span class="nodes"></span></div><h3 class="name"></h3><p class="path"></p><div class="card-foot"><span class="placeholder"></span><a class="export" target="_blank" rel="noreferrer">Export JSON</a></div></article></template>
+  <script src="/dashboard/app.js" defer></script>
+</body>
+</html>
