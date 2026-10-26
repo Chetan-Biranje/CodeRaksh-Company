@@ -1,0 +1,80 @@
+name: ✅ n8n Workflow Validator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "**.json"
+  pull_request:
+    branches: [main]
+    paths:
+      - "**.json"
+
+jobs:
+  validate-workflows:
+    name: Validate n8n JSON Workflows
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Validate all workflow JSON files
+        run: |
+          echo "🔍 Checking all .json files for valid JSON..."
+          FAILED=0
+          for file in *.json; do
+            if python3 -c "import json; json.load(open('$file'))" 2>/dev/null; then
+              echo "  ✅ $file — valid"
+            else
+              echo "  ❌ $file — INVALID JSON!"
+              FAILED=1
+            fi
+          done
+          if [ $FAILED -eq 1 ]; then
+            echo ""
+            echo "❌ One or more JSON files are invalid. Fix them before merging."
+            exit 1
+          fi
+          echo ""
+          echo "✅ All workflow files are valid JSON!"
+
+      - name: 🔐 Check for exposed API keys
+        run: |
+          echo "🔐 Scanning for accidentally committed API keys..."
+          FOUND=0
+
+          # Check for real API key patterns
+          if grep -rn "AIzaSy[0-9A-Za-z_-]\{33\}" *.json 2>/dev/null; then
+            echo "❌ Google API key found in JSON files!"
+            FOUND=1
+          fi
+          if grep -rn "sk-proj-[0-9A-Za-z_-]\{80,\}" *.json 2>/dev/null; then
+            echo "❌ OpenAI API key found in JSON files!"
+            FOUND=1
+          fi
+          if grep -rn "apikey_[0-9A-Za-z]\{20,\}" *.json 2>/dev/null; then
+            echo "❌ Anthropic API key found in JSON files!"
+            FOUND=1
+          fi
+
+          if [ $FOUND -eq 1 ]; then
+            echo ""
+            echo "❌ SECURITY RISK: Real API keys found. Remove them before pushing!"
+            exit 1
+          fi
+          echo "✅ No exposed API keys found. Safe to push!"
+
+      - name: 📊 Workflow Summary
+        run: |
+          echo ""
+          echo "📦 MAP 2.0 — CodeRaksh Company Workflows"
+          echo "========================================="
+          COUNT=$(ls *.json 2>/dev/null | wc -l)
+          echo "Total workflows: $COUNT"
+          echo ""
+          echo "Workflows in this repo:"
+          for file in *.json; do
+            NAME=$(python3 -c "import json; d=json.load(open('$file')); print(d.get('name','Unknown'))" 2>/dev/null || echo "Unknown")
+            echo "  📋 $file → $NAME"
+          done

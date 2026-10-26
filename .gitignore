@@ -1,0 +1,20 @@
+# API Keys — never commit secrets.
+.env
+.env.local
+*.env
+secrets.json
+
+# Python
+__pycache__/
+.pytest_cache/
+.venv/
+*.egg-info/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
