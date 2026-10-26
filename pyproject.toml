@@ -5,6 +5,9 @@ description = "Secure catalog and validator for n8n automation blueprints"
 requires-python = ">=3.12"
 dependencies = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.34,<1", "pydantic>=2.10,<3"]
 
+[tool.setuptools]
+packages = ["app"]
+
 [project.optional-dependencies]
 test = ["pytest>=8.3,<9", "httpx>=0.28,<1"]
 
