@@ -28,6 +28,22 @@ def test_blueprints_can_be_filtered():
     assert all(item["domain"] == "sales" for item in response.json()["items"])
 
 
+def test_search_and_stats():
+    response = client.get("/api/v1/blueprints?search=sales&sort=node_count&descending=true")
+    assert response.status_code == 200
+    assert response.json()["total"] >= 4
+    stats = client.get("/api/v1/stats")
+    assert stats.status_code == 200
+    assert stats.json()["total"] >= 20
+    assert stats.json()["total_nodes"] >= 0
+
+
+def test_ready():
+    response = client.get("/ready")
+    assert response.status_code == 200
+    assert response.json()["status"] == "ready"
+
+
 def test_blueprint_not_found():
     response = client.get("/api/blueprints/does-not-exist")
     assert response.status_code == 404
@@ -38,6 +54,7 @@ def test_validation():
     assert response.status_code == 200
     assert response.json()["valid"] is True
     assert response.json()["checked_files"] >= 20
+    assert response.json()["score"] >= 0
 
 
 def test_security_headers():
