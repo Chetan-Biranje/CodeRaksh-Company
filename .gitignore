@@ -1,0 +1,13 @@
+# API Keys — kabhi bhi commit mat karo!
+.env
+.env.local
+*.env
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+*.swp
