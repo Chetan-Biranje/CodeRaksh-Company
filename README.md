@@ -91,8 +91,13 @@ The universal master skill `coderaksh` is installed globally in:
    - `python coderaksh.py scan <url>` — Live security header & server banner disclosure recon
    - `python coderaksh.py pr-check` — Git pre-commit secret leak & SAST sentinel
    - `python coderaksh.py sow <client> <app> <budget>` — Instant technical SOW proposal generator
-4. **💬 Mobile AI CEO Chatbot (`bot/server.py`)**: Standalone FastAPI server for WhatsApp Cloud API & Telegram Bot.
-5. **📜 Legal & Contracts Hub (`legal_contracts/`)**:
+4. **🐫 CAMEL-AI Multi-Agent Workforce Bridge (`camel_workforce.py`)**:
+   - `python camel_workforce.py --status` — Displays active CAMEL workforce roster and capabilities
+   - `python camel_workforce.py --task audit` — Multi-agent pull request security and secret audit
+   - `python camel_workforce.py --task sow` — Multi-agent system architecture and proposal synthesis
+   - `python camel_workforce.py --roleplay` — Autonomous Red Team vs Blue Team communicative consensus
+5. **💬 Mobile AI CEO Chatbot (`bot/server.py`)**: Standalone FastAPI server for WhatsApp Cloud API & Telegram Bot.
+6. **📜 Legal & Contracts Hub (`legal_contracts/`)**:
    - `VAPT_RULES_OF_ENGAGEMENT_AND_AUTHORIZATION.md`
    - `MUTUAL_NON_DISCLOSURE_AGREEMENT_NDA.md`
    - `MASTER_SERVICES_AGREEMENT_MSA_AND_SOW.md`

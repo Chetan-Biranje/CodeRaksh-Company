@@ -134,3 +134,8 @@ Every skill listed below is installed and active on your system (`~/.gemini/conf
 - `trader-risk`: Position sizing and maximum loss per trade rule enforcement.
 - `trader-pelosi`: US Congressional stock trade disclosure tracker.
 - `trader-timemachine`: Monte Carlo simulation and historical trade replay.
+
+### 7. 🐫 Multi-Agent Societies & Workforce Orchestration (CAMEL-AI)
+- `camel-ai`: Autonomous multi-agent society and workforce framework (RolePlaying, ChatAgent, Workforce hierarchical task decomposition, CriticAgents, and multi-model ModelFactory).
+- `camel_workforce.py`: CodeRaksh's native Python bridge coordinating CEO Orchestrator, DevSecOps Sentinel, Bug Hunter, DevOps Doctor, and Tech Lead in communicative multi-agent societies.
+
