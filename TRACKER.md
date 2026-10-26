@@ -77,6 +77,8 @@
 | `legal_contracts/` | VAPT Rules of Engagement, Mutual NDA & Master Services Agreement | ✅ **DONE** |
 | `CODERAKSH_TECH_AND_SKILLS_MANIFEST.md` | Catalog of 95+ professional local skills | ✅ **DONE** |
 | `.agents/skills/coderaksh/SKILL.md` | Universal Master Skill for Claude Code, Gemini, and Codex | ✅ **DONE** |
+| `.agents/skills/ui-ux-pro-max/` | UI-UX Pro Max Design Intelligence System & Search Engine | ✅ **DONE** |
+| `.agents/skills/security-audit/` | Cloudflare's Autonomous Security Auditor Skill Suite | ✅ **DONE** |
 | `PRD.md`, `ARCHITECTURE.md`, `DESIGN.md`, `MEMORY.md`, `RULES.md`, `TRACKER.md` | Complete enterprise documentation suite | ✅ **DONE** |
 
 ---

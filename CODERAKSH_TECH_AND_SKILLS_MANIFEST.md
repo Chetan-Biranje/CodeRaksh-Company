@@ -71,6 +71,7 @@
 Every skill listed below is installed and active on your system (`~/.gemini/config/skills` and `~/.claude/skills`).
 
 ### 1. 🛡️ Bug Bounty, Web Security & Pentesting Skills (OWASP Top 10)
+- `security-audit`: Cloudflare's autonomous security auditor skill — orchestrates multi-phase reconnaissance, coverage-led hunting, adversarial candidate validation, structured findings.json output, and target-neutral reporting with zero-dependency schemas.
 - `offensive-bug-identification`: Core methodology for spotting exploitable application vulnerabilities.
 - `offensive-xss`: Reflected, stored, and DOM-based Cross-Site Scripting exploitation & CSP bypasses.
 - `offensive-sqli`: SQL Injection (Error, Union, Blind, Time-based, Out-of-band) & SQLMap automation.
