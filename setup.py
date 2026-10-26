@@ -45,7 +45,9 @@ def main():
     out_dir = "configured_workflows"
     os.makedirs(out_dir, exist_ok=True)
     
-    workflow_files = sorted([f for f in glob.glob("*.json") if f.startswith(("0", "1", "2"))])
+    workflow_files = sorted([f for f in glob.glob("workflows/**/*.json", recursive=True) if os.path.basename(f).startswith(("0", "1", "2"))])
+    if not workflow_files:
+        workflow_files = sorted([f for f in glob.glob("*.json") if f.startswith(("0", "1", "2"))])
     print(f"\nProcessing {len(workflow_files)} workflows into '{out_dir}/'...")
     
     count = 0

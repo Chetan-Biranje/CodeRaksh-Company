@@ -200,19 +200,86 @@ Our deliverable guarantees zero-bloat architecture, 99.9% uptime reliability, an
     print(f"{GREEN}✓ Scope of Work successfully generated at:{RESET} {BOLD}{filename}{RESET}")
     print(sow_text)
 
+def cmd_tree():
+    print_banner()
+    print(f"{BOLD}🌳 CODERAKSH AUTONOMOUS SYSTEM & DEPARTMENT TREE{RESET}")
+    print(f"Hierarchical Structure: [Founder] ➔ [AI CEO] ➔ [7 Department Managers] ➔ [100 Workers]\n")
+    
+    tree_text = f"""{CYAN}👤 [FOUNDER / USER INSTRUCTION]{RESET}
+  │
+  ▼
+{BOLD}👑 [AI CEO COMMAND CENTER]{RESET} (Workflow 21 · coderaksh_hierarchy.py)
+  ├── 💼 {GREEN}DEPT 1: Sales & Revenue{RESET} (VP of Sales · Workers #1-#15)
+  │    └── 📁 workflows/dept_1_sales/ [5 Workflows: Lead Scraper, WhatsApp, Qualifier, Re-order]
+  │    └── 📄 sheets_template/01_Leads_Database.csv & 02_WhatsApp_Prospects.csv
+  │
+  ├── 🤝 {GREEN}DEPT 2: Customer Support & Retention{RESET} (VP of Client Success · Workers #16-#28)
+  │    └── 📁 workflows/dept_2_support/ [4 Workflows: Receptionist, Missed-Call Rescuer, FAQ Bot]
+  │    └── 📄 sheets_template/03_Support_Tickets.csv & 04_FAQ_Knowledge_Base.csv
+  │
+  ├── 📈 {GREEN}DEPT 3: Growth & Marketing{RESET} (VP of Growth · Workers #29-#42)
+  │    └── 📁 workflows/dept_3_marketing/ [4 Workflows: SEO Keyword Bot, Video-to-5-Posts, Review Replier]
+  │    └── 📄 sheets_template/05_Marketing_Content_Calendar.csv & 06_Customer_Reviews.csv
+  │
+  ├── 💰 {GREEN}DEPT 4: Finance & Legal{RESET} (Chief Financial Officer · Workers #43-#56)
+  │    └── 📁 workflows/dept_4_finance/ [4 Workflows: Bill OCR, WhatsApp Invoice Chaser, GST Register]
+  │    └── 📄 legal_contracts/ [MSA, SOW Template, IP & NDA, SLA Security Retainer]
+  │    └── 📄 sheets_template/07_Invoices_And_GST_Register.csv
+  │
+  ├── ⚙️ {GREEN}DEPT 5: Operations & HR{RESET} (Chief Operating Officer · Workers #57-#70)
+  │    └── 📁 workflows/dept_5_operations/ [4 Workflows: Resume Screener, No-Show Stopper, Doc Chaser]
+  │    └── 📄 sheets_template/08_HR_Recruitment_Pipeline.csv & 09_Operations_Deadlines.csv
+  │
+  ├── 🏛️ {GREEN}DEPT 6: Executive Command{RESET} (AI CEO / Chief of Staff · Workers #71-#85)
+  │    └── 📁 workflows/dept_6_executive/ [Workflow 21: Daily Briefing, KPI Dashboard, Board Memos]
+  │    └── 📄 sheets_template/10_Executive_KPI_Dashboard.csv
+  │
+  └── 🛡️ {GREEN}DEPT 7: Cyber Security & Tech{RESET} (Chief Information Security Officer · Workers #86-#100)
+       └── 📁 workflows/dept_7_cybersecurity_and_tech/ [5 Workflows: PR Sentinel, Bug Hunter, CI/CD, SOW, Trading]
+       └── 📄 Claude Skills: coderaksh, security-audit, camel-ai, ui-ux-pro-max
+"""
+    print(tree_text)
+    print(f"📖 For full details and interactive web navigation, see: {BOLD}AUTONOMOUS_SYSTEM_TREE.md{RESET}\n")
+
+def cmd_workflows():
+    print_banner()
+    print(f"{BOLD}📁 CODERAKSH WORKFLOW DIRECTORY CATALOG (29 Workflows){RESET}\n")
+    import glob
+    base = os.path.dirname(os.path.abspath(__file__))
+    wf_dir = os.path.join(base, "workflows")
+    if not os.path.exists(wf_dir):
+        print(f"{RED}Workflows folder not found!{RESET}")
+        return
+        
+    for dept in sorted(os.listdir(wf_dir)):
+        dpath = os.path.join(wf_dir, dept)
+        if os.path.isdir(dpath):
+            files = sorted(os.listdir(dpath))
+            print(f"📂 {CYAN}{BOLD}{dept}{RESET} ({len(files)} files):")
+            for f in files:
+                print(f"   └── {GREEN}{f}{RESET}")
+            print()
+
 def main():
     if len(sys.argv) < 2:
         print_banner()
         print(f"{BOLD}USAGE:{RESET}")
         print("  python coderaksh.py health                - Display real-time company health & metrics")
+        print("  python coderaksh.py tree                  - View interconnected autonomous department tree")
+        print("  python coderaksh.py workflows             - List all 29 workflows grouped by department")
         print("  python coderaksh.py scan <url>            - Run security header & disclosure recon")
         print("  python coderaksh.py pr-check              - Check staged git files for secret leaks")
         print("  python coderaksh.py sow <client> <app> <budget> - Generate Scope of Work proposal")
+        print("  python coderaksh.py hierarchy <task>      - Route instructions through 100-Agent Chain of Command")
         sys.exit(0)
         
     cmd = sys.argv[1].lower()
     if cmd == "health":
         cmd_health()
+    elif cmd == "tree":
+        cmd_tree()
+    elif cmd == "workflows":
+        cmd_workflows()
     elif cmd == "scan":
         target = sys.argv[2] if len(sys.argv) > 2 else "example.com"
         cmd_scan(target)
@@ -223,6 +290,10 @@ def main():
         proj = sys.argv[3] if len(sys.argv) > 3 else "Cloud Security Platform"
         budget = sys.argv[4] if len(sys.argv) > 4 else "₹4,50,000"
         cmd_sow(client, proj, budget)
+    elif cmd in ("hierarchy", "delegate"):
+        import subprocess
+        task = " ".join(sys.argv[2:]) if len(sys.argv) > 2 else "Pune madhle 20 CA clients shodh"
+        subprocess.run([sys.executable, "coderaksh_hierarchy.py", task])
     else:
         print(f"{RED}Unknown command:{RESET} {cmd}")
 

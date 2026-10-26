@@ -19,36 +19,39 @@
 
 ## 2. Complete Deliverables Status Matrix
 
-### A. Autonomous Workflows & Mega Canvas
-| Artifact | Category | Description | Status |
+### A. Autonomous Workflows & Mega Canvas (Organized by Department under `workflows/`)
+> 🌳 **Visual Tree & Architecture:** See [`AUTONOMOUS_SYSTEM_TREE.md`](./AUTONOMOUS_SYSTEM_TREE.md) for full interactive hierarchy.
+
+| Artifact | Category / Folder | Description | Status |
 |---|---|---|---|
-| `00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json` | Core | Single unified canvas holding all 26 agents in 7 zones | ✅ **DONE** |
-| `01_sales_lead_finder.json` | Sales | Google Maps scraper + cold email opener generator | ✅ **DONE** |
-| `02_sales_whatsapp_replier.json` | Sales | Sub-second WhatsApp inbound responder | ✅ **DONE** |
-| `03_sales_lead_qualifier.json` | Sales | Inbound lead classification (Hot/Warm/Cold) | ✅ **DONE** |
-| `04_sales_repeat_order_reminder.json` | Sales | Proactive re-order reminder cycle | ✅ **DONE** |
-| `05_support_ai_receptionist.json` | Support | WhatsApp-to-Calendar booking & reminder sequence | ✅ **DONE** |
-| `06_support_missed_call_rescuer.json` | Support | Instant WhatsApp text-back on missed calls | ✅ **DONE** |
-| `07_support_inbox_sorter.json` | Support | Gmail triage, classification, and response drafting | ✅ **DONE** |
-| `08_support_faq_bot.json` | Support | WhatsApp customer FAQ solver with human handoff | ✅ **DONE** |
-| `09_marketing_seo_page_team.json` | Marketing | 5-agent team researching & publishing WordPress drafts | ✅ **DONE** |
-| `10_marketing_1_video_to_5_posts.json` | Marketing | Video URL to LinkedIn, X thread, Shorts hook & newsletter | ✅ **DONE** |
-| `11_marketing_review_replier.json` | Marketing | Hourly Google Review monitor & on-brand replier | ✅ **DONE** |
-| `12_marketing_review_asker.json` | Marketing | Post-purchase review booster with private complaint shield | ✅ **DONE** |
-| `13_finance_bill_reader.json` | Finance | Bill & receipt PDF OCR extraction to Sheets | ✅ **DONE** |
-| `14_finance_invoice_chaser.json` | Finance | Escalating overdue payment reminder chaser | ✅ **DONE** |
-| `15_finance_bank_statement_reader.json` | Finance | Bank statement PDF parsing & transaction categorization | ✅ **DONE** |
-| `16_finance_invoice_to_gst_register.json` | Finance | Purchase invoice extraction to GST ITC register | ✅ **DONE** |
-| `17_ops_resume_screener.json` | Ops | Resume PDF screening & scoring against job descriptions | ✅ **DONE** |
-| `18_ops_no_show_stopper.json` | Ops | Appointment confirmation & waitlist reallocation | ✅ **DONE** |
-| `19_ops_deadline_alert.json` | Ops | Statutory tax, ITR, and project deadline tracker | ✅ **DONE** |
-| `20_ops_document_chaser.json` | Ops | Client KYC & onboarding document chase sequence | ✅ **DONE** |
-| `21_executive_ai_ceo_command_center.json` | Executive | Morning Flight Plan, 9 PM Boardroom Audit & Health Score | ✅ **DONE** |
-| `22_devsecops_github_pr_sentinel.json` | Security | PR SAST audit, secret leak hunter & GitHub comments | ✅ **DONE** |
-| `23_cyber_autonomous_bug_hunter.json` | Security | Vulnerability ingestion, CVSS 4.0 scoring & auto-patch | ✅ **DONE** |
-| `24_devops_cicd_pipeline_doctor.json` | DevOps | CI/CD build crash log diagnosis & git diff fix | ✅ **DONE** |
-| `25_freelance_tech_lead_sow_generator.json` | Fullstack | Client RFP to architecture, DB schema & SOW quote | ✅ **DONE** |
-| `26_trading_financial_intelligence_bot.json` | Treasury | Pre-market scanner & SEC EDGAR earnings watcher | ✅ **DONE** |
+| `00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json` | `workflows/00_master/` | Single unified canvas holding all 26 agents in 7 zones | ✅ **DONE** |
+| `00_BONUS_first_12_connected_one_canvas.json` | `workflows/00_master/` | Connected canvas for first 12 revenue & support agents | ✅ **DONE** |
+| `01_sales_lead_finder.json` | `workflows/dept_1_sales/` | Google Maps scraper + cold email opener generator | ✅ **DONE** |
+| `02_sales_whatsapp_replier.json` | `workflows/dept_1_sales/` | Sub-second WhatsApp inbound responder | ✅ **DONE** |
+| `03_sales_lead_qualifier.json` | `workflows/dept_1_sales/` | Inbound lead classification (Hot/Warm/Cold) | ✅ **DONE** |
+| `04_sales_repeat_order_reminder.json` | `workflows/dept_1_sales/` | Proactive re-order reminder cycle | ✅ **DONE** |
+| `05_support_ai_receptionist.json` | `workflows/dept_2_support/` | WhatsApp-to-Calendar booking & reminder sequence | ✅ **DONE** |
+| `06_support_missed_call_rescuer.json` | `workflows/dept_2_support/` | Instant WhatsApp text-back on missed calls | ✅ **DONE** |
+| `07_support_inbox_sorter.json` | `workflows/dept_2_support/` | Gmail triage, classification, and response drafting | ✅ **DONE** |
+| `08_support_faq_bot.json` | `workflows/dept_2_support/` | WhatsApp customer FAQ solver with human handoff | ✅ **DONE** |
+| `09_marketing_seo_page_team.json` | `workflows/dept_3_marketing/` | 5-agent team researching & publishing WordPress drafts | ✅ **DONE** |
+| `10_marketing_1_video_to_5_posts.json` | `workflows/dept_3_marketing/` | Video URL to LinkedIn, X thread, Shorts hook & newsletter | ✅ **DONE** |
+| `11_marketing_review_replier.json` | `workflows/dept_3_marketing/` | Hourly Google Review monitor & on-brand replier | ✅ **DONE** |
+| `12_marketing_review_asker.json` | `workflows/dept_3_marketing/` | Post-purchase review booster with private complaint shield | ✅ **DONE** |
+| `13_finance_bill_reader.json` | `workflows/dept_4_finance/` | Bill & receipt PDF OCR extraction to Sheets | ✅ **DONE** |
+| `14_finance_invoice_chaser.json` | `workflows/dept_4_finance/` | Escalating overdue payment reminder chaser | ✅ **DONE** |
+| `15_finance_bank_statement_reader.json` | `workflows/dept_4_finance/` | Bank statement PDF parsing & transaction categorization | ✅ **DONE** |
+| `16_finance_invoice_to_gst_register.json` | `workflows/dept_4_finance/` | Purchase invoice extraction to GST ITC register | ✅ **DONE** |
+| `17_ops_resume_screener.json` | `workflows/dept_5_operations/` | Resume PDF screening & scoring against job descriptions | ✅ **DONE** |
+| `18_ops_no_show_stopper.json` | `workflows/dept_5_operations/` | Appointment confirmation & waitlist reallocation | ✅ **DONE** |
+| `19_ops_deadline_alert.json` | `workflows/dept_5_operations/` | Statutory tax, ITR, and project deadline tracker | ✅ **DONE** |
+| `20_ops_document_chaser.json` | `workflows/dept_5_operations/` | Client KYC & onboarding document chase sequence | ✅ **DONE** |
+| `21_executive_ai_ceo_command_center.json` | `workflows/dept_6_executive/` | Morning Flight Plan, 9 PM Boardroom Audit & Health Score | ✅ **DONE** |
+| `22_devsecops_github_pr_sentinel.json` | `workflows/dept_7_cybersecurity_and_tech/` | PR SAST audit, secret leak hunter & GitHub comments | ✅ **DONE** |
+| `23_cyber_autonomous_bug_hunter.json` | `workflows/dept_7_cybersecurity_and_tech/` | Vulnerability ingestion, CVSS 4.0 scoring & auto-patch | ✅ **DONE** |
+| `24_devops_cicd_pipeline_doctor.json` | `workflows/dept_7_cybersecurity_and_tech/` | CI/CD build crash log diagnosis & git diff fix | ✅ **DONE** |
+| `25_freelance_tech_lead_sow_generator.json` | `workflows/dept_7_cybersecurity_and_tech/` | Client RFP to architecture, DB schema & SOW quote | ✅ **DONE** |
+| `26_trading_financial_intelligence_bot.json` | `workflows/dept_7_cybersecurity_and_tech/` | Pre-market scanner & SEC EDGAR earnings watcher | ✅ **DONE** |
 
 ---
 

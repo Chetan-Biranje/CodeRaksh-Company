@@ -73,61 +73,63 @@
 
 ## 🏢 7 Departmental Zones (All 26 AI Agents)
 
-All 26 production-ready JSON workflows are available in the root repository and unified inside [`00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json`](./00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json).
+> 🌳 **NEW:** Explore the complete interactive [AUTONOMOUS_SYSTEM_TREE.md](./AUTONOMOUS_SYSTEM_TREE.md) to visualize the entire Founder ➔ AI CEO ➔ 7 Departments ➔ 100 Workers hierarchy and folder layout!
+
+All 26 production-ready JSON workflows are now neatly categorized into 7 department folders under [`workflows/`](./workflows/) and unified inside [`workflows/00_master/00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json`](./workflows/00_master/00_MASTER_CODERAKSH_ALL_26_AGENTS_CONNECTED.json).
 
 ### 💼 Department 1: Sales & Revenue (01 – 04)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **01** | [`01_sales_lead_finder.json`](./01_sales_lead_finder.json) | **B2B Lead Scraper** | Scrapes Google Maps by city and niche, audits business websites, and writes personalized cold outreach hooks. |
-| **02** | [`02_sales_whatsapp_replier.json`](./02_sales_whatsapp_replier.json) | **Sub-Second Replier** | Responds to inbound WhatsApp leads in < 2 seconds, asks qualification questions, and syncs to CRM. |
-| **03** | [`03_sales_lead_qualifier.json`](./03_sales_lead_qualifier.json) | **Lead Classifier** | Ingests webhook inquiries and tags leads as `Hot`, `Warm`, or `Cold`. Dispatches instant WhatsApp founder alerts. |
-| **04** | [`04_sales_repeat_order_reminder.json`](./04_sales_repeat_order_reminder.json) | **Re-Order Retention** | Calculates customer product exhaustion dates and dispatches friendly replenishment offers before supply runs out. |
+| **01** | [`01_sales_lead_finder.json`](./workflows/dept_1_sales/01_sales_lead_finder.json) | **B2B Lead Scraper** | Scrapes Google Maps by city and niche, audits business websites, and writes personalized cold outreach hooks. |
+| **02** | [`02_sales_whatsapp_replier.json`](./workflows/dept_1_sales/02_sales_whatsapp_replier.json) | **Sub-Second Replier** | Responds to inbound WhatsApp leads in < 2 seconds, asks qualification questions, and syncs to CRM. |
+| **03** | [`03_sales_lead_qualifier.json`](./workflows/dept_1_sales/03_sales_lead_qualifier.json) | **Lead Classifier** | Ingests webhook inquiries and tags leads as `Hot`, `Warm`, or `Cold`. Dispatches instant WhatsApp founder alerts. |
+| **04** | [`04_sales_repeat_order_reminder.json`](./workflows/dept_1_sales/04_sales_repeat_order_reminder.json) | **Re-Order Retention** | Calculates customer product exhaustion dates and dispatches friendly replenishment offers before supply runs out. |
 
 ### 🎧 Department 2: Customer Support & Retention (05 – 08)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **05** | [`05_support_ai_receptionist.json`](./05_support_ai_receptionist.json) | **Calendar Booking Bot** | Interfaces with WhatsApp to reserve Google Calendar slots and sends 24h prior attendance reminders. |
-| **06** | [`06_support_missed_call_rescuer.json`](./06_support_missed_call_rescuer.json) | **Call Rescue Agent** | Catches telephony missed-call webhooks and fires an empathetic text-back within 10 seconds. |
-| **07** | [`07_support_inbox_sorter.json`](./07_support_inbox_sorter.json) | **Gmail Triage AI** | Reads incoming inquiries, drafts context-aware replies for review, and categorizes messages without sending unauthorized emails. |
-| **08** | [`08_support_faq_bot.json`](./08_support_faq_bot.json) | **Knowledge Base Bot** | Answers client queries using custom company documentation; triggers human handoff for edge cases. |
+| **05** | [`05_support_ai_receptionist.json`](./workflows/dept_2_support/05_support_ai_receptionist.json) | **Calendar Booking Bot** | Interfaces with WhatsApp to reserve Google Calendar slots and sends 24h prior attendance reminders. |
+| **06** | [`06_support_missed_call_rescuer.json`](./workflows/dept_2_support/06_support_missed_call_rescuer.json) | **Call Rescue Agent** | Catches telephony missed-call webhooks and fires an empathetic text-back within 10 seconds. |
+| **07** | [`07_support_inbox_sorter.json`](./workflows/dept_2_support/07_support_inbox_sorter.json) | **Gmail Triage AI** | Reads incoming inquiries, drafts context-aware replies for review, and categorizes messages without sending unauthorized emails. |
+| **08** | [`08_support_faq_bot.json`](./workflows/dept_2_support/08_support_faq_bot.json) | **Knowledge Base Bot** | Answers client queries using custom company documentation; triggers human handoff for edge cases. |
 
 ### 📣 Department 3: Organic Growth & Content Marketing (09 – 12)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **09** | [`09_marketing_seo_page_team.json`](./09_marketing_seo_page_team.json) | **5-Agent SEO Collective** | Analyzes competitors, drafts high-intent SEO articles, and stages drafts directly to WordPress. |
-| **10** | [`10_marketing_1_video_to_5_posts.json`](./10_marketing_1_video_to_5_posts.json) | **Omnichannel Repurposer** | Transforms 1 video URL into a LinkedIn post, X thread, YouTube Shorts hook, and newsletter blurb. |
-| **11** | [`11_marketing_review_replier.json`](./11_marketing_review_replier.json) | **Reputation Guardian** | Hourly monitor for Google Maps reviews: posts appreciative replies for 5★ and flags critical reviews to the founder. |
-| **12** | [`12_marketing_review_asker.json`](./12_marketing_review_asker.json) | **Review Booster** | Prompts verified satisfied buyers for public Google reviews while routing negative sentiment to private founder feedback. |
+| **09** | [`09_marketing_seo_page_team.json`](./workflows/dept_3_marketing/09_marketing_seo_page_team.json) | **5-Agent SEO Collective** | Analyzes competitors, drafts high-intent SEO articles, and stages drafts directly to WordPress. |
+| **10** | [`10_marketing_1_video_to_5_posts.json`](./workflows/dept_3_marketing/10_marketing_1_video_to_5_posts.json) | **Omnichannel Repurposer** | Transforms 1 video URL into a LinkedIn post, X thread, YouTube Shorts hook, and newsletter blurb. |
+| **11** | [`11_marketing_review_replier.json`](./workflows/dept_3_marketing/11_marketing_review_replier.json) | **Reputation Guardian** | Hourly monitor for Google Maps reviews: posts appreciative replies for 5★ and flags critical reviews to the founder. |
+| **12** | [`12_marketing_review_asker.json`](./workflows/dept_3_marketing/12_marketing_review_asker.json) | **Review Booster** | Prompts verified satisfied buyers for public Google reviews while routing negative sentiment to private founder feedback. |
 
 ### 💰 Department 4: Finance, Tax & GST Invoicing (13 – 16)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **13** | [`13_finance_bill_reader.json`](./13_finance_bill_reader.json) | **Invoice OCR Extractor** | Parses vendor PDF invoices arriving via Gmail, extracts line items, and logs them into Google Sheets. |
-| **14** | [`14_finance_invoice_chaser.json`](./14_finance_invoice_chaser.json) | **Payment Escalation Bot** | Daily nocturnal scan for overdue receivables; dispatches progressively firmer reminders based on delinquency days. |
-| **15** | [`15_finance_bank_statement_reader.json`](./15_finance_bank_statement_reader.json) | **Bank Reconciliation AI** | Parses complex PDF bank statements, categorizes credits/debits, and exports balanced ledger sheets. |
-| **16** | [`16_finance_invoice_to_gst_register.json`](./16_finance_invoice_to_gst_register.json) | **GST Compliance Clerk** | Validates GSTINs, separates taxable amounts and CGST/SGST/IGST components, and prepares the input tax credit register. |
+| **13** | [`13_finance_bill_reader.json`](./workflows/dept_4_finance/13_finance_bill_reader.json) | **Invoice OCR Extractor** | Parses vendor PDF invoices arriving via Gmail, extracts line items, and logs them into Google Sheets. |
+| **14** | [`14_finance_invoice_chaser.json`](./workflows/dept_4_finance/14_finance_invoice_chaser.json) | **Payment Escalation Bot** | Daily nocturnal scan for overdue receivables; dispatches progressively firmer reminders based on delinquency days. |
+| **15** | [`15_finance_bank_statement_reader.json`](./workflows/dept_4_finance/15_finance_bank_statement_reader.json) | **Bank Reconciliation AI** | Parses complex PDF bank statements, categorizes credits/debits, and exports balanced ledger sheets. |
+| **16** | [`16_finance_invoice_to_gst_register.json`](./workflows/dept_4_finance/16_finance_invoice_to_gst_register.json) | **GST Compliance Clerk** | Validates GSTINs, separates taxable amounts and CGST/SGST/IGST components, and prepares the input tax credit register. |
 
 ### ⚙️ Department 5: Operations & Talent (17 – 20)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **17** | [`17_ops_resume_screener.json`](./17_ops_resume_screener.json) | **Technical HR Screener** | Evaluates candidate CVs against target role rubrics, assigns a 0–10 score, and generates structured interview questions. |
-| **18** | [`18_ops_no_show_stopper.json`](./18_ops_no_show_stopper.json) | **Attendance Optimizer** | Enforces appointment confirmations on WhatsApp; immediately reallocates vacated slots to waitlisted clients. |
-| **19** | [`19_ops_deadline_alert.json`](./19_ops_deadline_alert.json) | **Statutory Deadline Sentinel** | Tracks tax filings, ROC compliances, and client sprint deadlines with countdown alerts. |
-| **20** | [`20_ops_document_chaser.json`](./20_ops_document_chaser.json) | **Client KYC Follow-Up** | Tracks missing client documentation, contracts, or credentials and politely prompts stakeholders until complete. |
+| **17** | [`17_ops_resume_screener.json`](./workflows/dept_5_operations/17_ops_resume_screener.json) | **Technical HR Screener** | Evaluates candidate CVs against target role rubrics, assigns a 0–10 score, and generates structured interview questions. |
+| **18** | [`18_ops_no_show_stopper.json`](./workflows/dept_5_operations/18_ops_no_show_stopper.json) | **Attendance Optimizer** | Enforces appointment confirmations on WhatsApp; immediately reallocates vacated slots to waitlisted clients. |
+| **19** | [`19_ops_deadline_alert.json`](./workflows/dept_5_operations/19_ops_deadline_alert.json) | **Statutory Deadline Sentinel** | Tracks tax filings, ROC compliances, and client sprint deadlines with countdown alerts. |
+| **20** | [`20_ops_document_chaser.json`](./workflows/dept_5_operations/20_ops_document_chaser.json) | **Client KYC Follow-Up** | Tracks missing client documentation, contracts, or credentials and politely prompts stakeholders until complete. |
 
 ### 👑 Department 6: Executive Command & Boardroom Audit (21)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **21** | [`21_executive_ai_ceo_command_center.json`](./21_executive_ai_ceo_command_center.json) | **Master AI CEO Command Center** | **The Central Executive Intelligence uniting all agents!**<br>• **9:00 AM Flight Plan**: Scans leads, meetings, and dues into a Top-3 founder priority brief.<br>• **9:00 PM Boardroom Audit**: Audits all 11 sheets, computes the **Company Health Score (88/100)**, and dispatches reports.<br>• **`/ceo-command` Webhook**: On-demand natural language business intelligence retrieval.<br>• **`/emergency-escalation` Watchdog**: Fires SOS WhatsApp alerts for critical operational anomalies. |
+| **21** | [`21_executive_ai_ceo_command_center.json`](./workflows/dept_6_executive/21_executive_ai_ceo_command_center.json) | **Master AI CEO Command Center** | **The Central Executive Intelligence uniting all agents!**<br>• **9:00 AM Flight Plan**: Scans leads, meetings, and dues into a Top-3 founder priority brief.<br>• **9:00 PM Boardroom Audit**: Audits all 11 sheets, computes the **Company Health Score (88/100)**, and dispatches reports.<br>• **`/ceo-command` Webhook**: On-demand natural language business intelligence retrieval.<br>• **`/emergency-escalation` Watchdog**: Fires SOS WhatsApp alerts for critical operational anomalies. |
 
 ### 🛡️ Department 7: Cyber Security, DevSecOps & Tech Lead (22 – 26)
 | # | Workflow File | Agent Persona | Mission & Output |
 |---|---|---|---|
-| **22** | [`22_devsecops_github_pr_sentinel.json`](./22_devsecops_github_pr_sentinel.json) | **GitHub PR Sentinel** | Scans PR diffs for secret leaks (AWS, OpenAI, Anthropic, JWT, Private Keys) and OWASP Top 10 SAST bugs. Posts review comments and gates merges. |
-| **23** | [`23_cyber_autonomous_bug_hunter.json`](./23_cyber_autonomous_bug_hunter.json) | **Vulnerability Patcher** | Ingests vulnerability findings from Nuclei, Burp, and HackerOne, calculates CVSS 4.0 vectors, and drafts immediate defensive code patches. |
-| **24** | [`24_devops_cicd_pipeline_doctor.json`](./24_devops_cicd_pipeline_doctor.json) | **CI/CD Auto-Healer** | Listens to build failure webhooks, diagnoses stack traces, and produces unified Git diff patches to restore green CI. |
-| **25** | [`25_freelance_tech_lead_sow_generator.json`](./25_freelance_tech_lead_sow_generator.json) | **Tech Lead & SOW Architect** | Turns inbound client RFPs into production system architectures, database schemas, sprint milestones, and fixed-price SOW quotations. |
-| **26** | [`26_trading_financial_intelligence_bot.json`](./26_trading_financial_intelligence_bot.json) | **Treasury Risk Guardian** | Monitors corporate treasury reserves, SEC EDGAR 8-K/10-Q corporate disclosures, and pre-market market movements. |
+| **22** | [`22_devsecops_github_pr_sentinel.json`](./workflows/dept_7_cybersecurity_and_tech/22_devsecops_github_pr_sentinel.json) | **GitHub PR Sentinel** | Scans PR diffs for secret leaks (AWS, OpenAI, Anthropic, JWT, Private Keys) and OWASP Top 10 SAST bugs. Posts review comments and gates merges. |
+| **23** | [`23_cyber_autonomous_bug_hunter.json`](./workflows/dept_7_cybersecurity_and_tech/23_cyber_autonomous_bug_hunter.json) | **Vulnerability Patcher** | Ingests vulnerability findings from Nuclei, Burp, and HackerOne, calculates CVSS 4.0 vectors, and drafts immediate defensive code patches. |
+| **24** | [`24_devops_cicd_pipeline_doctor.json`](./workflows/dept_7_cybersecurity_and_tech/24_devops_cicd_pipeline_doctor.json) | **CI/CD Auto-Healer** | Listens to build failure webhooks, diagnoses stack traces, and produces unified Git diff patches to restore green CI. |
+| **25** | [`25_freelance_tech_lead_sow_generator.json`](./workflows/dept_7_cybersecurity_and_tech/25_freelance_tech_lead_sow_generator.json) | **Tech Lead & SOW Architect** | Turns inbound client RFPs into production system architectures, database schemas, sprint milestones, and fixed-price SOW quotations. |
+| **26** | [`26_trading_financial_intelligence_bot.json`](./workflows/dept_7_cybersecurity_and_tech/26_trading_financial_intelligence_bot.json) | **Treasury Risk Guardian** | Monitors corporate treasury reserves, SEC EDGAR 8-K/10-Q corporate disclosures, and pre-market market movements. |
 
 ---
 

@@ -23,5 +23,6 @@ Thumbs.db
 # Generated outputs & logs
 configured_workflows/
 camel_logs/
+camel_workforce_logs.json
 SOW_*.md
 node_modules/
