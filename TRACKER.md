@@ -64,6 +64,7 @@
 | Artifact | Purpose | Technology | Status |
 |---|---|---|---|
 | `coderaksh.py` | Official Enterprise CLI (`health`, `scan`, `pr-check`, `sow`) | Python 3.12 | ✅ **DONE** |
+| `coderaksh_hierarchy.py` | 100-Agent Hierarchical Chain of Command Dispatcher | Python 3.12 | ✅ **DONE** |
 | `camel_workforce.py` | CAMEL-AI Communicative Multi-Agent Workforce Bridge | Python 3.12 | ✅ **DONE** |
 | `setup.py` | Credential Injector CLI for all 26 workflows | Python 3.12 | ✅ **DONE** |
 | `docker-compose.yml` | 1-Click Container Deployment (n8n + PostgreSQL) | Docker Compose | ✅ **DONE** |
@@ -74,10 +75,12 @@
 ### D. Data, Legal & Skills Hub
 | Artifact | Purpose | Status |
 |---|---|---|
+| `ORGANIZATION_TREE.md` | Comprehensive 100-Agent Corporate Directory across 7 Departments | ✅ **DONE** |
 | `sheets_template/` | 15 pre-populated CSV templates with human sample data | ✅ **DONE** |
 | `legal_contracts/` | VAPT Rules of Engagement, Mutual NDA & Master Services Agreement | ✅ **DONE** |
 | `CODERAKSH_TECH_AND_SKILLS_MANIFEST.md` | Catalog of 95+ professional local skills | ✅ **DONE** |
 | `.agents/skills/coderaksh/SKILL.md` | Universal Master Skill for Claude Code, Gemini, and Codex | ✅ **DONE** |
+| `.agents/skills/coderaksh-hierarchy/` | 100-Agent Chain of Command & Hierarchical Delegation Skill | ✅ **DONE** |
 | `.agents/skills/ui-ux-pro-max/` | UI-UX Pro Max Design Intelligence System & Search Engine | ✅ **DONE** |
 | `.agents/skills/security-audit/` | Cloudflare's Autonomous Security Auditor Skill Suite | ✅ **DONE** |
 | `.agents/skills/camel-ai/` | CAMEL-AI Multi-Agent Workforce & Role-Playing Skill | ✅ **DONE** |

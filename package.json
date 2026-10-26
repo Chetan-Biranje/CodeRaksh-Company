@@ -8,6 +8,8 @@
     "cli": "python coderaksh.py",
     "health": "python coderaksh.py health",
     "pr-check": "python coderaksh.py pr-check",
+    "hierarchy": "python coderaksh_hierarchy.py",
+    "roster": "python coderaksh_hierarchy.py --roster",
     "camel": "python camel_workforce.py --status",
     "camel:audit": "python camel_workforce.py --task audit",
     "camel:roleplay": "python camel_workforce.py --roleplay",

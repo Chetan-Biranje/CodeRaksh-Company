@@ -139,3 +139,9 @@ Every skill listed below is installed and active on your system (`~/.gemini/conf
 - `camel-ai`: Autonomous multi-agent society and workforce framework (RolePlaying, ChatAgent, Workforce hierarchical task decomposition, CriticAgents, and multi-model ModelFactory).
 - `camel_workforce.py`: CodeRaksh's native Python bridge coordinating CEO Orchestrator, DevSecOps Sentinel, Bug Hunter, DevOps Doctor, and Tech Lead in communicative multi-agent societies.
 
+### 8. 🏢 100-Agent Corporate Hierarchy & Chain of Command
+- `coderaksh-hierarchy`: Master Claude Code & AI skill routing tasks from Founder -> Level 0 CEO -> Level 1 Department Managers -> Level 2 100 Specialist Workers.
+- `coderaksh_hierarchy.py`: Interactive CLI dispatcher simulating multi-level enterprise task decomposition and executive reporting.
+- `ORGANIZATION_TREE.md`: Comprehensive index of all 100 autonomous worker roles across 7 corporate departments.
+
+

@@ -163,6 +163,26 @@ python camel_workforce.py --roleplay
 
 ---
 
+## 🏢 100-Agent Hierarchical Chain of Command (`coderaksh_hierarchy.py`)
+
+CodeRaksh implements an autonomous corporate hierarchy:  
+`[Founder / Owner] ──► [Level 0: AI CEO] ──► [Level 1: Department Manager] ──► [Level 2: 100 Specialist Workers]`
+
+```bash
+# 1. Route any instruction through the hierarchical chain of command
+python coderaksh_hierarchy.py "sales team kade kam dyaaych ahe, Pune madhle 20 CA shodh"
+
+# 2. View all 7 Department Managers and active flagship worker agents
+python coderaksh_hierarchy.py --roster
+
+# 3. Open interactive conversational console with AI CEO
+python coderaksh_hierarchy.py --interactive
+```
+
+*(See [`ORGANIZATION_TREE.md`](./ORGANIZATION_TREE.md) for the complete directory of all 100 worker agent roles across all 7 departments).*
+
+---
+
 ## 🛠️ Enterprise CLI Tooling (`coderaksh.py`)
 
 A standalone terminal utility for operators and engineers:
@@ -182,6 +202,7 @@ python coderaksh.py sow "Acme Corp" "Fintech Mobile App" "10,000"
 ```
 
 ---
+
 
 ## ⚡ Quick Start & Deployment
 
