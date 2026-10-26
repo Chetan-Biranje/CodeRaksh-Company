@@ -7,8 +7,8 @@ const fs = require('fs');
 const path = require('path');
 
 // 1. Settings & Config
-const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || 'AIzaSyDp3XGcbE8OTqxFhuf7fyU0A70_KvKXskw';
-const CITY = 'Pune';
+const GOOGLE_API_KEY = process.env.GOOGLE_API_KEY || '';
+const CITY = process.env.TARGET_CITY || 'Pune';
 const NICHES = [
   'restaurant in Pune',
   'clinic doctor in Pune',
@@ -32,6 +32,12 @@ console.log(`📊 Max Results: ${MAX_RESULTS}`);
 console.log('='.repeat(60));
 
 async function fetchPlaces() {
+  if (!GOOGLE_API_KEY) {
+    console.error('\n❌ Configuration Notice: GOOGLE_API_KEY environment variable is not set.');
+    console.error('👉 Please export GOOGLE_API_KEY="AIza..." or set it in your .env file.\n');
+    return [];
+  }
+
   const url = 'https://places.googleapis.com/v1/places:searchText';
   const res = await fetch(url, {
     method: 'POST',
@@ -55,9 +61,8 @@ async function fetchPlaces() {
   const data = await res.json();
   if (data.error) {
     if (data.error.code === 403) {
-      console.error('\n❌ Google Cloud Error: Places API (New) is not enabled yet.');
-      console.error('👉 Please open this link in your browser and click "ENABLE":');
-      console.error('https://console.developers.google.com/apis/api/places.googleapis.com/overview?project=1082544244913\n');
+      console.error('\n❌ Google Cloud Error: Places API (New) is not enabled for your project.');
+      console.error('👉 Please enable "Places API (New)" in your Google Cloud Console.\n');
     } else {
       console.error('\n❌ Google API Error:', data.error.message);
     }

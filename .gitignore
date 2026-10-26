@@ -17,4 +17,11 @@ Thumbs.db
 
 # Editor
 .vscode/
+.idea/
 *.swp
+
+# Generated outputs & logs
+configured_workflows/
+camel_logs/
+SOW_*.md
+node_modules/

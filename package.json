@@ -1,0 +1,39 @@
+{
+  "name": "coderaksh-company",
+  "version": "3.0.0",
+  "description": "Autonomous AI Enterprise, Cyber Security, DevSecOps & Multi-Agent Workforce OS",
+  "main": "lead-finder.js",
+  "scripts": {
+    "start": "python -m uvicorn app.main:app --reload",
+    "cli": "python coderaksh.py",
+    "health": "python coderaksh.py health",
+    "pr-check": "python coderaksh.py pr-check",
+    "camel": "python camel_workforce.py --status",
+    "camel:audit": "python camel_workforce.py --task audit",
+    "camel:roleplay": "python camel_workforce.py --roleplay",
+    "bot": "python bot/server.py",
+    "leads": "node lead-finder.js",
+    "setup": "python setup.py",
+    "test": "python -m pytest tests/ && node .agents/skills/security-audit/validate-findings.test.cjs && node .agents/skills/security-audit/validate-coverage-ledger.test.cjs"
+  },
+  "keywords": [
+    "ai-agents",
+    "cybersecurity",
+    "devsecops",
+    "n8n-workflows",
+    "camel-ai",
+    "claude-3-5-sonnet",
+    "vapt",
+    "autonomous-enterprise"
+  ],
+  "author": "Chetan Biranje <chetan@coderaksh.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Chetan-Biranje/CodeRaksh-Company.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Chetan-Biranje/CodeRaksh-Company/issues"
+  },
+  "homepage": "https://github.com/Chetan-Biranje/CodeRaksh-Company#readme"
+}
