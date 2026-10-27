@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "sales",
+  "name": "Sales & Business Development",
+  "description": "Lead prospecting, personalized outreach pipelines, enterprise proposal synthesis, and revenue growth.",
+  "cSuiteManager": "cro",
+  "leadRole": "VP of Revenue & Sales",
+  "industry": "universal",
+  "roles": [
+    "VP of Revenue & Sales",
+    "Go-To-Market Lead",
+    "Sales Outreach Specialist",
+    "Account Executive Lead",
+    "Pipeline Intelligence Analyst"
+  ],
+  "budgetLimitUsd": 3000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

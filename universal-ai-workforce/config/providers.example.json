@@ -1,0 +1,29 @@
+{
+  "activeProvider": "mock",
+  "providers": {
+    "mock": {
+      "type": "mock",
+      "model": "deterministic-mock-v1",
+      "latencyMs": 10,
+      "simulateErrors": false
+    },
+    "anthropic": {
+      "type": "anthropic",
+      "model": "claude-3-7-sonnet-20250219",
+      "apiKeyEnv": "ANTHROPIC_API_KEY",
+      "maxTokens": 4096
+    },
+    "google": {
+      "type": "google",
+      "model": "gemini-2.0-flash",
+      "apiKeyEnv": "GEMINI_API_KEY",
+      "maxTokens": 4096
+    },
+    "openai": {
+      "type": "openai",
+      "model": "gpt-4o",
+      "apiKeyEnv": "OPENAI_API_KEY",
+      "maxTokens": 4096
+    }
+  }
+}

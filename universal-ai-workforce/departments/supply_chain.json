@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "supply_chain",
+  "name": "Procurement & Supply Chain",
+  "description": "Vendor negotiations, inventory fulfillment, supplier risk management, and logistics routing.",
+  "cSuiteManager": "coo",
+  "leadRole": "Head of Supply Chain",
+  "industry": "universal",
+  "roles": [
+    "Head of Supply Chain",
+    "Procurement Specialist",
+    "Vendor Relations Manager",
+    "Fulfillment & Warehouse Analyst",
+    "Freight Logistics Planner"
+  ],
+  "budgetLimitUsd": 2000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

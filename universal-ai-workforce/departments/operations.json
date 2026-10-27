@@ -1,0 +1,20 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "operations",
+  "name": "Operations & Project Management",
+  "description": "Cross-functional execution, project planning, workflow orchestration, and operational excellence.",
+  "cSuiteManager": "coo",
+  "leadRole": "Operations Director",
+  "industry": "universal",
+  "roles": [
+    "Operations Director",
+    "Agile Project Manager",
+    "Workflow Automation Specialist",
+    "Process Optimization Analyst",
+    "Logistics Coordinator",
+    "Operations Task Worker"
+  ],
+  "budgetLimitUsd": 2500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

@@ -1,0 +1,39 @@
+{
+  "id": "small-business",
+  "name": "Small Business & Local Services Operating Template",
+  "description": "Lean, high-impact multi-agent team designed for small business owners, agencies, and solo founders.",
+  "targetIndustry": "small_business",
+  "departments": [
+    "marketing",
+    "sales",
+    "operations",
+    "finance",
+    "support"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_smb_growth_lead",
+      "name": "Local SEO & Social Marketing Specialist",
+      "departmentId": "marketing",
+      "jobTitle": "Growth Specialist",
+      "capabilities": ["local_seo", "google_business_profile", "social_media_posting"]
+    },
+    {
+      "id": "agt_smb_lead_responder",
+      "name": "Instant Lead Responder & Meeting Scheduler",
+      "departmentId": "sales",
+      "jobTitle": "Lead Qualification Rep",
+      "capabilities": ["lead_qualification", "calendar_booking", "email_followup"]
+    },
+    {
+      "id": "agt_smb_bookkeeper",
+      "name": "Bookkeeper & Invoicing Specialist",
+      "departmentId": "finance",
+      "jobTitle": "Bookkeeper",
+      "capabilities": ["invoice_generation", "expense_categorization", "cashflow_tracking"]
+    }
+  ],
+  "starterGoals": [
+    "Set up automated local business outreach, review generation, and monthly expense categorization."
+  ]
+}

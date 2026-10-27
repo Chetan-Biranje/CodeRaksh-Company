@@ -1,0 +1,20 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "marketing",
+  "name": "Marketing & Growth",
+  "description": "Brand building, search engine and answer engine optimization (SEO/AEO), high-conversion content, and omni-channel campaigns.",
+  "cSuiteManager": "cmo",
+  "leadRole": "Head of Growth & Marketing",
+  "industry": "universal",
+  "roles": [
+    "Head of Growth & Marketing",
+    "SEO & AEO Content Strategist",
+    "Brand Identity Specialist",
+    "Copywriting Lead",
+    "Social Campaign Manager",
+    "Performance Marketing Specialist"
+  ],
+  "budgetLimitUsd": 3000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

@@ -1,0 +1,40 @@
+{
+  "id": "healthcare-admin",
+  "name": "Healthcare Administration & Clinical Workflow Template",
+  "description": "HIPAA-aligned administrative orchestration for clinics, hospitals, and telemedicine platforms.",
+  "targetIndustry": "healthcare",
+  "departments": [
+    "healthcare",
+    "legal",
+    "operations",
+    "support",
+    "cybersecurity",
+    "finance"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_health_hipaa_auditor",
+      "name": "HIPAA Privacy & PHI Protection Auditor",
+      "departmentId": "legal",
+      "jobTitle": "HIPAA Compliance Officer",
+      "capabilities": ["phi_redaction", "hipaa_audit", "baa_review"]
+    },
+    {
+      "id": "agt_health_intake_triage",
+      "name": "Patient Intake & Symptoms Triage Specialist",
+      "departmentId": "healthcare",
+      "jobTitle": "Clinical Intake Lead",
+      "capabilities": ["patient_intake", "symptom_triage", "ehr_entry"]
+    },
+    {
+      "id": "agt_health_claims_analyst",
+      "name": "Medical Billing & Insurance Claims Analyst",
+      "departmentId": "finance",
+      "jobTitle": "Billing Auditor",
+      "capabilities": ["icd_coding", "claims_scrubbing", "prior_authorization"]
+    }
+  ],
+  "starterGoals": [
+    "Perform end-to-end PHI access telemetry audit across patient intake forms."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillSchema",
+  "type": "object",
+  "required": ["id", "name", "version", "description", "capabilities", "riskLevel"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9-_]+$" },
+    "name": { "type": "string" },
+    "version": { "type": "string" },
+    "description": { "type": "string" },
+    "industry": { "type": "string", "default": "universal" },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dependencies": {
+      "type": "object",
+      "properties": {
+        "node": { "type": "string" },
+        "tools": { "type": "array", "items": { "type": "string" } },
+        "skills": { "type": "array", "items": { "type": "string" } },
+        "env": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "riskLevel": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    },
+    "sensitiveActions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "assignedAgents": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["registered", "validated", "approved", "active", "disabled", "pending_deps", "rejected"],
+      "default": "registered"
+    }
+  }
+}

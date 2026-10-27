@@ -1,0 +1,49 @@
+{
+  "id": "saas-enterprise",
+  "name": "B2B SaaS Enterprise Operating Template",
+  "description": "High-velocity multi-agent workforce configured for software-as-a-service companies.",
+  "targetIndustry": "it_software",
+  "departments": [
+    "engineering",
+    "product_design",
+    "cybersecurity",
+    "sales",
+    "marketing",
+    "support",
+    "operations",
+    "legal"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_saas_lead_architect",
+      "name": "Cloud Microservices Architect",
+      "departmentId": "engineering",
+      "jobTitle": "Staff Architect",
+      "capabilities": ["microservices", "kubernetes_architecture", "api_design"]
+    },
+    {
+      "id": "agt_saas_sast_auditor",
+      "name": "Continuous SAST & Secret Scanner",
+      "departmentId": "cybersecurity",
+      "jobTitle": "DevSecOps Sentinel",
+      "capabilities": ["sast_scanning", "secret_detection", "pr_audit"]
+    },
+    {
+      "id": "agt_saas_ae_prospector",
+      "name": "Enterprise SDR & Outbound Drafter",
+      "departmentId": "sales",
+      "jobTitle": "Enterprise SDR",
+      "capabilities": ["cold_outreach", "prospecting", "rfp_response"]
+    },
+    {
+      "id": "agt_saas_gdpr_officer",
+      "name": "GDPR & SOC2 Compliance Auditor",
+      "departmentId": "legal",
+      "jobTitle": "Privacy Auditor",
+      "capabilities": ["soc2_compliance", "gdpr_review", "dpa_negotiation"]
+    }
+  ],
+  "starterGoals": [
+    "Execute SOC2 Type II audit readiness review across cloud infrastructure and pull requests."
+  ]
+}

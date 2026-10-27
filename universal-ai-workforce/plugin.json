@@ -1,0 +1,19 @@
+{
+  "name": "universal-ai-workforce",
+  "displayName": "Universal AI Workforce",
+  "version": "1.0.0",
+  "description": "Enterprise-grade Universal AI Workforce Operating System managing 1,000+ logical AI employees, dynamic departments, autonomous skill lifecycle scaling, and multi-agent task orchestration.",
+  "author": {
+    "name": "CodeRaksh Company",
+    "url": "https://github.com/coderaksh"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ai-employees",
+    "workforce",
+    "multi-agent",
+    "orchestrator",
+    "skill-scaling",
+    "enterprise"
+  ]
+}

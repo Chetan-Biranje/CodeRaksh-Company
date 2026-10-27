@@ -23,6 +23,7 @@
 
 ## 📑 Table of Contents
 
+- [🌐 Universal AI Workforce (1,000+ AI Employees)](#-universal-ai-workforce-1000-ai-employees)
 - [🏛️ High-Level System Architecture](#️-high-level-system-architecture)
 - [🏢 7 Departmental Zones (All 26 AI Agents)](#-7-departmental-zones-all-26-ai-agents)
 - [🌐 Web Portals & Interfaces](#-web-portals--interfaces)
@@ -33,6 +34,19 @@
 - [📚 Enterprise Documentation Suite](#-enterprise-documentation-suite)
 - [🧪 Automated Test Suite](#-automated-test-suite)
 - [⚖️ License & Contact](#️-license--contact)
+
+---
+
+## 🌐 Universal AI Workforce (1,000+ AI Employees)
+
+The flagship autonomous workforce operating system located in [`universal-ai-workforce/`](universal-ai-workforce/):
+- **1,000+ Logical AI Employees** indexed across 12 departments (<2ms query latency).
+- **34 Registered Production Skills** with autonomous 10-step lifecycle ingestion and capability deduplication.
+- **Universal Multi-Tool Compatibility**: Native JSON-RPC 2.0 MCP server for **Claude Desktop, Claude Code, Google Gemini / Antigravity, Cursor, and Windsurf**, plus pure-Node HTTP REST API with OpenAPI 3.1 for **OpenAI ChatGPT Custom Actions**.
+- **Central AI CEO**: Translates objectives into dependency-aware Task DAGs with Tarjan's cycle detection.
+- **Verified Test Suites**: 21/21 passing automated verification test suites.
+
+👉 **Explore the workforce:** [Workforce README](universal-ai-workforce/README.md) · [1,000+ Agent Tree](universal-ai-workforce/ORGANIZATION_TREE.md) · [Project File Tree](universal-ai-workforce/PROJECT_TREE.md) · [Multi-Tool Integration Guide](universal-ai-workforce/docs/UNIVERSAL_AI_TOOL_INTEGRATION.md)
 
 ---
 

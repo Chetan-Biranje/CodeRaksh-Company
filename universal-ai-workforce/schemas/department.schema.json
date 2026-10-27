@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DepartmentSchema",
+  "type": "object",
+  "required": ["id", "name", "leadRole", "cSuiteManager"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "description": { "type": "string" },
+    "cSuiteManager": { "type": "string" },
+    "leadRole": { "type": "string" },
+    "industry": { "type": "string", "default": "universal" },
+    "roles": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "budgetLimitUsd": { "type": "number", "default": 1000.0 },
+    "budgetUsedUsd": { "type": "number", "default": 0.0 },
+    "active": { "type": "boolean", "default": true }
+  }
+}

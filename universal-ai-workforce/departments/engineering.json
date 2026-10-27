@@ -1,0 +1,22 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "engineering",
+  "name": "Software & AI Engineering",
+  "description": "Full-stack application development, AI systems engineering, API architecture, CI/CD pipelines, and codebase maintenance.",
+  "cSuiteManager": "cto",
+  "leadRole": "VP of Engineering",
+  "industry": "universal",
+  "roles": [
+    "VP of Engineering",
+    "Staff Software Architect",
+    "Full-Stack Engineer",
+    "AI Systems Engineer",
+    "DevOps Automation Engineer",
+    "QA Automation Engineer",
+    "Backend Microservices Specialist",
+    "Frontend UX Engineer"
+  ],
+  "budgetLimitUsd": 5000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

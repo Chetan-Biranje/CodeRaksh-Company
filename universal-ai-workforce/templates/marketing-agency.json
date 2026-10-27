@@ -1,0 +1,39 @@
+{
+  "id": "marketing-agency",
+  "name": "Full-Service Digital & AEO Agency Template",
+  "description": "Multi-agent agency workflow for SEO/AEO content generation, paid advertising, client campaigns, and brand strategy.",
+  "targetIndustry": "marketing_agency",
+  "departments": [
+    "marketing",
+    "product_design",
+    "sales",
+    "operations",
+    "research"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_agency_aeo_lead",
+      "name": "Answer Engine Optimization (AEO) Strategist",
+      "departmentId": "marketing",
+      "jobTitle": "AEO Director",
+      "capabilities": ["aeo_optimization", "featured_snippets", "schema_org_markup"]
+    },
+    {
+      "id": "agt_agency_copy_director",
+      "name": "Conversion Copywriter & Creative Director",
+      "departmentId": "marketing",
+      "jobTitle": "Creative Director",
+      "capabilities": ["copywriting", "landing_page_copy", "ad_creative"]
+    },
+    {
+      "id": "agt_agency_client_ops",
+      "name": "Agency Client Deliverable Coordinator",
+      "departmentId": "operations",
+      "jobTitle": "Client Ops Lead",
+      "capabilities": ["client_reporting", "project_milestones", "sla_tracking"]
+    }
+  ],
+  "starterGoals": [
+    "Produce 30-day topical authority cluster and AEO answer engine content for client launch."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "id": "fintech-operations",
+  "name": "Fintech & Financial Operations Template",
+  "description": "Multi-agent structure for payment processing, AML/KYC workflows, treasury management, and financial reporting.",
+  "targetIndustry": "fintech",
+  "departments": [
+    "finance",
+    "legal",
+    "cybersecurity",
+    "engineering",
+    "operations"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_fintech_aml_analyst",
+      "name": "AML & Transaction Monitoring Specialist",
+      "departmentId": "finance",
+      "jobTitle": "Compliance Analyst",
+      "capabilities": ["aml_monitoring", "kyc_verification", "suspicious_activity_reporting"]
+    },
+    {
+      "id": "agt_fintech_reconciliation",
+      "name": "Ledger & Multi-Currency Reconciliation Agent",
+      "departmentId": "finance",
+      "jobTitle": "Reconciliation Specialist",
+      "capabilities": ["ledger_reconciliation", "fx_rate_validation", "settlement_tracking"]
+    },
+    {
+      "id": "agt_fintech_sec_auditor",
+      "name": "PCI DSS Level 1 Security Architect",
+      "departmentId": "cybersecurity",
+      "jobTitle": "Fintech Security Architect",
+      "capabilities": ["pci_dss_compliance", "encryption_key_management", "api_tokens"]
+    }
+  ],
+  "starterGoals": [
+    "Execute automated daily ledger reconciliation across payment gateways and banking rails."
+  ]
+}

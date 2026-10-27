@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "finance",
+  "name": "Finance & Accounting",
+  "description": "Financial planning & analysis, budget management, unit economic audits, ledger accounting, and compliance.",
+  "cSuiteManager": "cfo",
+  "leadRole": "Finance Director",
+  "industry": "universal",
+  "roles": [
+    "Finance Director",
+    "Treasury & Budget Analyst",
+    "Billing & Invoice Specialist",
+    "Financial Forecaster",
+    "Tax & Audit Compliance Officer"
+  ],
+  "budgetLimitUsd": 2000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

@@ -1,0 +1,20 @@
+{
+  "name": "universal-ai-workforce-gemini",
+  "version": "1.0.0",
+  "description": "Google Gemini and Antigravity IDE Integration Package for Universal AI Workforce",
+  "author": "CodeRaksh Company",
+  "skills": [
+    "skills/bug-hunter-audit",
+    "skills/devsecops-sentinel",
+    "skills/gtm-launch-board",
+    "skills/sales-outreach-drafter",
+    "skills/seo-content-engine",
+    "skills/web-dev-sweep"
+  ],
+  "mcpServers": {
+    "workforce": {
+      "command": "node",
+      "args": ["bin/workforce.mjs", "status"]
+    }
+  }
+}

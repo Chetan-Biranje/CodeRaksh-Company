@@ -12,7 +12,8 @@
 2. **Executive Command Center (Level 0 Orchestration Engine)**: Intercepts directives, inspects real-time telemetry (pipeline health, active client PRs, open security vulnerabilities), computes priority vectors, and delegates tasks to the corresponding department supervisor.
 3. **Department Supervisors (Level 1 Leadership)**: 7 domain leads translate executive directives into structured technical execution plans.
 4. **Specialized Worker Daemons (Level 2 Micro-Agents)**: 100 purpose-built worker daemons execute automation pipelines across 29 n8n workflows, CAMEL communicative multi-agent runtimes, automated Google Sheets ledgers, and Python/Node CLI engines.
-5. **Quality Verification & Synthesis**: Outputs pass validation checks, update tamper-evident audit ledgers, and synthesize a concise technical briefing back to leadership.
+5. **Universal AI Workforce Operating System (Scale to 1,000+ Agents)**: For global enterprise tasks, delegates to the [Universal AI Workforce](universal-ai-workforce/README.md) managing 1,038 indexed logical agents across 12 departments with 34 production skills and native MCP/HTTP servers. (See [1,000+ Agent Organization Tree](universal-ai-workforce/ORGANIZATION_TREE.md) and [Codebase Project Tree](universal-ai-workforce/PROJECT_TREE.md)).
+6. **Quality Verification & Synthesis**: Outputs pass validation checks, update tamper-evident audit ledgers, and synthesize a concise technical briefing back to leadership.
 
 ---
 

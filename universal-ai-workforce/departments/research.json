@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "research",
+  "name": "Research & Business Intelligence",
+  "description": "Market trend forecasting, deep technical feasibility studies, data modeling, and competitive intelligence.",
+  "cSuiteManager": "cto",
+  "leadRole": "Director of Research",
+  "industry": "universal",
+  "roles": [
+    "Director of Research",
+    "Competitive Intelligence Analyst",
+    "Quantitative Data Scientist",
+    "Technology Horizon Forecaster",
+    "Market Research Specialist"
+  ],
+  "budgetLimitUsd": 2500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

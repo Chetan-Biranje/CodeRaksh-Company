@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "support",
+  "name": "Customer Support & Success",
+  "description": "24/7 autonomous inquiry triage, client success workflows, issue resolution, and satisfaction tracking.",
+  "cSuiteManager": "coo",
+  "leadRole": "Head of Customer Success",
+  "industry": "universal",
+  "roles": [
+    "Head of Customer Success",
+    "Tier 1 Support Agent",
+    "Technical Support Specialist",
+    "Customer Retention Analyst",
+    "Knowledge Base Editor"
+  ],
+  "budgetLimitUsd": 2000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

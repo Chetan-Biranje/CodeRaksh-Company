@@ -1,0 +1,20 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "cybersecurity",
+  "name": "Cyber Security & DevSecOps",
+  "description": "Vulnerability management, SAST/DAST audits, secrets scanning, threat modeling, and defensive architecture.",
+  "cSuiteManager": "ciso",
+  "leadRole": "Head of Cyber Security",
+  "industry": "universal",
+  "roles": [
+    "Head of Cyber Security",
+    "DevSecOps Sentinel",
+    "Bug Bounty Hunter & Auditor",
+    "Cloud Infrastructure Security Specialist",
+    "Cryptographic Assurance Engineer",
+    "Incident Response Lead"
+  ],
+  "budgetLimitUsd": 3500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

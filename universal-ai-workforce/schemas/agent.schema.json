@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentSchema",
+  "type": "object",
+  "required": ["id", "name", "role", "departmentId", "reportingManagerId"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "role": { "type": "string" },
+    "jobTitle": { "type": "string" },
+    "departmentId": { "type": "string" },
+    "reportingManagerId": { "type": "string" },
+    "level": {
+      "type": "string",
+      "enum": ["c_suite", "director", "manager", "team_lead", "specialist", "worker"]
+    },
+    "skills": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "providerPreference": {
+      "type": "string",
+      "default": "mock"
+    },
+    "model": { "type": "string" },
+    "permissions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "approvalRequired": { "type": "boolean", "default": true },
+    "maxConcurrency": { "type": "integer", "default": 1 },
+    "budgetLimitUsd": { "type": "number", "default": 50.0 },
+    "budgetUsedUsd": { "type": "number", "default": 0.0 },
+    "status": {
+      "type": "string",
+      "enum": ["idle", "busy", "paused", "retired", "error"],
+      "default": "idle"
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "tasksCompleted": { "type": "integer", "default": 0 },
+        "tasksFailed": { "type": "integer", "default": 0 },
+        "totalRunTimeMs": { "type": "number", "default": 0 },
+        "lastActiveAt": { "type": "string" }
+      }
+    }
+  }
+}

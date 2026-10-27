@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "healthcare",
+  "name": "Healthcare Administration & Clinical Operations",
+  "description": "Medical record workflows, HIPAA compliance, patient scheduling, clinical triage, and billing management.",
+  "cSuiteManager": "coo",
+  "leadRole": "Chief Medical Operations Officer",
+  "industry": "healthcare",
+  "roles": [
+    "Chief Medical Operations Officer",
+    "Clinical Triage Coordinator",
+    "HIPAA Compliance Officer",
+    "Patient Scheduling Specialist",
+    "Medical Billing & Coding Auditor"
+  ],
+  "budgetLimitUsd": 3500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

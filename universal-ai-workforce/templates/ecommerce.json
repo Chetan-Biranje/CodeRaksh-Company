@@ -1,0 +1,48 @@
+{
+  "id": "ecommerce",
+  "name": "E-Commerce & Retail Marketplace Template",
+  "description": "Turnkey AI organizational template for direct-to-consumer and B2B online commerce.",
+  "targetIndustry": "ecommerce",
+  "departments": [
+    "marketing",
+    "engineering",
+    "sales",
+    "support",
+    "supply_chain",
+    "cybersecurity",
+    "finance"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_ecom_catalog_lead",
+      "name": "Product Catalog & Merchandising Specialist",
+      "departmentId": "marketing",
+      "jobTitle": "Lead Merchandiser",
+      "capabilities": ["catalog_management", "product_descriptions", "seo_merchandising"]
+    },
+    {
+      "id": "agt_ecom_pci_auditor",
+      "name": "PCI-DSS Checkout Security Auditor",
+      "departmentId": "cybersecurity",
+      "jobTitle": "Checkout Security Lead",
+      "capabilities": ["pci_compliance", "fraud_detection", "checkout_audit"]
+    },
+    {
+      "id": "agt_ecom_support_lead",
+      "name": "Omnichannel CSAT & Return Specialist",
+      "departmentId": "support",
+      "jobTitle": "Customer Success Lead",
+      "capabilities": ["order_tracking", "returns_processing", "ticket_triage"]
+    },
+    {
+      "id": "agt_ecom_inventory_planner",
+      "name": "Warehouse & Dropship Logistics Planner",
+      "departmentId": "supply_chain",
+      "jobTitle": "Inventory Specialist",
+      "capabilities": ["inventory_forecasting", "supplier_reorder", "freight_tracking"]
+    }
+  ],
+  "starterGoals": [
+    "Launch full omnichannel store with Stripe/PayPal payment checkout and automated SEO catalog."
+  ]
+}

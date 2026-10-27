@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "hr",
+  "name": "Human Resources & Recruitment",
+  "description": "Talent acquisition, role profiling, performance reviews, employee policy enforcement, and onboarding.",
+  "cSuiteManager": "chro",
+  "leadRole": "Head of People Operations",
+  "industry": "universal",
+  "roles": [
+    "Head of People Operations",
+    "Technical Recruiter",
+    "Talent Onboarding Coordinator",
+    "Workplace Culture Officer",
+    "Employee Relations Specialist"
+  ],
+  "budgetLimitUsd": 1500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

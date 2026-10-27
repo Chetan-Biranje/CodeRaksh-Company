@@ -1,0 +1,39 @@
+{
+  "id": "manufacturing-logistics",
+  "name": "Manufacturing & Supply Chain Logistics Template",
+  "description": "Production scheduling, inventory replenishment, freight route optimization, and supplier quality tracking.",
+  "targetIndustry": "manufacturing",
+  "departments": [
+    "supply_chain",
+    "operations",
+    "engineering",
+    "finance",
+    "support"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_mfg_production_scheduler",
+      "name": "Factory Production Line Scheduler",
+      "departmentId": "operations",
+      "jobTitle": "Production Planner",
+      "capabilities": ["capacity_planning", "downtime_scheduling", "mrp_calculation"]
+    },
+    {
+      "id": "agt_mfg_supplier_qa",
+      "name": "Supplier QA & Defect Tracking Specialist",
+      "departmentId": "supply_chain",
+      "jobTitle": "Quality Assurance Auditor",
+      "capabilities": ["defect_analysis", "iso9001_compliance", "supplier_scoring"]
+    },
+    {
+      "id": "agt_mfg_freight_optimizer",
+      "name": "Global Freight & Multi-Modal Routing Lead",
+      "departmentId": "supply_chain",
+      "jobTitle": "Logistics Route Planner",
+      "capabilities": ["route_optimization", "customs_brokerage", "freight_cost_reduction"]
+    }
+  ],
+  "starterGoals": [
+    "Simulate raw materials supplier buffer stock requirements based on 90-day lead-time projections."
+  ]
+}

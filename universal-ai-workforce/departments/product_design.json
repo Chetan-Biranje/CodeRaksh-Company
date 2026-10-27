@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "product_design",
+  "name": "Product & Design",
+  "description": "Product roadmapping, design tokens, UI/UX wireframing, feature specifications, and user experience testing.",
+  "cSuiteManager": "cto",
+  "leadRole": "Head of Product & Design",
+  "industry": "universal",
+  "roles": [
+    "Head of Product & Design",
+    "Lead UI/UX Designer",
+    "Product Manager",
+    "Design System Architect",
+    "User Researcher"
+  ],
+  "budgetLimitUsd": 2500.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

@@ -1,0 +1,33 @@
+{
+  "system": {
+    "organizationName": "CodeRaksh Company",
+    "version": "1.0.0",
+    "environment": "development",
+    "timezone": "Asia/Kolkata",
+    "locale": "en-US"
+  },
+  "limits": {
+    "maxLogicalAgents": 10000,
+    "maxConcurrentWorkers": 20,
+    "maxTaskRetries": 3,
+    "taskTimeoutMs": 60000,
+    "defaultBudgetLimitUsd": 500.0,
+    "maxQueueDepth": 10000
+  },
+  "scaling": {
+    "tasksPerWorkerToScaleUp": 3,
+    "idleSecondsToScaleDown": 60,
+    "minWorkersPerRole": 0,
+    "maxWorkersPerRole": 10
+  },
+  "storage": {
+    "stateFile": "storage/state.json",
+    "auditLogFile": "storage/audit.jsonl",
+    "snapshotIntervalTasks": 25
+  },
+  "providers": {
+    "default": "mock",
+    "fallback": "mock",
+    "temperature": 0.2
+  }
+}

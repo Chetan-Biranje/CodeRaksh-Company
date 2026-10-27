@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskSchema",
+  "type": "object",
+  "required": ["id", "title", "departmentId", "status", "priority"],
+  "properties": {
+    "id": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "goalId": { "type": "string" },
+    "departmentId": { "type": "string" },
+    "assignedAgentId": { "type": "string" },
+    "requiredCapabilities": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "urgent", "critical"],
+      "default": "medium"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["pending", "queued", "running", "waiting_approval", "completed", "failed", "cancelled", "blocked"],
+      "default": "pending"
+    },
+    "approvalState": {
+      "type": "object",
+      "properties": {
+        "required": { "type": "boolean", "default": false },
+        "actionType": { "type": "string" },
+        "status": { "type": "string", "enum": ["none", "pending", "approved", "rejected"], "default": "none" },
+        "requestedAt": { "type": "string" },
+        "approvedBy": { "type": "string" },
+        "approvedAt": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "items": { "type": "object" }
+    },
+    "retries": { "type": "integer", "default": 0 },
+    "maxRetries": { "type": "integer", "default": 3 },
+    "estimatedCostUsd": { "type": "number", "default": 0.0 },
+    "actualCostUsd": { "type": "number", "default": 0.0 },
+    "deadline": { "type": "string" },
+    "createdAt": { "type": "string" },
+    "startedAt": { "type": "string" },
+    "completedAt": { "type": "string" },
+    "error": { "type": "string" },
+    "auditTrail": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "../schemas/department.schema.json",
+  "id": "legal",
+  "name": "Legal & Compliance Support",
+  "description": "Contract review, terms of service, intellectual property protection, regulatory compliance, and risk assessments.",
+  "cSuiteManager": "cos",
+  "leadRole": "Chief Legal Counsel",
+  "industry": "universal",
+  "roles": [
+    "Chief Legal Counsel",
+    "Compliance Auditor",
+    "Contract Review Analyst",
+    "Data Privacy Officer (GDPR/CCPA)",
+    "Regulatory Compliance Specialist"
+  ],
+  "budgetLimitUsd": 2000.0,
+  "budgetUsedUsd": 0.0,
+  "active": true
+}

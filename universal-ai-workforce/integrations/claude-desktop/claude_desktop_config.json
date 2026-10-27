@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "universal-ai-workforce": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": [
+        "C:\\Users\\Mr Shadex\\Documents\\CodeRaksh Company\\universal-ai-workforce\\bin\\workforce.mjs",
+        "mcp-server"
+      ],
+      "env": {
+        "WORKFORCE_ENV": "production"
+      }
+    }
+  }
+}

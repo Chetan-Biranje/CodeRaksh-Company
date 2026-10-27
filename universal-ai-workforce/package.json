@@ -1,0 +1,30 @@
+{
+  "name": "universal-ai-workforce",
+  "version": "1.0.0",
+  "description": "Universal AI Workforce Plugin & Operating System managing 1,000+ logical AI employees across industries",
+  "type": "module",
+  "main": "core/index.js",
+  "bin": {
+    "workforce": "bin/workforce.mjs"
+  },
+  "scripts": {
+    "test": "node tests/test-runner.js",
+    "start": "node bin/workforce.mjs status",
+    "dashboard": "node bin/workforce.mjs dashboard"
+  },
+  "keywords": [
+    "ai-workforce",
+    "ai-employees",
+    "multi-agent",
+    "orchestrator",
+    "skill-registry",
+    "agent-factory",
+    "antigravity-plugin",
+    "claude-plugin"
+  ],
+  "author": "CodeRaksh Company",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

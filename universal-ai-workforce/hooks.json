@@ -1,0 +1,9 @@
+{
+  "hooks": {
+    "session_start": [
+      {
+        "command": "node bin/workforce.mjs doctor --quiet"
+      }
+    ]
+  }
+}

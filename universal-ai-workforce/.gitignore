@@ -1,0 +1,9 @@
+node_modules/
+.env
+.env.*
+*.tmp
+*.tmp.*
+storage/*.tmp*
+storage/state.backup.*.json
+.DS_Store
+Thumbs.db

@@ -1,0 +1,39 @@
+{
+  "id": "education-academy",
+  "name": "Higher Education & EdTech Academy Template",
+  "description": "Curriculum authoring, student enrollment onboarding, homework grading assistance, and accreditation compliance.",
+  "targetIndustry": "education",
+  "departments": [
+    "operations",
+    "support",
+    "marketing",
+    "product_design",
+    "legal"
+  ],
+  "recommendedAgents": [
+    {
+      "id": "agt_edu_curriculum_author",
+      "name": "Instructional Designer & Curriculum Lead",
+      "departmentId": "operations",
+      "jobTitle": "Curriculum Architect",
+      "capabilities": ["syllabus_design", "learning_outcomes", "pedagogical_alignment"]
+    },
+    {
+      "id": "agt_edu_student_advisor",
+      "name": "Student Success & Academic Advisor",
+      "departmentId": "support",
+      "jobTitle": "Academic Advisor",
+      "capabilities": ["student_onboarding", "retention_nudges", "faq_support"]
+    },
+    {
+      "id": "agt_edu_accreditation_auditor",
+      "name": "Higher Education Accreditation Auditor",
+      "departmentId": "legal",
+      "jobTitle": "Compliance Officer",
+      "capabilities": ["accreditation_standards", "institutional_review", "rubric_audit"]
+    }
+  ],
+  "starterGoals": [
+    "Draft comprehensive 12-week AI Engineering course curriculum with lab exercises and rubric."
+  ]
+}

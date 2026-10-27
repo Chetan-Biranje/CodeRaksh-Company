@@ -1,0 +1,64 @@
+{
+  "killSwitchActive": false,
+  "defaultApprovalRequired": true,
+  "sensitiveActionTypes": [
+    "external_email",
+    "external_post",
+    "spend_money",
+    "delete_data",
+    "permission_change",
+    "destructive_command",
+    "access_production_db",
+    "export_customer_data"
+  ],
+  "roles": {
+    "founder": {
+      "permissions": ["*"],
+      "canBypassApproval": true
+    },
+    "ai_ceo": {
+      "permissions": [
+        "orchestrate",
+        "delegate",
+        "view_all",
+        "request_approval",
+        "create_role",
+        "register_skill"
+      ],
+      "canBypassApproval": false
+    },
+    "department_manager": {
+      "permissions": [
+        "manage_department",
+        "assign_task",
+        "review_deliverable",
+        "request_approval"
+      ],
+      "canBypassApproval": false
+    },
+    "specialist_agent": {
+      "permissions": [
+        "execute_assigned_task",
+        "request_tool"
+      ],
+      "canBypassApproval": false
+    },
+    "task_worker": {
+      "permissions": [
+        "execute_assigned_task"
+      ],
+      "canBypassApproval": false
+    }
+  },
+  "secretRedaction": {
+    "enabled": true,
+    "patterns": [
+      "sk-[a-zA-Z0-9]{20,}",
+      "AIza[0-9A-Za-z-_]{35}",
+      "ghp_[a-zA-Z0-9]{36}",
+      "Bearer\\s+[a-zA-Z0-9\\.\\-_]+",
+      "password\\s*=\\s*['\"][^'\"]+['\"]",
+      "SECRET_KEY\\s*=\\s*['\"][^'\"]+['\"]"
+    ]
+  }
+}

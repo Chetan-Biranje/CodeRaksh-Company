@@ -1,0 +1,29 @@
+{
+  "name": "universal-ai-workforce-claude",
+  "version": "1.0.0",
+  "description": "Claude Code plugin integration for Universal AI Workforce (1,000+ AI Employees)",
+  "author": "CodeRaksh Company",
+  "entrypoint": "bin/workforce.mjs",
+  "commands": {
+    "workforce:status": {
+      "description": "Display live workforce status and agent counts",
+      "command": "node bin/workforce.mjs status"
+    },
+    "workforce:tree": {
+      "description": "Show organization hierarchy tree",
+      "command": "node bin/workforce.mjs tree"
+    },
+    "workforce:goal": {
+      "description": "Submit a business goal to AI CEO",
+      "command": "node bin/workforce.mjs goal \"$PROMPT\""
+    },
+    "workforce:kill-switch": {
+      "description": "Engage or disengage workforce kill switch",
+      "command": "node bin/workforce.mjs kill-switch"
+    }
+  },
+  "compatibility": {
+    "claudeCode": ">=1.0.0",
+    "node": ">=18.0.0"
+  }
+}

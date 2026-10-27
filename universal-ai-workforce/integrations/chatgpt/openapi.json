@@ -1,0 +1,65 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Universal AI Workforce API",
+    "description": "REST endpoints for managing 1,000+ AI employees, submitting business goals to AI CEO, and checking status.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.workforce.internal/v1"
+    }
+  ],
+  "paths": {
+    "/status": {
+      "get": {
+        "operationId": "getWorkforceStatus",
+        "summary": "Retrieve workforce operational status and agent counts",
+        "responses": {
+          "200": {
+            "description": "Workforce status payload",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "totalAgents": { "type": "integer" },
+                    "activeWorkers": { "type": "integer" },
+                    "registeredSkills": { "type": "integer" },
+                    "status": { "type": "string" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/goals": {
+      "post": {
+        "operationId": "submitGoal",
+        "summary": "Submit business goal for AI CEO decomposition and execution",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["objective"],
+                "properties": {
+                  "objective": { "type": "string" },
+                  "priority": { "type": "string", "enum": ["medium", "high", "urgent"] }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Executive Briefing and Task DAG results"
+          }
+        }
+      }
+    }
+  }
+}
