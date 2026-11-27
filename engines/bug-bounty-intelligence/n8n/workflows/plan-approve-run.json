@@ -1,0 +1,284 @@
+{
+  "id": "cr-bounty-plan-approve-run",
+  "name": "CodeRaksh - plan, approve, run (mock by default)",
+  "nodes": [
+    {
+      "id": "n1",
+      "name": "Weekly",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "n2",
+      "name": "Config",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "baseUrl",
+              "type": "string",
+              "value": "http://coderaksh:8000"
+            },
+            {
+              "id": "a2",
+              "name": "programId",
+              "type": "string",
+              "value": "example-pilot"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "n3",
+      "name": "Plan (no credits spent)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $json.baseUrl }}/v1/plan",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ program_id: $(\"Config\").item.json.programId }) }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_IN_N8N",
+          "name": "CodeRaksh API token"
+        }
+      }
+    },
+    {
+      "id": "n4",
+      "name": "Within cap?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "typeValidation": "strict"
+          },
+          "combinator": "and",
+          "conditions": [
+            {
+              "id": "c1",
+              "operator": {
+                "type": "number",
+                "operation": "lte"
+              },
+              "leftValue": "={{ $json.planned_cost }}",
+              "rightValue": "={{ $json.cap }}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "n5",
+      "name": "Human approval (open the resume URL)",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        -80
+      ],
+      "parameters": {
+        "resume": "webhook",
+        "options": {}
+      }
+    },
+    {
+      "id": "n6",
+      "name": "Run (mock mode)",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        -80
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $('Config').item.json.baseUrl }}/v1/runs",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {},
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ program_id: $(\"Config\").item.json.programId, mode: \"mock\" }) }}"
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_IN_N8N",
+          "name": "CodeRaksh API token"
+        }
+      }
+    },
+    {
+      "id": "n7",
+      "name": "Fetch Markdown report",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1320,
+        -80
+      ],
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $('Config').item.json.baseUrl }}/v1/runs/{{ $json.program_id }}/{{ $json.run_id }}/report.md",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REPLACE_IN_N8N",
+          "name": "CodeRaksh API token"
+        }
+      }
+    },
+    {
+      "id": "n8",
+      "name": "Deliver report (replace with email, Slack or file node)",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        -80
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "n9",
+      "name": "Stop: plan exceeds cap",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        880,
+        100
+      ],
+      "parameters": {}
+    }
+  ],
+  "connections": {
+    "Weekly": {
+      "main": [
+        [
+          {
+            "node": "Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Config": {
+      "main": [
+        [
+          {
+            "node": "Plan (no credits spent)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plan (no credits spent)": {
+      "main": [
+        [
+          {
+            "node": "Within cap?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Within cap?": {
+      "main": [
+        [
+          {
+            "node": "Human approval (open the resume URL)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Stop: plan exceeds cap",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Human approval (open the resume URL)": {
+      "main": [
+        [
+          {
+            "node": "Run (mock mode)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Run (mock mode)": {
+      "main": [
+        [
+          {
+            "node": "Fetch Markdown report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Markdown report": {
+      "main": [
+        [
+          {
+            "node": "Deliver report (replace with email, Slack or file node)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

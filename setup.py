@@ -5,6 +5,7 @@ Replaces all YOUR_... placeholders across all 26 workflows and outputs ready-to-
 """
 
 import os
+import sys
 import glob
 import json
 
@@ -71,4 +72,6 @@ def main():
     print("👉 You can now import any .json from 'configured_workflows/' directly into n8n.")
 
 if __name__ == "__main__":
-    main()
+    # pip/setuptools execute this file during builds with no terminal; only prompt interactively.
+    if sys.stdin.isatty():
+        main()

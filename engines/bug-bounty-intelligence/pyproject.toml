@@ -1,0 +1,65 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "coderaksh"
+version = "0.1.0"
+description = "CodeRaksh Bug Bounty Intelligence Engine: passive, scope-enforced research for authorized programs."
+readme = "README.md"
+authors = [{ name = "Chetan Biranje" }]
+requires-python = ">=3.11"
+license = { text = "MIT" }
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Intended Audience :: Information Technology",
+  "Topic :: Security",
+]
+dependencies = [
+  "httpx>=0.27",
+  "pydantic>=2.6",
+  "pyyaml>=6.0",
+  "typer>=0.12",
+  "fastapi>=0.110",
+  "uvicorn>=0.29",
+  "opentelemetry-api>=1.45.2",  # transitive via fastapi; floor excludes CVE-2026-114603 and CVE-2026-126360
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=1.0"]
+dev = ["pytest>=8", "pytest-cov>=5", "ruff>=0.5", "bandit>=1.7", "pip-audit>=2.7"]
+
+[project.urls]
+Homepage = "https://github.com/Chetan-Biranje/CodeRaksh-Company/tree/main/engines/bug-bounty-intelligence"
+Repository = "https://github.com/Chetan-Biranje/CodeRaksh-Company"
+Issues = "https://github.com/Chetan-Biranje/CodeRaksh-Company/issues"
+Changelog = "https://github.com/Chetan-Biranje/CodeRaksh-Company/blob/main/engines/bug-bounty-intelligence/CHANGELOG.md"
+
+[project.scripts]
+coderaksh = "coderaksh.cli:app"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+coderaksh = ["mock/*.json", "py.typed"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "S", "UP"]
+ignore = ["S101"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S"]
+
+[tool.bandit]
+exclude_dirs = ["tests"]

@@ -24,6 +24,7 @@
 ## 📑 Table of Contents
 
 - [🌐 Universal AI Workforce (1,000+ AI Employees)](#-universal-ai-workforce-1000-ai-employees)
+- [🔍 Bug Bounty Intelligence Engine](#-bug-bounty-intelligence-engine-enginesbug-bounty-intelligence)
 - [🏛️ High-Level System Architecture](#️-high-level-system-architecture)
 - [🏢 7 Departmental Zones (All 26 AI Agents)](#-7-departmental-zones-all-26-ai-agents)
 - [🌐 Web Portals & Interfaces](#-web-portals--interfaces)
@@ -47,6 +48,27 @@ The flagship autonomous workforce operating system located in [`universal-ai-wor
 - **Verified Test Suites**: 21/21 passing automated verification test suites.
 
 👉 **Explore the workforce:** [Workforce README](universal-ai-workforce/README.md) · [1,000+ Agent Tree](universal-ai-workforce/ORGANIZATION_TREE.md) · [Project File Tree](universal-ai-workforce/PROJECT_TREE.md) · [Multi-Tool Integration Guide](universal-ai-workforce/docs/UNIVERSAL_AI_TOOL_INTEGRATION.md)
+
+---
+
+## 🔍 Bug Bounty Intelligence Engine (`engines/bug-bounty-intelligence`)
+
+A separate, self-contained Python project: passive, scope-enforced research for **authorized**
+bug bounty programs. It gathers public information through Tapline and the free NVD, CISA KEV,
+EPSS, OSV and GitHub Advisory sources, identifies the technology stack and writes a Markdown/JSON
+brief with manual-test hypotheses. It never contacts a target, spends no Tapline credits unless a
+live pilot is explicitly approved in a scope file (500-credit lifetime cap per program), and
+excludes Indeed and personal LinkedIn profiles.
+
+```bash
+cd engines/bug-bounty-intelligence
+pip install -e ".[dev]" && pytest          # mock mode, no network
+```
+
+See its [README](engines/bug-bounty-intelligence/README.md),
+[security audit](engines/bug-bounty-intelligence/docs/SECURITY-AUDIT.md) and
+[SECURITY.md](engines/bug-bounty-intelligence/SECURITY.md). CI: `bounty-engine-ci` and
+`bounty-engine-security` workflows. Licensed MIT (see the LICENSE file in that folder).
 
 ---
 

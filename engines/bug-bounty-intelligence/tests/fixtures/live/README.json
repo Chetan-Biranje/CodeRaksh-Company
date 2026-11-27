@@ -1,0 +1,4 @@
+{
+ "captured": "2026-11-27",
+ "note": "kev/epss/nvd/osv are raw captures (kev and osv trimmed); ghsa_reconstructed.json is rebuilt from fields seen via WebFetch because api.github.com was blocked in the sandbox. Public data: NVD and CISA are U.S. government; EPSS by FIRST; OSV and GitHub Advisory Database are CC-BY 4.0 (see docs/third-party-data.md)."
+}

@@ -1,0 +1,29 @@
+[
+ {
+  "ghsa_id": "GHSA-hjrf-2m68-5959",
+  "cve_id": "CVE-2022-23541",
+  "url": "https://api.github.com/advisories/GHSA-hjrf-2m68-5959",
+  "html_url": "https://github.com/advisories/GHSA-hjrf-2m68-5959",
+  "summary": "jsonwebtoken's insecure implementation of key retrieval function could lead to Forgeable Public/Private Tokens",
+  "type": "reviewed",
+  "severity": "medium",
+  "vulnerabilities": [
+   {
+    "package": {
+     "ecosystem": "npm",
+     "name": "jsonwebtoken"
+    },
+    "vulnerable_version_range": "<= 8.5.1",
+    "first_patched_version": "9.0.0"
+   }
+  ],
+  "cvss": {
+   "vector_string": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:L",
+   "score": 5.0
+  },
+  "epss": {
+   "percentage": 0.00774,
+   "percentile": 0.52169
+  }
+ }
+]

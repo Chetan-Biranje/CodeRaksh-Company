@@ -1,0 +1,43 @@
+# Example scope file for a FICTIONAL organisation. Mock mode only.
+# To use a real program, copy this file, fill it from the program's public policy page,
+# then set authorization and pilot fields yourself. The engine never fills them in.
+program:
+  id: example-pilot
+  name: Example Corp
+  platform: hackerone
+  policy_url: https://hackerone.com/example-corp-placeholder
+
+authorization:        # you confirm you are allowed to research this program
+  confirmed: false
+  confirmed_by: ""
+  confirmed_on: ""
+
+pilot:                # explicit approval for the 500-credit pilot; blocks live mode until set
+  approved: false
+  approved_by: ""
+  approved_on: ""
+  max_credits: 500
+
+scope:
+  in_scope:
+    - api.example.com
+    - "*.example.com"
+  out_of_scope:
+    - blog.example.com
+    - status.example.com
+  reference_domains:  # public documentation hosts used for site: searches
+    - developers.example.com
+
+org:
+  keywords: ["Example Corp"]
+  linkedin_company_url: https://www.linkedin.com/company/example/
+  twitter_handles: ["examplecorp"]
+  youtube_channels: []
+
+research:
+  max_site_queries_per_domain: 4
+  max_job_details: 2
+  include_news: true
+  include_youtube: true
+  youtube_queries: 1
+  openapi_files: ["example-openapi.json"]

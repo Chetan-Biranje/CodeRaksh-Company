@@ -1,0 +1,57 @@
+name: Bounty engine security
+on:
+  push:
+    branches: [main]
+    paths: ["engines/bug-bounty-intelligence/**", ".github/workflows/bounty-engine-*.yml"]
+  pull_request:
+    paths: ["engines/bug-bounty-intelligence/**", ".github/workflows/bounty-engine-*.yml"]
+  schedule:
+    - cron: "17 3 * * 1"
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: engines/bug-bounty-intelligence
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with: {python-version: "3.12"}
+      - run: pip install bandit
+      - run: bandit -r src -c pyproject.toml -ll
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with: {python-version: "3.12"}
+      - run: pip install pip-audit && pip-audit . --progress-spinner off
+  docker-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with: {persist-credentials: false}
+      - run: docker build -t coderaksh:scan .
+      - uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          image-ref: coderaksh:scan
+          severity: CRITICAL,HIGH
+          exit-code: "1"
+          ignore-unfixed: true
+  live-sources-smoke:
+    # Free public sources only (NVD, KEV, EPSS, OSV, GitHub Advisories). No Tapline, no target contact.
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with: {python-version: "3.12"}
+      - run: pip install -e .
+      - run: python scripts/smoke_public_sources.py
+        env:
+          GITHUB_TOKEN: ${{ github.token }}

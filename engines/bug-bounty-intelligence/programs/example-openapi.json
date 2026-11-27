@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.3",
+  "info": {"title": "Example Corp public API (synthetic)", "version": "3"},
+  "servers": [{"url": "https://api.example.com"}],
+  "paths": {
+    "/v2/orders/{orderId}": {"get": {"summary": "Get order"}},
+    "/v2/users/{userId}/invoices/{invoiceId}": {"get": {"summary": "Get invoice"}},
+    "/v2/admin/export": {"post": {"summary": "Bulk export"}},
+    "/v2/profile": {
+      "put": {
+        "requestBody": {"content": {"application/json": {"schema": {
+          "properties": {"name": {"type": "string"}, "role": {"type": "string"}}}}}}
+      }
+    },
+    "/v2/public/status/{id}": {"get": {"security": [], "summary": "Status"}}
+  }
+}

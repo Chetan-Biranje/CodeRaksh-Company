@@ -1,0 +1,18 @@
+services:
+  coderaksh:
+    build: .
+    image: coderaksh:0.1.0
+    env_file: [.env]            # copy .env.example to .env; never commit it
+    ports: ["127.0.0.1:8000:8000"]   # bound to localhost only
+    volumes:
+      - coderaksh-data:/data
+      - ./programs:/programs:ro
+    read_only: true
+    tmpfs: [/tmp]
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    restart: unless-stopped
+    mem_limit: 512m
+    pids_limit: 128
+volumes:
+  coderaksh-data:
