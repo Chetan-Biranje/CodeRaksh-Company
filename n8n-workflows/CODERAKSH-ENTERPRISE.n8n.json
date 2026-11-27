@@ -1,0 +1,3356 @@
+{
+  "name": "CODERAKSH ENTERPRISE",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "id": "9c3aee41-4171-4cc6-bec7-7f5d629cb249",
+      "name": "Morning 9 AM Kickoff",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        128,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bookings"
+        },
+        "options": {}
+      },
+      "id": "f1253f83-c346-41fe-ae0d-cb507c8a9448",
+      "name": "Morning - Read Bookings",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        368,
+        96
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Leads"
+        },
+        "options": {}
+      },
+      "id": "f1690c82-e31c-423d-9730-382017ac80ba",
+      "name": "Morning - Read Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        592,
+        96
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "2b818539-c0a7-4122-8d98-b39f871eed1d",
+      "name": "Morning - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        816,
+        96
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Deadlines"
+        },
+        "options": {}
+      },
+      "id": "73e3bf74-712e-45b5-8083-e586039462d8",
+      "name": "Morning - Read Deadlines",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1024,
+        96
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pending docs"
+        },
+        "options": {}
+      },
+      "id": "1af4aaab-6722-4a67-8774-a66a402188fa",
+      "name": "Morning - Read Pending Docs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1248,
+        96
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh Morning Radar Compiler\nconst today = $now.toISODate();\nconst num = (v) => Number(String(v ?? '').replace(/[^0-9.-]/g, '')) || 0;\nconst safeRows = (nodeName) => {\n  try { return $(nodeName).all().map(i => i.json).filter(r => Object.keys(r).length); }\n  catch(e) { return []; }\n};\n\nconst bookings = safeRows('Morning - Read Bookings').filter(r => String(r.Start || r.Date || '').startsWith(today));\nconst allLeads = safeRows('Morning - Read Leads');\nconst hotLeads = allLeads.filter(r => String(r.Status || '').toLowerCase() === 'hot');\nconst invoices = safeRows('Morning - Read Invoices');\nconst unpaidInvoices = invoices.filter(r => String(r.Status || '').toLowerCase() !== 'paid');\nconst overdueInvoices = unpaidInvoices.filter(r => r['Due date'] && String(r['Due date']) < today);\nconst dueTodayInvoices = unpaidInvoices.filter(r => r['Due date'] && String(r['Due date']).startsWith(today));\n\nconst deadlines = safeRows('Morning - Read Deadlines');\nconst urgentDeadlines = deadlines.filter(r => {\n  if (!r['Due date']) return false;\n  const d = String(r['Due date']);\n  return d >= today && d <= $now.plus({ days: 3 }).toISODate();\n});\n\nconst pendingDocs = safeRows('Morning - Read Pending Docs');\nconst urgentDocs = pendingDocs.filter(r => String(r.Status || '').toLowerCase() === 'pending' && num(r.Reminders) >= 2);\n\nreturn [{\n  json: {\n    today_date: today,\n    company: \"CodeRaksh Company\",\n    radar: {\n      todays_meetings_count: bookings.length,\n      todays_meetings: bookings.map(b => `${b.Name || 'Client'} at ${b.Start || b.Time || 'TBD'}`),\n      hot_leads_pending_count: hotLeads.length,\n      hot_leads: hotLeads.slice(0, 5).map(l => `${l.Name || 'Lead'} (${l.Phone || l.Email || 'No contact'}) - ${l.Source || 'Website'}`),\n      overdue_invoices_count: overdueInvoices.length,\n      overdue_amount_total: overdueInvoices.reduce((acc, curr) => acc + num(curr.Amount), 0),\n      due_today_count: dueTodayInvoices.length,\n      due_today_amount: dueTodayInvoices.reduce((acc, curr) => acc + num(curr.Amount), 0),\n      urgent_deadlines_3days: urgentDeadlines.map(d => `${d.Filing || d.Task || 'Deadline'} due ${d['Due date']}`),\n      urgent_pending_docs_count: urgentDocs.length,\n      urgent_docs_list: urgentDocs.map(d => `${d.Client || 'Client'}: missing ${d.Document || 'Docs'}`)\n    }\n  }\n}];"
+      },
+      "id": "ae02ae71-be34-48b9-bb07-4ff3304d4327",
+      "name": "Morning - Compile Radar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1488,
+        96
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite an empowering, ultra-clear \"🌅 Morning Flight Plan\" for the Founder/Owner to start today with 100% focus and momentum.\n\nTone: Professional, high-energy, actionable, and executive (Hinglish/English mix).\nKeep it within 14 concise lines.\n\nUse this format:\n🌅 *CODERAKSH MORNING FLIGHT PLAN* — {{ $json.today_date }}\n\n🎯 *TOP 3 PRIORITIES FOR TODAY:*\n1. [Highest revenue or hot deal action]\n2. [Critical deliverable, meeting or deadline]\n3. [Key operational/cash flow follow-up]\n\n📊 *TODAY'S RADAR:*\n• 🤝 Client Meetings: {{ $json.radar.todays_meetings_count }} scheduled ({{ $json.radar.todays_meetings.join(', ') || 'No meetings scheduled' }})\n• 🔥 Hot Leads to Call: {{ $json.radar.hot_leads_pending_count }} ({{ $json.radar.hot_leads.join(' | ') || 'None pending' }})\n• 💰 Cash Collection: ₹{{ $json.radar.overdue_amount_total.toLocaleString('en-IN') }} overdue across {{ $json.radar.overdue_invoices_count }} invoices\n• ⏳ Deadlines (<72h): {{ $json.radar.urgent_deadlines_3days.join(', ') || 'All clear' }}\n• 📑 Blocked Docs: {{ $json.radar.urgent_pending_docs_count }} clients pending follow-up\n\n⚡ *CEO Thought of the Day:* [One crisp motivational sentence for tech business growth]\n\nRadar Data:\n{{ JSON.stringify($json.radar, null, 2) }}",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "3defe969-d822-4909-aff3-2e9cc7eb0b04",
+      "name": "Morning - Claude Flight Plan",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1728,
+        96
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "da02f552-bef1-4c3c-8cd3-aaf8379609ed",
+      "name": "Morning - ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1600,
+        336
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "35f0faa0-336d-48c1-a22f-c8d9740720cb",
+      "name": "Morning - WhatsApp Flight Plan",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        2672,
+        -80
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_OWNER_EMAIL@example.com",
+        "subject": "=🌅 CodeRaksh Morning Flight Plan [{{ $('Morning - Compile Radar').first().json.today_date }}]",
+        "emailType": "text",
+        "message": "={{ $json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "fff106f6-cb44-49e5-9b97-8f3ec18ab728",
+      "name": "Morning - Gmail Flight Plan",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        2736,
+        224
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "emergency-escalation",
+        "options": {}
+      },
+      "id": "0c977503-7ae4-4868-9a87-4a3060c87b14",
+      "name": "Watchdog Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1840,
+        1296
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh Anomaly Watchdog Triage\nconst body = $json.body || $json;\nconst eventType = body.event_type || body.type || 'UNKNOWN_ALERT';\nconst message = body.message || body.details || JSON.stringify(body);\nconst severity = body.severity || 'HIGH'; // CRITICAL, HIGH, MEDIUM\n\nreturn [{\n  json: {\n    event_type: eventType,\n    severity: severity,\n    message: message,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm:ss'),\n    contact_name: body.name || body.client || 'Unknown',\n    contact_phone: body.phone || 'N/A'\n  }\n}];"
+      },
+      "id": "f507973c-9372-48e4-9da5-291c47e25b3d",
+      "name": "Watchdog - Triage Anomaly",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        1296
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Emergency Anomaly Watchdog for CodeRaksh Company.\nAn urgent event has triggered an escalation.\nDraft a high-priority, instant WhatsApp alert for the Founder with immediate recommended action.\n\nEvent Type: {{ $json.event_type }}\nSeverity: {{ $json.severity }}\nDetails: {{ $json.message }}\nContact: {{ $json.contact_name }} ({{ $json.contact_phone }})\n\nFormat:\n🚨 *[CODERAKSH CRITICAL ESCALATION]*\n• *Type:* {{ $json.event_type }} ({{ $json.severity }})\n• *Time:* {{ $json.timestamp }}\n• *Details:* {{ $json.message }}\n• *Direct Contact:* {{ $json.contact_name }} | {{ $json.contact_phone }}\n\n⚡ *Immediate Action Required:*\n[State the exact 1-2 steps the Founder must take right now to neutralize the issue]",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "12d9bc60-6ce4-4c01-a152-b3a82d925de5",
+      "name": "Watchdog - Claude Emergency Action",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2368,
+        1296
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "id": "e05b4e38-aba9-411f-84b9-cd19b831964e",
+      "name": "Watchdog - ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2352,
+        1504
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "3a5e7475-260b-47e4-b5a1-9c4ac94f9030",
+      "name": "Watchdog - WhatsApp SOS Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        3120,
+        1104
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "github-pr-webhook",
+        "options": {}
+      },
+      "id": "8c4d5e1b-bdad-473b-a0ed-ce5211272516",
+      "name": "GitHub PR Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Extract PR details and commit diff\nconst body = $json.body || {};\nconst pr = body.pull_request || {};\nconst repo = body.repository || {};\n\nconst title = pr.title || 'Manual Security Scan';\nconst prNumber = pr.number || 1;\nconst repoFullName = repo.full_name || 'CodeRaksh/Internal';\nconst diffUrl = pr.diff_url || '';\nconst sender = body.sender?.login || 'developer';\nconst branch = pr.head?.ref || 'main';\n\n// Extract PR body / description / changed files\nconst description = pr.body || 'No description provided';\nconst patchSnippet = body.comment?.body || body.diff || description;\n\nreturn [{\n  json: {\n    pr_number: prNumber,\n    pr_title: title,\n    repo_name: repoFullName,\n    branch: branch,\n    author: sender,\n    diff_url: diffUrl,\n    code_diff_snippet: patchSnippet,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm')\n  }\n}];"
+      },
+      "id": "a56a61f6-1a9c-4839-ac3c-02733ce212e0",
+      "name": "Extract PR & Code Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Pre-scan for leaked secrets and high-risk patterns\nconst diff = String($json.code_diff_snippet || '');\nconst leaks = [];\n\nif (/[A-Za-z0-9_-]{20,40}/.test(diff) && (diff.includes('sk-ant-') || diff.includes('sk-') || diff.includes('AIzaSy'))) {\n  leaks.push('Potential AI API Key (Anthropic / OpenAI / Google)');\n}\nif (/AKIA[0-9A-Z]{16}/.test(diff)) {\n  leaks.push('AWS Access Key ID');\n}\nif (/ghp_[0-9a-zA-Z]{36}/.test(diff) || /github_pat_[0-9a-zA-Z_]{82}/.test(diff)) {\n  leaks.push('GitHub Personal Access Token');\n}\nif (/-----BEGIN (RSA |EC )?PRIVATE KEY-----/.test(diff)) {\n  leaks.push('Private SSH/TLS Key');\n}\nif (/postgres:\\/\\/|mongodb(\\+srv)?:\\/\\/|mysql:\\/\\//.test(diff)) {\n  leaks.push('Database Connection String with Credentials');\n}\n\nreturn [{\n  json: {\n    ...$json,\n    secret_leaks_found: leaks,\n    has_hardcoded_secrets: leaks.length > 0\n  }\n}];"
+      },
+      "id": "e2ed6f40-1294-426a-ab46-771ead2128eb",
+      "name": "Fast Secret & Leak Scanner",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        464,
+        1728
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead DevSecOps Architect and Principal Code Auditor for CodeRaksh Company.\nPerform a thorough, expert-level static security audit and code quality review on this GitHub Pull Request.\n\nRepository: {{ $json.repo_name }}\nPR #{{ $json.pr_number }}: {{ $json.pr_title }}\nBranch: {{ $json.branch }} by {{ $json.author }}\nPre-detected Leaks: {{ $json.secret_leaks_found.join(', ') || 'None found via regex' }}\n\nCODE DIFF / SNIPPET:\n```\n{{ $json.code_diff_snippet }}\n```\n\nAUDIT CHECKLIST:\n1. **Secrets & Keys:** Hardcoded credentials, tokens, connection strings.\n2. **OWASP Top 10 Sinks:** SQL Injection, Cross-Site Scripting (XSS), Server-Side Request Forgery (SSRF), IDOR / Missing Auth, Path Traversal, Insecure Deserialization, Weak Cryptography.\n3. **Architecture & Performance (Ponytail Rule):** Unnecessary bloat, unhandled error cases, memory leaks, missing timeouts.\n\nFORMAT YOUR RESPONSE:\n### 🛡️ CodeRaksh DevSecOps Review Gate\n**Verdict:** [APPROVE / REQUEST_CHANGES / CRITICAL_BLOCK]\n**Security Risk Level:** [NONE / LOW / MEDIUM / HIGH / CRITICAL]\n\n#### 🔍 Vulnerabilities & Security Findings:\n- [Item 1 with line reference or sink description, impact, and CVE/CWE if applicable]\n- [Or 'No security vulnerabilities identified.']\n\n#### 💡 Code Quality & Performance Improvements:\n- [1-3 crisp, practical engineering recommendations]\n\n#### 🛠️ Recommended Patch / Secure Fix:\n```diff\n// Provide exact replacement snippet if vulnerabilities were found\n```",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "b4edadfa-b96b-4539-8c5d-0e4ba5af0288",
+      "name": "Claude DevSecOps Auditor",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        720,
+        1728
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "7578e647-f813-435d-ade3-6035852fc56b",
+      "name": "Claude DevSecOps Auditor ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        592,
+        1936
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://api.github.com/repos/{{ $('Extract PR & Code Context').first().json.repo_name }}/issues/{{ $('Extract PR & Code Context').first().json.pr_number }}/comments",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_GITHUB_TOKEN"
+            },
+            {
+              "name": "Accept",
+              "value": "application/vnd.github.v3+json"
+            },
+            {
+              "name": "User-Agent",
+              "value": "CodeRaksh-DevSecOps-Bot"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ body: $json.text }) }}",
+        "options": {}
+      },
+      "id": "a0269b2d-37f5-4f44-bfa3-2deb661cc87a",
+      "name": "Post GitHub Review Comment",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1584,
+        1712
+      ],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Security_Audits"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Extract PR & Code Context').first().json.timestamp }}",
+            "Repo": "={{ $('Extract PR & Code Context').first().json.repo_name }}",
+            "PR": "=#{{ $('Extract PR & Code Context').first().json.pr_number }} {{ $('Extract PR & Code Context').first().json.pr_title }}",
+            "Author": "={{ $('Extract PR & Code Context').first().json.author }}",
+            "Secrets_Detected": "={{ $('Fast Secret & Leak Scanner').first().json.secret_leaks_found.join(', ') || 'Clean' }}",
+            "Review_Summary": "={{ $json.text.substring(0, 500) }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "fafde62d-bc8b-4895-b04f-1479c28a81b9",
+      "name": "Save to Security Audits Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1136,
+        1504
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Check if audit requires immediate founder escalation\nconst text = ($('Claude DevSecOps Auditor').isExecuted ? $('Claude DevSecOps Auditor') : $('Claude DevSecOps Auditor (Claude backup)')).first().json.text || '';\nconst hasLeaks = $('Fast Secret & Leak Scanner').first().json.has_hardcoded_secrets;\nconst isCritical = text.includes('CRITICAL_BLOCK') || text.includes('CRITICAL') || text.includes('HIGH') || hasLeaks;\n\nreturn [{\n  json: {\n    is_critical: isCritical,\n    alert_message: `🚨 *[CODERAKSH DEVSECOPS ALERT]*\\nRepo: ${$('Extract PR & Code Context').first().json.repo_name}\\nPR #${$('Extract PR & Code Context').first().json.pr_number}: ${$('Extract PR & Code Context').first().json.pr_title}\\nAuthor: ${$('Extract PR & Code Context').first().json.author}\\nRisk: CRITICAL SECURITY FINDINGS OR LEAKS DETECTED!\\nReview posted to GitHub.`\n  }\n}];"
+      },
+      "id": "0976ccd9-9be2-4773-b8ad-74f83a0ecf58",
+      "name": "Triage Severity",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1392,
+        1504
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.is_critical }}",
+              "value2": true
+            }
+          ],
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 1
+          }
+        },
+        "options": {}
+      },
+      "id": "2d15dba2-b002-4787-9866-100d05b2b034",
+      "name": "Is Critical Risk?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        1664,
+        1504
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.alert_message }}",
+        "additionalFields": {}
+      },
+      "id": "5edeb5c4-90d7-4a1f-abe9-eb5181571381",
+      "name": "WhatsApp Security Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        2000,
+        1600
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "vulnerability-ingest",
+        "options": {}
+      },
+      "id": "e049d337-02b4-4b37-bd3d-e46788f820f4",
+      "name": "Vulnerability Ingest Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        2656
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize vulnerability finding payload\nconst body = $json.body || {};\nconst title = body.title || body.vulnerability || body.info?.name || 'Potential Security Flaw';\nconst target = body.target || body.host || body.matched_at || 'https://target.app';\nconst severityRaw = (body.severity || body.info?.severity || 'MEDIUM').toUpperCase();\nconst cwe = body.cwe || body.info?.classification?.cwe_id || 'CWE-UNKNOWN';\nconst description = body.description || body.details || body.extracted_results || JSON.stringify(body);\nconst pocPayload = body.poc || body.curl_command || body.request || 'N/A';\n\nreturn [{\n  json: {\n    vuln_title: title,\n    target_url: target,\n    scanner_severity: severityRaw,\n    cwe_code: cwe,\n    finding_details: description,\n    poc_snippet: pocPayload,\n    discovered_at: $now.toFormat('dd LLL yyyy, HH:mm')\n  }\n}];"
+      },
+      "id": "95e3872f-05a7-4389-ab3a-6a0474a07796",
+      "name": "Normalize Vulnerability Data",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1696,
+        2656
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Principal Penetration Tester and Bug Bounty Lead for CodeRaksh Company.\nTriage and analyze this incoming security vulnerability.\n\nFinding Title: {{ $json.vuln_title }}\nTarget Asset: {{ $json.target_url }}\nReported Severity: {{ $json.scanner_severity }}\nCWE / Class: {{ $json.cwe_code }}\nDetails: {{ $json.finding_details }}\nPoC / Request Payload: {{ $json.poc_snippet }}\n\nYOUR TASKS:\n1. Validate if this is a genuine high-confidence finding or false-positive.\n2. Calculate official CVSS v3.1 Score (e.g. 8.8 HIGH) and Vector.\n3. Detail the exact Attack Impact (Data exfiltration, Account takeover, RCE, etc.).\n4. Provide the exact Defensive Code Remediation (Patch code snippet).\n\nOUTPUT FORMAT:\n### 🎯 CodeRaksh Security Advisory & Vulnerability Triage\n**Vulnerability:** {{ $json.vuln_title }}\n**Target:** `{{ $json.target_url }}`\n**Calculated CVSS:** [Score e.g. 9.1 CRITICAL] (Vector: [CVSS:3.1/...])\n**Confidence:** [CONFIRMED / HIGH / SUSPECTED_FALSE_POSITIVE]\n\n#### 💥 Attack Vector & Impact Analysis:\n[Concise breakdown of how an attacker exploits this and what business asset is compromised]\n\n#### 🛠️ Step-by-Step Remediation & Patch:\n```\n// Provide the exact code fix, WAF rule, or framework setting\n```",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "c2b85914-b048-43ee-918b-bd47cade40b8",
+      "name": "Claude Security Triager",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1936,
+        2656
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.15
+        }
+      },
+      "id": "d3efa867-5592-457f-9c28-04c3f1d5a6fb",
+      "name": "23 · ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1808,
+        2896
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Vulnerabilities"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Normalize Vulnerability Data').first().json.discovered_at }}",
+            "Title": "={{ $('Normalize Vulnerability Data').first().json.vuln_title }}",
+            "Target": "={{ $('Normalize Vulnerability Data').first().json.target_url }}",
+            "Severity": "={{ $('Normalize Vulnerability Data').first().json.scanner_severity }}",
+            "CWE": "={{ $('Normalize Vulnerability Data').first().json.cwe_code }}",
+            "Report_Text": "={{ $json.text }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "a650804d-9a8b-40b4-8cb2-b12cdd57ad9d",
+      "name": "Save to Vulnerabilities Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2832,
+        2640
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "=🎯 *[CODERAKSH VULNERABILITY ALERT]*\\nTitle: {{ $('Normalize Vulnerability Data').first().json.vuln_title }}\\nTarget: {{ $('Normalize Vulnerability Data').first().json.target_url }}\\nSeverity: {{ $('Normalize Vulnerability Data').first().json.scanner_severity }}\\n\\nReport & patch generated and saved to Sheet.",
+        "additionalFields": {}
+      },
+      "id": "5ad3e2cf-710e-4ae9-a09e-29c7dc4d051d",
+      "name": "WhatsApp Vulnerability Dispatch",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        3072,
+        2640
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ci-build-failure",
+        "options": {}
+      },
+      "id": "041331fb-f77b-44fe-a505-bcb8647e8119",
+      "name": "CI Failure Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -304,
+        2784
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse CI failure payload\nconst body = $json.body || {};\nconst repo = body.repository?.full_name || body.repo || 'CodeRaksh/Project';\nconst workflowName = body.workflow || body.job || 'Build & Test';\nconst commitSha = body.head_commit?.id || body.commit || 'head';\nconst author = body.sender?.login || body.author || 'dev-team';\nconst logSnippet = body.log || body.error_message || body.stack_trace || JSON.stringify(body);\n\nreturn [{\n  json: {\n    repo: repo,\n    workflow: workflowName,\n    commit: commitSha.substring(0, 7),\n    author: author,\n    error_log: logSnippet,\n    timestamp: $now.toFormat('dd LLL yyyy, HH:mm:ss')\n  }\n}];"
+      },
+      "id": "4fcac5d8-4cd5-49c0-a32d-1bf1d0e6ec88",
+      "name": "Parse CI Log & Error Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -32,
+        2784
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead DevOps & Site Reliability Engineer (SRE) for CodeRaksh Company.\nA build or deployment pipeline has failed. Perform instant root-cause analysis and generate a reliable fix.\n\nRepository: {{ $json.repo }}\nWorkflow / Job: {{ $json.workflow }}\nCommit: {{ $json.commit }} by {{ $json.author }}\n\nFAILURE LOG / STACK TRACE:\n```\n{{ $json.error_log }}\n```\n\nPROVIDE:\n1. **Diagnosis (1-2 sentences):** What broke and why?\n2. **Root Cause Category:** (Dependency issue / Environment variable / Syntax error / Docker misconfig / Test regression)\n3. **Exact Code Diff / Fix:** Provide the exact changes needed to fix the build immediately.\n\nFORMAT:\n🚑 *CODERAKSH CI/CD PIPELINE DOCTOR*\n• *Repo:* {{ $json.repo }} [Commit {{ $json.commit }}]\n• *Status:* FAILED\n• *Root Cause:* [Explain plainly]\n\n🛠️ *RECOMMENDED FIX:*\n```diff\n// Show exact code or command changes\n```",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "9b7a62ca-a471-40b4-81c8-2ee01d40df26",
+      "name": "Claude DevOps Doctor",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        224,
+        2784
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "3aded9bf-01f6-4dea-8864-f9e3c2b54539",
+      "name": "24 · ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        80,
+        3072
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "806a2eed-052d-4426-b572-65bb35947d4f",
+      "name": "WhatsApp DevOps Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        1088,
+        2768
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "freelance-lead",
+        "options": {}
+      },
+      "id": "89e11b90-99ca-4532-88d8-9fc2928e6190",
+      "name": "Freelance Lead Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        960,
+        2176
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalize freelance project lead\nconst body = $json.body || {};\nconst clientName = body.client_name || body.name || 'Enterprise Client';\nconst email = body.email || 'client@example.com';\nconst projectTitle = body.project_title || body.title || 'Custom Software Solution';\nconst budget = body.budget || 'Flexible / To be estimated';\nconst timeline = body.timeline || '1-2 Months';\nconst requirements = body.requirements || body.description || body.brief || JSON.stringify(body);\n\nreturn [{\n  json: {\n    client_name: clientName,\n    client_email: email,\n    project_title: projectTitle,\n    client_budget: budget,\n    client_timeline: timeline,\n    brief_text: requirements,\n    received_at: $now.toFormat('dd LLL yyyy, HH:mm')\n  }\n}];"
+      },
+      "id": "580cadaa-fa54-4ba6-be4f-8a2cbf5b0738",
+      "name": "Parse Project Brief",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1248,
+        2176
+      ]
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Principal Chief Technology Officer (CTO) and Lead Solutions Architect for CodeRaksh Company.\nA new client has requested a proposal for software development.\nCreate a comprehensive, winning Scope of Work (SOW) and Technical Architecture Proposal.\n\nClient: {{ $json.client_name }} ({{ $json.client_email }})\nProject: {{ $json.project_title }}\nClient Stated Budget: {{ $json.client_budget }}\nDesired Timeline: {{ $json.client_timeline }}\n\nREQUIREMENTS BRIEF:\n{{ $json.brief_text }}\n\nPROPOSAL STRUCTURE:\n1. **Executive Summary & Understanding:** Align with client goals.\n2. **Recommended Tech Stack & Architecture:**\n   - Frontend: Modern, scalable (e.g. Next.js / React)\n   - Backend: Robust APIs (Node.js / Python / Go)\n   - Database & Schema: (PostgreSQL / Redis) with primary tables\n   - Infrastructure & Security: Docker, CI/CD, DevSecOps hardening\n3. **Sprint Breakdown & Milestones (Agile 2-week sprints):**\n   - Sprint 1: Architecture, Auth & DB Setup\n   - Sprint 2: Core Business Logic & API Integration\n   - Sprint 3: UI Polish, Security Audits & QA\n   - Sprint 4: Deployment, Documentation & Handoff\n4. **Commercials & Investment Quote:** Suggested milestone pricing and payment schedule.\n5. **Why CodeRaksh:** Security-first coding and guaranteed high code quality.",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "ae9464d4-3326-4998-a317-4ccd963846cb",
+      "name": "Claude Tech Lead Architect",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        1616,
+        2176
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "32c47045-1ce6-47ea-89c6-3991fc88ef85",
+      "name": "25 · ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1376,
+        2432
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Proposals"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Parse Project Brief').first().json.received_at }}",
+            "Client": "={{ $('Parse Project Brief').first().json.client_name }}",
+            "Email": "={{ $('Parse Project Brief').first().json.client_email }}",
+            "Project": "={{ $('Parse Project Brief').first().json.project_title }}",
+            "Budget": "={{ $('Parse Project Brief').first().json.client_budget }}",
+            "Proposal_SOW": "={{ $json.text }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "fe8ea96d-63d5-49ce-9f40-d0fb1d463736",
+      "name": "Save to Proposals Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2384,
+        2016
+      ],
+      "disabled": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "=💼 *[CODERAKSH NEW SOW PROPOSAL READY]*\\nClient: {{ $('Parse Project Brief').first().json.client_name }}\\nProject: {{ $('Parse Project Brief').first().json.project_title }}\\nBudget: {{ $('Parse Project Brief').first().json.client_budget }}\\n\\nFull architectural proposal & sprint quotation created and saved to Proposals tab.",
+        "additionalFields": {}
+      },
+      "id": "15099567-7be0-4a42-8c15-93baf156b4b7",
+      "name": "WhatsApp Proposal Alert",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        2768,
+        2016
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 8,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "id": "fbc2fc21-65cd-4b69-98e6-f5daf9f8584d",
+      "name": "Daily Pre-Market Trigger",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        1472,
+        3328
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Watchlist"
+        },
+        "options": {}
+      },
+      "id": "25cd4ab5-2d0d-4130-99ef-960181d82da4",
+      "name": "Read Financial Watchlist",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1904,
+        3328
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead Financial Analyst and Treasury Risk Guardian for CodeRaksh Company.\nAnalyze the company's financial watchlist and write a crisp pre-market financial briefing.\n\nWatchlist Items:\n{{ JSON.stringify($json) }}\n\nPROVIDE:\n📈 *CODERAKSH TREASURY & MARKET RADAR*\n• Key Macro & Earnings Highlights\n• Breakout Setups & Risk Alerts\n• Defensive Hedging & Treasury Recommendations",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "1f093b6b-fe62-4f5c-b260-fdd6eea362df",
+      "name": "Claude Financial Analyst",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2336,
+        3328
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "345cca26-08b4-4d99-9c43-ca4893330fb2",
+      "name": "26 · ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        1952,
+        3600
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ $json.text }}",
+        "additionalFields": {}
+      },
+      "id": "994975da-267c-41ee-ba3e-e76ab15e4ebf",
+      "name": "WhatsApp Financial Briefing",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        3248,
+        3312
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "YOUR_OWNER_EMAIL@example.com",
+        "subject": "=👑 CodeRaksh Executive Boardroom Briefing [{{ $('Nightly - Compute 20-Agent Health Score').first().json.date }}] — Score: {{ $('Nightly - Compute 20-Agent Health Score').first().json.health_score }}/100",
+        "emailType": "text",
+        "message": "={{ ($('Nightly - Claude Executive Report').isExecuted ? $('Nightly - Claude Executive Report') : $('Nightly - Claude Executive Report (Claude backup)')).first().json.text }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "95215eaf-48de-419e-b07d-ed9fa9f8fcae",
+      "name": "Nightly - Gmail CEO Dossier",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        3568,
+        784
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "YOUR_PHONE_NUMBER_ID",
+        "recipientPhoneNumber": "YOUR_WHATSAPP_NUMBER",
+        "textBody": "={{ ($('Nightly - Claude Executive Report').isExecuted ? $('Nightly - Claude Executive Report') : $('Nightly - Claude Executive Report (Claude backup)')).first().json.text }}",
+        "additionalFields": {}
+      },
+      "id": "674f79e2-9d67-4099-aa19-7fe140016cac",
+      "name": "Nightly - WhatsApp CEO Briefing",
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1,
+      "position": [
+        3552,
+        384
+      ],
+      "credentials": {
+        "whatsAppApi": {
+          "id": null,
+          "name": "WhatsApp account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Daily Log"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.date }}",
+            "Health_Score": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.health_score }}",
+            "Health_Grade": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.health_grade }}",
+            "Revenue_In": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.revenue_collected_today }}",
+            "Expenses_Bills": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.bills_amount_today }}",
+            "Overdue_Total": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.finance.total_overdue_amount }}",
+            "Hot_Leads": "={{ $('Nightly - Compute 20-Agent Health Score').first().json.department_breakdown.sales.hot_leads_count }}",
+            "Executive_Briefing": "={{ $json.text }}"
+          }
+        },
+        "options": {}
+      },
+      "id": "e642ee47-b6b6-47ea-bd7f-63ad0648baaf",
+      "name": "Nightly - Save to Daily Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        3216,
+        592
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "e04cc634-738c-4d1c-8b4d-ea307e948dbb",
+      "name": "Nightly - ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        2480,
+        832
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite tonight's Boardroom Executive Briefing for the Founder/Owner based on live performance data from all 20 AI agents.\n\nLanguage: High-impact executive style (Hinglish/English mix). Professional, concise, data-backed.\nMaximum 20 lines.\n\nStructure:\n👑 *CODERAKSH BOARDROOM BRIEFING* — {{ $json.date }}\n🏆 *Company Health Score:* {{ $json.health_score }}/100 [{{ $json.health_grade }}]\n\n📊 *DEPARTMENT SCORECARD:*\n• 💼 *Sales:* {{ $json.department_breakdown.sales.new_leads_count }} leads (🔥 {{ $json.department_breakdown.sales.hot_leads_count }} Hot), ₹{{ $json.department_breakdown.sales.repeat_revenue }} repeat revenue\n• 🎧 *Support:* {{ $json.department_breakdown.support.bookings_today }} bookings, {{ $json.department_breakdown.support.reviews_count }} reviews ({{ $json.department_breakdown.support.five_star_reviews }} ★★★★★)\n• 📣 *Marketing:* {{ $json.department_breakdown.marketing.pieces_published }} content assets live\n• 💰 *Finance:* Revenue In: ₹{{ $json.department_breakdown.finance.revenue_collected_today }} | Bills: ₹{{ $json.department_breakdown.finance.bills_amount_today }} | Overdue: ₹{{ $json.department_breakdown.finance.total_overdue_amount }} ({{ $json.department_breakdown.finance.overdue_invoices_count }} invoices)\n• ⚙️ *Ops:* {{ $json.department_breakdown.ops.candidates_screened }} resumes ({{ $json.department_breakdown.ops.candidates_shortlisted.length }} shortlisted), {{ $json.department_breakdown.ops.upcoming_deadlines_7days.length }} deadlines in 7 days\n\n⚠️ *FLAGS & BOTTLENECKS:*\n[Call out angry reviews, critical doc delays, or overdue cash; if none, say \"All clear\"]\n\n🎯 *TOP 3 STRATEGIC DIRECTIVES FOR TOMORROW:*\n1. [Actionable directive 1]\n2. [Actionable directive 2]\n3. [Actionable directive 3]\n\nPerformance Matrix:\n{{ JSON.stringify($json.department_breakdown, null, 2) }}",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "5ec55c44-739f-4539-9652-c98d042c82fe",
+      "name": "Nightly - Claude Executive Report",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        2608,
+        608
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// CodeRaksh 20-Agent Performance Matrix & Enterprise Health Score Engine\nconst today = $now.toISODate();\nconst num = (v) => Number(String(v ?? '').replace(/[^0-9.-]/g, '')) || 0;\nconst safeRows = (nodeName) => {\n  try { return $(nodeName).all().map(i => i.json).filter(r => Object.keys(r).length); }\n  catch(e) { return []; }\n};\nconst isToday = (r) => {\n  const d = String(r.Date || r.Timestamp || r['Created Date'] || r.Asked_on || '');\n  return d.startsWith(today);\n};\n\n// 1. SALES DEPT (01-04)\nconst allLeads = safeRows('Nightly - Read Leads');\nconst leadsToday = allLeads.filter(isToday);\nconst hotLeads = leadsToday.filter(r => String(r.Status || '').toLowerCase() === 'hot');\nconst warmLeads = leadsToday.filter(r => String(r.Status || '').toLowerCase() === 'warm');\nconst ordersToday = safeRows('Nightly - Read Orders').filter(isToday);\nconst repeatOrderRevenue = ordersToday.reduce((s, r) => s + num(r.Amount || r.Total), 0);\n\n// 2. SUPPORT DEPT (05-08)\nconst bookingsToday = safeRows('Nightly - Read Bookings').filter(isToday);\nconst reviewsAll = safeRows('Nightly - Read Reviews');\nconst reviewsToday = reviewsAll.filter(isToday);\nconst angryReviews = reviewsToday.filter(r => String(r.Sentiment || '').toLowerCase() === 'angry' || num(r.Stars) <= 2);\nconst fiveStarReviews = reviewsToday.filter(r => num(r.Stars) >= 4);\n\n// 3. MARKETING DEPT (09-12)\nconst contentToday = safeRows('Nightly - Read Content').filter(isToday);\nconst contentCount = contentToday.length;\n\n// 4. FINANCE DEPT (13-16)\nconst billsToday = safeRows('Nightly - Read Bills').filter(isToday);\nconst totalBillsAmount = billsToday.reduce((s, r) => s + num(r.amount || r.Amount), 0);\nconst invoicesAll = safeRows('Nightly - Read Invoices');\nconst invoicesToday = invoicesAll.filter(isToday);\nconst paidToday = invoicesToday.filter(r => String(r.Status || '').toLowerCase() === 'paid');\nconst revenueToday = paidToday.reduce((s, r) => s + num(r.Amount), 0);\nconst overdueInvoices = invoicesAll.filter(r => String(r.Status || '').toLowerCase() !== 'paid' && r['Due date'] && String(r['Due date']) < today);\nconst totalOverdue = overdueInvoices.reduce((s, r) => s + num(r.Amount), 0);\nconst gstPurchasesToday = safeRows('Nightly - Read GST Purchases').filter(isToday);\nconst itcTotalToday = gstPurchasesToday.reduce((s, r) => s + num(r.CGST) + num(r.SGST) + num(r.IGST), 0);\n\n// 5. OPS DEPT (17-20)\nconst candidatesToday = safeRows('Nightly - Read Candidates').filter(isToday);\nconst shortlistedCands = candidatesToday.filter(r => String(r.Status || '').toLowerCase() === 'shortlist');\nconst deadlinesAll = safeRows('Nightly - Read Deadlines');\nconst pendingDeadlines7Days = deadlinesAll.filter(r => {\n  if (!r['Due date']) return false;\n  const d = String(r['Due date']);\n  return d >= today && d <= $now.plus({ days: 7 }).toISODate();\n});\nconst pendingDocsAll = safeRows('Nightly - Read Pending Docs');\nconst severeDocBottlenecks = pendingDocsAll.filter(r => String(r.Status || '').toLowerCase() === 'pending' && num(r.Reminders) >= 3);\n\n// ==========================================\n// MATHEMATICAL COMPANY HEALTH SCORE (0 - 100)\n// ==========================================\n// Sub-score 1: Finance (Max 30) - penalize heavy overdue relative to revenue\nlet financeScore = 25;\nif (totalOverdue > 100000) financeScore -= 10;\nelse if (totalOverdue > 30000) financeScore -= 5;\nif (revenueToday > totalBillsAmount) financeScore += 5;\nfinanceScore = Math.max(5, Math.min(30, financeScore));\n\n// Sub-score 2: Sales Pipeline (Max 25)\nlet salesScore = 15;\nif (hotLeads.length >= 2) salesScore += 10;\nelse if (leadsToday.length > 0) salesScore += 5;\nif (ordersToday.length > 0) salesScore += 5;\nsalesScore = Math.min(25, salesScore);\n\n// Sub-score 3: Customer Satisfaction (Max 20)\nlet supportScore = 18;\nif (angryReviews.length > 0) supportScore -= 10 * angryReviews.length;\nif (fiveStarReviews.length > 0) supportScore += 2 * fiveStarReviews.length;\nsupportScore = Math.max(0, Math.min(20, supportScore));\n\n// Sub-score 4: Operational Execution (Max 25)\nlet opsScore = 22;\nif (pendingDeadlines7Days.length > 5) opsScore -= 5;\nif (severeDocBottlenecks.length > 2) opsScore -= 5;\nif (shortlistedCands.length > 0) opsScore += 3;\nopsScore = Math.max(5, Math.min(25, opsScore));\n\nconst totalHealthScore = Math.round(financeScore + salesScore + supportScore + opsScore);\nlet healthGrade = '🟢 HEALTHY';\nif (totalHealthScore < 60) healthGrade = '🔴 CRITICAL ACTION REQUIRED';\nelse if (totalHealthScore < 80) healthGrade = '🟡 ATTENTION NEEDED';\n\nreturn [{\n  json: {\n    date: today,\n    company: \"CodeRaksh Company\",\n    health_score: totalHealthScore,\n    health_grade: healthGrade,\n    department_breakdown: {\n      sales: {\n        new_leads_count: leadsToday.length,\n        hot_leads_count: hotLeads.length,\n        warm_leads_count: warmLeads.length,\n        hot_lead_names: hotLeads.map(l => `${l.Name || 'Lead'} (${l.Source || 'Direct'})`),\n        repeat_orders_count: ordersToday.length,\n        repeat_revenue: repeatOrderRevenue\n      },\n      support: {\n        bookings_today: bookingsToday.length,\n        reviews_count: reviewsToday.length,\n        five_star_reviews: fiveStarReviews.length,\n        angry_reviews: angryReviews.map(r => `${r.Reviewer || 'Customer'}: ${r.Stars}★ \"${r.Comment || ''}\"`)\n      },\n      marketing: {\n        pieces_published: contentCount,\n        content_titles: contentToday.map(c => `${c.Type || 'Post'}: ${c.Title || ''}`)\n      },\n      finance: {\n        revenue_collected_today: revenueToday,\n        bills_processed_today: billsToday.length,\n        bills_amount_today: totalBillsAmount,\n        overdue_invoices_count: overdueInvoices.length,\n        total_overdue_amount: totalOverdue,\n        gst_itc_claimed_today: itcTotalToday\n      },\n      ops: {\n        candidates_screened: candidatesToday.length,\n        candidates_shortlisted: shortlistedCands.map(c => `${c.Name} (${c.Score}/10)`),\n        upcoming_deadlines_7days: pendingDeadlines7Days.map(d => `${d.Filing || d.Task} (${d['Due date']})`),\n        critical_doc_chases: severeDocBottlenecks.map(b => `${b.Client}: ${b.Document}`)\n      }\n    }\n  }\n}];"
+      },
+      "id": "7e199ff7-ee38-41ee-ad50-cbb0f4447416",
+      "name": "Nightly - Compute 20-Agent Health Score",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2416,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Pending docs"
+        },
+        "options": {}
+      },
+      "id": "f38bf76e-8334-4851-9ee4-22ee6539faf5",
+      "name": "Nightly - Read Pending Docs",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2208,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Deadlines"
+        },
+        "options": {}
+      },
+      "id": "ca67f7d9-a283-42d4-8264-3e77f7fc2788",
+      "name": "Nightly - Read Deadlines",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2016,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Candidates"
+        },
+        "options": {}
+      },
+      "id": "b99664ac-d5d7-46a5-aedc-d31a0843451a",
+      "name": "Nightly - Read Candidates",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1840,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "GST purchases"
+        },
+        "options": {}
+      },
+      "id": "fcbca380-6915-4003-885f-54df932be409",
+      "name": "Nightly - Read GST Purchases",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1664,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "ea9c0d32-c00c-4045-9916-013ed6d65699",
+      "name": "Nightly - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1488,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bills"
+        },
+        "options": {}
+      },
+      "id": "4441a46a-f901-469d-827e-d07b4d50860f",
+      "name": "Nightly - Read Bills",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1280,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Content"
+        },
+        "options": {}
+      },
+      "id": "ff6189d9-c1e3-4983-ac87-61fda9b52f14",
+      "name": "Nightly - Read Content",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1104,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Reviews"
+        },
+        "options": {}
+      },
+      "id": "3700d247-e8c4-4d60-a95d-5473ebb639cc",
+      "name": "Nightly - Read Reviews",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        912,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Bookings"
+        },
+        "options": {}
+      },
+      "id": "f4aba6e5-7310-47bf-8e07-61b55937c45a",
+      "name": "Nightly - Read Bookings",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        704,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Orders"
+        },
+        "options": {}
+      },
+      "id": "0c13afc0-b85b-4c11-8350-2ab8d10b9e06",
+      "name": "Nightly - Read Orders",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        480,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Leads"
+        },
+        "options": {}
+      },
+      "id": "24916103-6ced-4f29-bf62-7ecba21d84ab",
+      "name": "Nightly - Read Leads",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        288,
+        608
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21
+            }
+          ]
+        }
+      },
+      "id": "ed803312-a289-4698-8943-dc96d0dae2da",
+      "name": "Nightly 9 PM Audit",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        608
+      ]
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ status: 'success', answer: $json.text, timestamp: $now.toISO() }) }}",
+        "options": {}
+      },
+      "id": "e5b6e684-3e80-432c-9539-234fdaf18cb4",
+      "name": "Interactive - Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1632,
+        912
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "id"
+        },
+        "builtInTools": {},
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "a537ad83-5a3e-4359-a9a2-044a501db3d6",
+      "name": "Interactive - ChatGPT Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenAi",
+      "typeVersion": 1.3,
+      "position": [
+        880,
+        1328
+      ],
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "OpenAI account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nThe Founder/Owner asked you an on-demand question via command line / chat.\n\nFounder's Query: \"{{ $json.user_query }}\"\n\nContext:\n- Latest Daily Log: {{ JSON.stringify($json.latest_daily_log) }}\n- Unpaid Invoices Count: {{ $json.unpaid_invoices_count }}\n- Sample Invoices: {{ JSON.stringify($json.unpaid_invoices_sample) }}\n\nRespond directly, concisely, and accurately in 3-8 lines. Provide exact numbers if available. Format with clean bullet points.",
+        "needsFallback": true,
+        "batching": {}
+      },
+      "id": "c317cccb-c9f5-46ac-adb2-3b9f67670cfb",
+      "name": "Interactive - Claude CEO Brain",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.9,
+      "position": [
+        928,
+        1072
+      ],
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Prep Context for Interactive CEO Brain\nconst query = $('CEO Command Webhook').first().json.body?.query || $('CEO Command Webhook').first().json.query || 'Company summary';\nconst sender = $('CEO Command Webhook').first().json.body?.sender || 'Founder';\n\nconst logs = $('Interactive - Read Latest Log').all().map(i => i.json);\nconst invoices = $('Interactive - Read Invoices').all().map(i => i.json);\nconst unpaid = invoices.filter(r => String(r.Status || '').toLowerCase() !== 'paid');\n\nreturn [{\n  json: {\n    user_query: query,\n    sender: sender,\n    latest_daily_log: logs.slice(-1)[0] || {},\n    unpaid_invoices_count: unpaid.length,\n    unpaid_invoices_sample: unpaid.slice(0, 5)\n  }\n}];"
+      },
+      "id": "b13a4901-b56b-4ef6-9092-2b3ca5382e3f",
+      "name": "Interactive - Prep Context",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        704,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Invoices"
+        },
+        "options": {}
+      },
+      "id": "952dfb8f-e8bc-42ab-9583-423be8ab2b24",
+      "name": "Interactive - Read Invoices",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        464,
+        1072
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "mode": "id",
+          "value": "REPLACE_WITH_GOOGLE_SHEET_ID_1"
+        },
+        "sheetName": {
+          "__rl": true,
+          "mode": "name",
+          "value": "Daily Log"
+        },
+        "options": {}
+      },
+      "id": "af3d1d80-fd45-4651-8895-b5ed03381aea",
+      "name": "Interactive - Read Latest Log",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        240,
+        1072
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "ceo-command",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "id": "7fa66e9b-9eb3-4684-a1bd-6f94c385565c",
+      "name": "CEO Command Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        32,
+        1072
+      ]
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "ccf55ce2-8119-4ec5-a934-1f8c0e5c9ce2",
+      "name": "Morning - Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1888,
+        320
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite an empowering, ultra-clear \"🌅 Morning Flight Plan\" for the Founder/Owner to start today with 100% focus and momentum.\n\nTone: Professional, high-energy, actionable, and executive (Hinglish/English mix).\nKeep it within 14 concise lines.\n\nUse this format:\n🌅 *CODERAKSH MORNING FLIGHT PLAN* — {{ $json.today_date }}\n\n🎯 *TOP 3 PRIORITIES FOR TODAY:*\n1. [Highest revenue or hot deal action]\n2. [Critical deliverable, meeting or deadline]\n3. [Key operational/cash flow follow-up]\n\n📊 *TODAY'S RADAR:*\n• 🤝 Client Meetings: {{ $json.radar.todays_meetings_count }} scheduled ({{ $json.radar.todays_meetings.join(', ') || 'No meetings scheduled' }})\n• 🔥 Hot Leads to Call: {{ $json.radar.hot_leads_pending_count }} ({{ $json.radar.hot_leads.join(' | ') || 'None pending' }})\n• 💰 Cash Collection: ₹{{ $json.radar.overdue_amount_total.toLocaleString('en-IN') }} overdue across {{ $json.radar.overdue_invoices_count }} invoices\n• ⏳ Deadlines (<72h): {{ $json.radar.urgent_deadlines_3days.join(', ') || 'All clear' }}\n• 📑 Blocked Docs: {{ $json.radar.urgent_pending_docs_count }} clients pending follow-up\n\n⚡ *CEO Thought of the Day:* [One crisp motivational sentence for tech business growth]\n\nRadar Data:\n{{ JSON.stringify($json.radar, null, 2) }}"
+      },
+      "id": "9652fab0-eadf-457d-99b2-6b54bff22dcf",
+      "name": "Morning - Claude Flight Plan (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2096,
+        240
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.3
+        }
+      },
+      "id": "389fa051-7a64-4023-b75e-5809f3c70d41",
+      "name": "Morning - Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2336,
+        448
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "id": "4449eca6-6c61-46e5-ad4e-91ef7d4f7791",
+      "name": "Watchdog - Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2592,
+        1504
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Emergency Anomaly Watchdog for CodeRaksh Company.\nAn urgent event has triggered an escalation.\nDraft a high-priority, instant WhatsApp alert for the Founder with immediate recommended action.\n\nEvent Type: {{ $json.event_type }}\nSeverity: {{ $json.severity }}\nDetails: {{ $json.message }}\nContact: {{ $json.contact_name }} ({{ $json.contact_phone }})\n\nFormat:\n🚨 *[CODERAKSH CRITICAL ESCALATION]*\n• *Type:* {{ $json.event_type }} ({{ $json.severity }})\n• *Time:* {{ $json.timestamp }}\n• *Details:* {{ $json.message }}\n• *Direct Contact:* {{ $json.contact_name }} | {{ $json.contact_phone }}\n\n⚡ *Immediate Action Required:*\n[State the exact 1-2 steps the Founder must take right now to neutralize the issue]"
+      },
+      "id": "6855d5bb-0c8d-4166-95c2-ed38e60b9998",
+      "name": "Watchdog - Claude Emergency Action (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2752,
+        1328
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.1
+        }
+      },
+      "id": "382a0029-2b4a-4be1-b557-5fc3c34c2783",
+      "name": "Watchdog - Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2912,
+        1568
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "7620c49a-46dc-46f3-af0e-78ecbe3825c6",
+      "name": "Claude DevSecOps Auditor Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        816,
+        1952
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead DevSecOps Architect and Principal Code Auditor for CodeRaksh Company.\nPerform a thorough, expert-level static security audit and code quality review on this GitHub Pull Request.\n\nRepository: {{ $json.repo_name }}\nPR #{{ $json.pr_number }}: {{ $json.pr_title }}\nBranch: {{ $json.branch }} by {{ $json.author }}\nPre-detected Leaks: {{ $json.secret_leaks_found.join(', ') || 'None found via regex' }}\n\nCODE DIFF / SNIPPET:\n```\n{{ $json.code_diff_snippet }}\n```\n\nAUDIT CHECKLIST:\n1. **Secrets & Keys:** Hardcoded credentials, tokens, connection strings.\n2. **OWASP Top 10 Sinks:** SQL Injection, Cross-Site Scripting (XSS), Server-Side Request Forgery (SSRF), IDOR / Missing Auth, Path Traversal, Insecure Deserialization, Weak Cryptography.\n3. **Architecture & Performance (Ponytail Rule):** Unnecessary bloat, unhandled error cases, memory leaks, missing timeouts.\n\nFORMAT YOUR RESPONSE:\n### 🛡️ CodeRaksh DevSecOps Review Gate\n**Verdict:** [APPROVE / REQUEST_CHANGES / CRITICAL_BLOCK]\n**Security Risk Level:** [NONE / LOW / MEDIUM / HIGH / CRITICAL]\n\n#### 🔍 Vulnerabilities & Security Findings:\n- [Item 1 with line reference or sink description, impact, and CVE/CWE if applicable]\n- [Or 'No security vulnerabilities identified.']\n\n#### 💡 Code Quality & Performance Improvements:\n- [1-3 crisp, practical engineering recommendations]\n\n#### 🛠️ Recommended Patch / Secure Fix:\n```diff\n// Provide exact replacement snippet if vulnerabilities were found\n```"
+      },
+      "id": "9ca592de-84cc-458b-a7c2-76c6300c286e",
+      "name": "Claude DevSecOps Auditor (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1152,
+        1856
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "e2e1e991-d882-4b93-8981-e0ecfcebf93c",
+      "name": "Claude DevSecOps Auditor Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        640,
+        2288
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.15
+        }
+      },
+      "id": "cca9164f-1bbb-4bcb-975c-58eb08ec5d1b",
+      "name": "23 · Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2096,
+        2896
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Principal Penetration Tester and Bug Bounty Lead for CodeRaksh Company.\nTriage and analyze this incoming security vulnerability.\n\nFinding Title: {{ $json.vuln_title }}\nTarget Asset: {{ $json.target_url }}\nReported Severity: {{ $json.scanner_severity }}\nCWE / Class: {{ $json.cwe_code }}\nDetails: {{ $json.finding_details }}\nPoC / Request Payload: {{ $json.poc_snippet }}\n\nYOUR TASKS:\n1. Validate if this is a genuine high-confidence finding or false-positive.\n2. Calculate official CVSS v3.1 Score (e.g. 8.8 HIGH) and Vector.\n3. Detail the exact Attack Impact (Data exfiltration, Account takeover, RCE, etc.).\n4. Provide the exact Defensive Code Remediation (Patch code snippet).\n\nOUTPUT FORMAT:\n### 🎯 CodeRaksh Security Advisory & Vulnerability Triage\n**Vulnerability:** {{ $json.vuln_title }}\n**Target:** `{{ $json.target_url }}`\n**Calculated CVSS:** [Score e.g. 9.1 CRITICAL] (Vector: [CVSS:3.1/...])\n**Confidence:** [CONFIRMED / HIGH / SUSPECTED_FALSE_POSITIVE]\n\n#### 💥 Attack Vector & Impact Analysis:\n[Concise breakdown of how an attacker exploits this and what business asset is compromised]\n\n#### 🛠️ Step-by-Step Remediation & Patch:\n```\n// Provide the exact code fix, WAF rule, or framework setting\n```"
+      },
+      "id": "4beadc66-c744-43ff-8d04-dd7060863171",
+      "name": "Claude Security Triager (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2368,
+        2816
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.15
+        }
+      },
+      "id": "b80bedc9-8810-4714-9175-c404378123d4",
+      "name": "23 · Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2560,
+        3024
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "b7717d1c-b24c-4b07-b3e4-b364eef1d75c",
+      "name": "24 · Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        384,
+        3104
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead DevOps & Site Reliability Engineer (SRE) for CodeRaksh Company.\nA build or deployment pipeline has failed. Perform instant root-cause analysis and generate a reliable fix.\n\nRepository: {{ $json.repo }}\nWorkflow / Job: {{ $json.workflow }}\nCommit: {{ $json.commit }} by {{ $json.author }}\n\nFAILURE LOG / STACK TRACE:\n```\n{{ $json.error_log }}\n```\n\nPROVIDE:\n1. **Diagnosis (1-2 sentences):** What broke and why?\n2. **Root Cause Category:** (Dependency issue / Environment variable / Syntax error / Docker misconfig / Test regression)\n3. **Exact Code Diff / Fix:** Provide the exact changes needed to fix the build immediately.\n\nFORMAT:\n🚑 *CODERAKSH CI/CD PIPELINE DOCTOR*\n• *Repo:* {{ $json.repo }} [Commit {{ $json.commit }}]\n• *Status:* FAILED\n• *Root Cause:* [Explain plainly]\n\n🛠️ *RECOMMENDED FIX:*\n```diff\n// Show exact code or command changes\n```"
+      },
+      "id": "e1bd00a9-99bd-4990-96cf-27175533276c",
+      "name": "Claude DevOps Doctor (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        608,
+        3008
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "5bcb7aeb-7b1e-4e19-86ad-d17de3fc4a78",
+      "name": "24 · Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        736,
+        3264
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "0780e07e-eb07-40c5-8ad3-a95bcff84125",
+      "name": "25 · Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1760,
+        2448
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Principal Chief Technology Officer (CTO) and Lead Solutions Architect for CodeRaksh Company.\nA new client has requested a proposal for software development.\nCreate a comprehensive, winning Scope of Work (SOW) and Technical Architecture Proposal.\n\nClient: {{ $json.client_name }} ({{ $json.client_email }})\nProject: {{ $json.project_title }}\nClient Stated Budget: {{ $json.client_budget }}\nDesired Timeline: {{ $json.client_timeline }}\n\nREQUIREMENTS BRIEF:\n{{ $json.brief_text }}\n\nPROPOSAL STRUCTURE:\n1. **Executive Summary & Understanding:** Align with client goals.\n2. **Recommended Tech Stack & Architecture:**\n   - Frontend: Modern, scalable (e.g. Next.js / React)\n   - Backend: Robust APIs (Node.js / Python / Go)\n   - Database & Schema: (PostgreSQL / Redis) with primary tables\n   - Infrastructure & Security: Docker, CI/CD, DevSecOps hardening\n3. **Sprint Breakdown & Milestones (Agile 2-week sprints):**\n   - Sprint 1: Architecture, Auth & DB Setup\n   - Sprint 2: Core Business Logic & API Integration\n   - Sprint 3: UI Polish, Security Audits & QA\n   - Sprint 4: Deployment, Documentation & Handoff\n4. **Commercials & Investment Quote:** Suggested milestone pricing and payment schedule.\n5. **Why CodeRaksh:** Security-first coding and guaranteed high code quality."
+      },
+      "id": "ee85b924-d8c5-4f18-aac7-5adefa15565b",
+      "name": "Claude Tech Lead Architect (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2048,
+        2288
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "de2a75bd-528b-431b-819d-89071e099b06",
+      "name": "25 · Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2160,
+        2480
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "7d4c4724-0674-4804-8817-bddf39c5eeef",
+      "name": "26 · Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2480,
+        3584
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Lead Financial Analyst and Treasury Risk Guardian for CodeRaksh Company.\nAnalyze the company's financial watchlist and write a crisp pre-market financial briefing.\n\nWatchlist Items:\n{{ JSON.stringify($json) }}\n\nPROVIDE:\n📈 *CODERAKSH TREASURY & MARKET RADAR*\n• Key Macro & Earnings Highlights\n• Breakout Setups & Risk Alerts\n• Defensive Hedging & Treasury Recommendations"
+      },
+      "id": "b63f8f8a-16ef-437b-a56c-5091b65cc521",
+      "name": "Claude Financial Analyst (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2800,
+        3472
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "1a0c3f4a-1511-4512-865d-eefddc652457",
+      "name": "26 · Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        2736,
+        3696
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "25ada371-435c-4bcf-85c1-51c7909f9e86",
+      "name": "Nightly - Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2704,
+        912
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nWrite tonight's Boardroom Executive Briefing for the Founder/Owner based on live performance data from all 20 AI agents.\n\nLanguage: High-impact executive style (Hinglish/English mix). Professional, concise, data-backed.\nMaximum 20 lines.\n\nStructure:\n👑 *CODERAKSH BOARDROOM BRIEFING* — {{ $json.date }}\n🏆 *Company Health Score:* {{ $json.health_score }}/100 [{{ $json.health_grade }}]\n\n📊 *DEPARTMENT SCORECARD:*\n• 💼 *Sales:* {{ $json.department_breakdown.sales.new_leads_count }} leads (🔥 {{ $json.department_breakdown.sales.hot_leads_count }} Hot), ₹{{ $json.department_breakdown.sales.repeat_revenue }} repeat revenue\n• 🎧 *Support:* {{ $json.department_breakdown.support.bookings_today }} bookings, {{ $json.department_breakdown.support.reviews_count }} reviews ({{ $json.department_breakdown.support.five_star_reviews }} ★★★★★)\n• 📣 *Marketing:* {{ $json.department_breakdown.marketing.pieces_published }} content assets live\n• 💰 *Finance:* Revenue In: ₹{{ $json.department_breakdown.finance.revenue_collected_today }} | Bills: ₹{{ $json.department_breakdown.finance.bills_amount_today }} | Overdue: ₹{{ $json.department_breakdown.finance.total_overdue_amount }} ({{ $json.department_breakdown.finance.overdue_invoices_count }} invoices)\n• ⚙️ *Ops:* {{ $json.department_breakdown.ops.candidates_screened }} resumes ({{ $json.department_breakdown.ops.candidates_shortlisted.length }} shortlisted), {{ $json.department_breakdown.ops.upcoming_deadlines_7days.length }} deadlines in 7 days\n\n⚠️ *FLAGS & BOTTLENECKS:*\n[Call out angry reviews, critical doc delays, or overdue cash; if none, say \"All clear\"]\n\n🎯 *TOP 3 STRATEGIC DIRECTIVES FOR TOMORROW:*\n1. [Actionable directive 1]\n2. [Actionable directive 2]\n3. [Actionable directive 3]\n\nPerformance Matrix:\n{{ JSON.stringify($json.department_breakdown, null, 2) }}"
+      },
+      "id": "e2097b38-8978-48b0-aedf-bfee13b86029",
+      "name": "Nightly - Claude Executive Report (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        2944,
+        768
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.25
+        }
+      },
+      "id": "63959800-e589-4c6f-9990-2c33f2576cb3",
+      "name": "Nightly - Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        3216,
+        928
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "aa6a78b5-8260-44b1-bfcb-eb4a7757a0a0",
+      "name": "Interactive - Gemini Fallback Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        1056,
+        1296
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are the Autonomous AI Chief Executive Officer (CEO) of CodeRaksh Company.\nThe Founder/Owner asked you an on-demand question via command line / chat.\n\nFounder's Query: \"{{ $json.user_query }}\"\n\nContext:\n- Latest Daily Log: {{ JSON.stringify($json.latest_daily_log) }}\n- Unpaid Invoices Count: {{ $json.unpaid_invoices_count }}\n- Sample Invoices: {{ JSON.stringify($json.unpaid_invoices_sample) }}\n\nRespond directly, concisely, and accurately in 3-8 lines. Provide exact numbers if available. Format with clean bullet points."
+      },
+      "id": "f1f8cae2-8974-4bfe-939a-ec79ca0239ae",
+      "name": "Interactive - Claude CEO Brain (Claude backup)",
+      "type": "@n8n/n8n-nodes-langchain.chainLlm",
+      "typeVersion": 1.5,
+      "position": [
+        1280,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "model": {
+          "__rl": true,
+          "value": "claude-sonnet-5-5",
+          "mode": "id"
+        },
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "9951f94c-0c92-47db-bafe-cdfd667214df",
+      "name": "Interactive - Claude Backup Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatAnthropic",
+      "typeVersion": 1.3,
+      "position": [
+        1312,
+        1328
+      ],
+      "credentials": {
+        "anthropicApi": {
+          "id": null,
+          "name": "Anthropic account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Morning 9 AM Kickoff": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Bookings": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Leads": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Deadlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Deadlines": {
+      "main": [
+        [
+          {
+            "node": "Morning - Read Pending Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Read Pending Docs": {
+      "main": [
+        [
+          {
+            "node": "Morning - Compile Radar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Compile Radar": {
+      "main": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Claude Flight Plan": {
+      "main": [
+        [
+          {
+            "node": "Morning - WhatsApp Flight Plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Morning - Gmail Flight Plan",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Morning - Claude Flight Plan (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog Webhook": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - Triage Anomaly",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Triage Anomaly": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Claude Emergency Action": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - WhatsApp SOS Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GitHub PR Webhook": {
+      "main": [
+        [
+          {
+            "node": "Extract PR & Code Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extract PR & Code Context": {
+      "main": [
+        [
+          {
+            "node": "Fast Secret & Leak Scanner",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fast Secret & Leak Scanner": {
+      "main": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor": {
+      "main": [
+        [
+          {
+            "node": "Post GitHub Review Comment",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to Security Audits Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude DevSecOps Auditor (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Security Audits Sheet": {
+      "main": [
+        [
+          {
+            "node": "Triage Severity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Triage Severity": {
+      "main": [
+        [
+          {
+            "node": "Is Critical Risk?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Critical Risk?": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Security Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vulnerability Ingest Webhook": {
+      "main": [
+        [
+          {
+            "node": "Normalize Vulnerability Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize Vulnerability Data": {
+      "main": [
+        [
+          {
+            "node": "Claude Security Triager",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Security Triager": {
+      "main": [
+        [
+          {
+            "node": "Save to Vulnerabilities Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude Security Triager (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Vulnerabilities Sheet": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Vulnerability Dispatch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CI Failure Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse CI Log & Error Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse CI Log & Error Context": {
+      "main": [
+        [
+          {
+            "node": "Claude DevOps Doctor",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevOps Doctor": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp DevOps Alert",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude DevOps Doctor (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Freelance Lead Webhook": {
+      "main": [
+        [
+          {
+            "node": "Parse Project Brief",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Project Brief": {
+      "main": [
+        [
+          {
+            "node": "Claude Tech Lead Architect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Tech Lead Architect": {
+      "main": [
+        [
+          {
+            "node": "Save to Proposals Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude Tech Lead Architect (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save to Proposals Sheet": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Proposal Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Daily Pre-Market Trigger": {
+      "main": [
+        [
+          {
+            "node": "Read Financial Watchlist",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read Financial Watchlist": {
+      "main": [
+        [
+          {
+            "node": "Claude Financial Analyst",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Financial Analyst": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Financial Briefing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Claude Financial Analyst (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Save to Daily Log": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Gmail CEO Dossier",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Nightly - WhatsApp CEO Briefing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Claude Executive Report": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Save to Daily Log",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nightly - Claude Executive Report (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Compute 20-Agent Health Score": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Pending Docs": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Compute 20-Agent Health Score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Deadlines": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Pending Docs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Candidates": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Deadlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read GST Purchases": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Candidates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read GST Purchases",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Bills": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Content": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Bills",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Reviews": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Bookings": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Orders": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Bookings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Read Leads": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Orders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly 9 PM Audit": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Read Leads",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Claude CEO Brain": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Interactive - Claude CEO Brain (Claude backup)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Prep Context": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Read Invoices": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Prep Context",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Read Latest Log": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Read Invoices",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CEO Command Webhook": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Read Latest Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post GitHub Review Comment": {
+      "main": [
+        [
+          {
+            "node": "Save to Proposals Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Morning - Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Morning - Claude Flight Plan (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Morning - Claude Flight Plan (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Morning - WhatsApp Flight Plan",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Morning - Gmail Flight Plan",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Watchdog - Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Watchdog - Claude Emergency Action (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Watchdog - Claude Emergency Action (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Watchdog - WhatsApp SOS Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevSecOps Auditor (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevSecOps Auditor (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Post GitHub Review Comment",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Save to Security Audits Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "23 · ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Security Triager",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "23 · Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Security Triager",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "23 · Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Security Triager (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Security Triager (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Save to Vulnerabilities Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "24 · ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevOps Doctor",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "24 · Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevOps Doctor",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "24 · Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude DevOps Doctor (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude DevOps Doctor (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp DevOps Alert",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "25 · ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Tech Lead Architect",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "25 · Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Tech Lead Architect",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "25 · Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Tech Lead Architect (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Tech Lead Architect (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Save to Proposals Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "26 · ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Financial Analyst",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "26 · Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Financial Analyst",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "26 · Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Claude Financial Analyst (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude Financial Analyst (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "WhatsApp Financial Briefing",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Nightly - Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Nightly - Claude Executive Report (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nightly - Claude Executive Report (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Nightly - Save to Daily Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - ChatGPT Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Gemini Fallback Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain",
+            "type": "ai_languageModel",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Interactive - Claude Backup Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Interactive - Claude CEO Brain (Claude backup)",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Interactive - Claude CEO Brain (Claude backup)": {
+      "main": [
+        [
+          {
+            "node": "Interactive - Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "pinData": {},
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
