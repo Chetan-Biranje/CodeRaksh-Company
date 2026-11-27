@@ -1,0 +1,65 @@
+name: Master operations
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '30 0 * * *'
+    - cron: '30 11 * * *'
+permissions:
+  contents: read
+concurrency:
+  group: master-operations-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install '.[test]'
+      - run: npm test
+      - run: npm --prefix universal-ai-workforce test
+      - name: Validate workflow JSON syntax
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          files = list(Path("workflows").rglob("*.json"))
+          assert files, "No workflow blueprints found"
+          for path in files:
+              json.loads(path.read_text(encoding="utf-8"))
+          print(f"Validated {len(files)} JSON files")
+          PY
+  dependency-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install '.[test]' pip-audit
+      - run: pip-audit
+  report:
+    if: always()
+    needs: [verification, dependency-audit]
+    runs-on: ubuntu-latest
+    steps:
+      - env:
+          VERIFY: ${{ needs.verification.result }}
+          AUDIT: ${{ needs.dependency-audit.result }}
+        run: |
+          printf '## CodeRaksh operations\n\n- Verification: %s\n- Dependency audit: %s\n' "$VERIFY" "$AUDIT" >> "$GITHUB_STEP_SUMMARY"
+          test "$VERIFY" = success && test "$AUDIT" = success
