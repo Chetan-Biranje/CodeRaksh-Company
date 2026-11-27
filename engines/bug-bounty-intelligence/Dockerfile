@@ -8,7 +8,10 @@ RUN pip install --no-cache-dir --prefix=/install .
 FROM python:3.12-slim@sha256:191083cdf6c7bda8c76158983163ead5d5cf7b77cf3033e805bb0f5296f51b4b
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     CODERAKSH_DATA_DIR=/data CODERAKSH_PROGRAMS_DIR=/programs CODERAKSH_MODE=mock
-RUN useradd --system --uid 10001 --home-dir /nonexistent --shell /usr/sbin/nologin coderaksh \
+# Pull in fixed Debian security updates that postdate the pinned base image (Trivy flagged libzstd1).
+RUN apt-get update && apt-get install -y --no-install-recommends --only-upgrade libzstd1 \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --system --uid 10001 --home-dir /nonexistent --shell /usr/sbin/nologin coderaksh \
     && mkdir /data /programs && chown coderaksh /data
 COPY --from=build /install /usr/local
 USER 10001

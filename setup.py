@@ -71,7 +71,16 @@ def main():
     print(f"\n🎉 Successfully configured all {count} workflows in '{out_dir}/'!")
     print("👉 You can now import any .json from 'configured_workflows/' directly into n8n.")
 
+SETUPTOOLS_COMMANDS = {"egg_info", "dist_info", "bdist_wheel", "sdist", "build", "build_py",
+                       "develop", "editable_wheel", "install"}
+
 if __name__ == "__main__":
-    # pip/setuptools execute this file during builds with no terminal; only prompt interactively.
-    if sys.stdin.isatty():
+    if SETUPTOOLS_COMMANDS & set(sys.argv[1:]):
+        # pip/setuptools run this file as a build script (metadata comes from pyproject.toml).
+        from setuptools import setup
+
+        setup()
+    elif sys.stdin.isatty():
         main()
+    else:
+        print("Run this script from a terminal to be prompted for values, or put them in .env.")
