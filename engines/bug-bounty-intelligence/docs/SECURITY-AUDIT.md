@@ -109,7 +109,19 @@ must be checked before the first live run.
   failures booked at the catalog cost, network errors wrapped so they are always recorded.
 - **Editable-install check.** An earlier test run in this review imported a stale copy of the
   package from a different directory; tests were re-run after reinstalling from the repository.
-- **GitHub Advisories.** Live field names confirmed through a web fetch (array of objects with
-  `ghsa_id`, `cve_id`, `summary`, `severity`, `html_url`, `cvss.score`). The client could not be
-  run from the sandbox (policy blocks `api.github.com`; not worked around). It is exercised by
-  the `live-sources-smoke` CI job.
+- **GitHub Advisories.** Verified live: the `live-sources-smoke` job on GitHub Actions ran the
+  project's own clients against KEV (1805 entries), EPSS, OSV, NVD and GitHub Advisories
+  (5 advisories for npm `jsonwebtoken`), all passing. The build sandbox blocks `api.github.com`
+  (not worked around), so `tests/fixtures/live/ghsa_reconstructed.json` stays a reconstructed
+  fixture, not a raw capture.
+- **GitHub Actions (commit 379c2bf).** Bounty engine CI (Python 3.11, 3.12, 3.13 and Docker
+  build/run), Bounty engine security (bandit, pip-audit, Trivy image scan, live sources) and the
+  repository's existing CI all passed. The first push failed two jobs, both fixed: Trivy flagged
+  `libzstd1` (HIGH, fixed in Debian), now upgraded in the image; the repository's existing CI had
+  been failing because `setup.py` prompted for input and never called `setup()`.
+- **Still failing, not code:** the repository's "Deploy GitHub Pages" workflow fails at
+  "Setup Pages" because Pages is not enabled for the repository (Settings > Pages > Source:
+  GitHub Actions). It failed the same way before this work.
+- **Noted, not changed:** the existing root `setup.py` contains a hardcoded phone number and a
+  Google Sheet ID in a public repository, and the existing root `ci.yml` uses
+  `trivy-action@master` (outside the engine, left as is).

@@ -17,7 +17,7 @@ It does not test, scan or contact any target.
 | Tapline MCP API-key header | Not documented. Ask Tapline support; REST is the supported path here. |
 | Tapline response shapes | **Not captured.** The extractor is tolerant and tested on synthetic data only. |
 | NVD, CISA KEV, EPSS, OSV | Parsers checked against real responses on 2026-11-27; trimmed captures are in `tests/fixtures/live/` |
-| GitHub Advisories | Field names checked against the live API through a web fetch; the client could not be run from the build sandbox (blocked). A CI job (`live-sources-smoke`) exercises it from GitHub's runners. `ghsa_reconstructed.json` is not a raw capture. |
+| GitHub Advisories | Verified live from GitHub Actions on 2026-11-27 (`live-sources-smoke` returned 5 advisories for npm `jsonwebtoken`). The build sandbox blocks the host, so the fixture `ghsa_reconstructed.json` is not a raw capture. |
 | n8n workflows | Imported into n8n 2.35.7 with `n8n import:workflow`; both executed against the container in mock mode (see `docs/n8n.md`) |
 | Docker image | Built from the digest-pinned base and run hardened (non-root, read-only filesystem, no capabilities); health, auth, mock run and live-mode refusal checked |
 | GitHub Actions | Pinned to commit SHAs. See `docs/SECURITY-AUDIT.md` for the latest run results |
